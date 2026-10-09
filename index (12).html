@@ -1,0 +1,2454 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ELM alapjai, 1. blokk</title>
+<style>
+:root{
+  --bg:#f7f6f2;--card:#ffffff;--card2:#f0eee8;--text:#1f1e1b;--muted:#6b6963;--faint:#9a978f;--line:#dcd9d0;
+  --accent:#534AB7;--accent-bg:#EEEDFE;--accent-text:#3C3489;
+  --aru:#0F6E56;--aru-bg:#E1F5EE;--info:#534AB7;--penz:#BA7517;--penz-bg:#FAEEDA;
+  --ok:#3B6D11;--ok-bg:#EAF3DE;--warn:#854F0B;--warn-bg:#FAEEDA;--danger:#A32D2D;--danger-bg:#FCEBEB;
+  --bar:#AFA9EC;--bar-ok:#639922;--bar-valos:#D85A30;--new:#D85A30;--fs:16px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1b1b19;--card:#262624;--card2:#302f2c;--text:#ecebe6;--muted:#a3a19a;--faint:#7c7a74;--line:#3d3c38;
+  --accent:#AFA9EC;--accent-bg:#3C3489;--accent-text:#EEEDFE;
+  --aru:#5DCAA5;--aru-bg:#085041;--info:#AFA9EC;--penz:#EF9F27;--penz-bg:#633806;
+  --ok:#97C459;--ok-bg:#27500A;--warn:#FAC775;--warn-bg:#633806;--danger:#F09595;--danger-bg:#791F1F;
+  --bar:#534AB7;--bar-ok:#639922;--bar-valos:#F0997B;--new:#F0997B}}
+:root[data-theme="dark"]{
+  --bg:#1b1b19;--card:#262624;--card2:#302f2c;--text:#ecebe6;--muted:#a3a19a;--faint:#7c7a74;--line:#3d3c38;
+  --accent:#AFA9EC;--accent-bg:#3C3489;--accent-text:#EEEDFE;
+  --aru:#5DCAA5;--aru-bg:#085041;--info:#AFA9EC;--penz:#EF9F27;--penz-bg:#633806;
+  --ok:#97C459;--ok-bg:#27500A;--warn:#FAC775;--warn-bg:#633806;--danger:#F09595;--danger-bg:#791F1F;
+  --bar:#534AB7;--bar-ok:#639922;--bar-valos:#F0997B;--new:#F0997B}
+:root.nagy{--fs:20px}
+*{box-sizing:border-box}
+html{font-size:var(--fs)}
+body{margin:0;background:var(--bg);color:var(--text);font:1rem/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;background:transparent;border:1px solid var(--line);border-radius:8px;padding:.35rem .75rem}
+button:hover{background:var(--card2)}
+button:disabled{opacity:.5;cursor:default}
+button.main{background:var(--accent);border-color:var(--accent);color:#fff}
+:root[data-theme="dark"] button.main{color:#1b1b19}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) button.main{color:#1b1b19}}
+button.on{background:var(--accent-bg);color:var(--accent-text);border-color:transparent}
+input,select,textarea{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:.45rem .6rem;min-width:0}
+textarea{resize:vertical}
+.ico{display:inline-flex;align-items:center;justify-content:center;width:2.2rem;height:2.2rem;padding:0}
+.ico svg{width:1.1rem;height:1.1rem}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1rem 1.25rem}
+.hint{font-size:.82rem;color:var(--muted)}
+.ferr{color:var(--danger);font-size:.85rem;min-height:1.2em}
+.empty{color:var(--muted);padding:2rem 0;text-align:center}
+[hidden]{display:none!important}
+h2,h3,h4{font-weight:600}
+
+/* ---------- fejléc ---------- */
+header.top{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+.topin{max-width:1360px;margin:0 auto;padding:.55rem 1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.brand{font-weight:600;white-space:nowrap}
+.brand small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
+nav.fazis{display:flex;gap:.3rem;flex-wrap:wrap;flex:1}
+nav.fazis button{border-color:transparent;color:var(--muted)}
+nav.fazis button[aria-current="true"]{background:var(--accent-bg);color:var(--accent-text)}
+nav.fazis .p{font-size:.75rem;opacity:.75;margin-left:.3rem}
+.tools{display:flex;gap:.35rem;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;padding:3px;gap:3px;background:var(--card);flex-wrap:wrap}
+.seg button{border:none;border-radius:7px;padding:.35rem .8rem;color:var(--muted)}
+.seg button[aria-selected="true"]{background:var(--accent-bg);color:var(--accent-text)}
+.badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.78rem;padding:.2rem .55rem;border-radius:999px;white-space:nowrap}
+.badge.ok{background:var(--ok-bg);color:var(--ok)}
+.badge.hiba{background:var(--danger-bg);color:var(--danger)}
+.badge.ki{background:var(--card2);color:var(--muted)}
+.badge.warn{background:var(--warn-bg);color:var(--warn)}
+main.tanar{max-width:1360px;margin:0 auto;padding:1rem}
+.statusline{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;font-size:.85rem;color:var(--muted);margin:0 0 .75rem}
+.statusline .sp{flex:1}
+.errline{color:var(--danger);font-size:.85rem;margin:-.25rem 0 .75rem}
+
+/* ---------- beállítások ---------- */
+#beall{margin-bottom:1rem}
+#beall h2{font-size:1.05rem;margin:0 0 .75rem}
+.form{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.75rem 1rem}
+.form label{display:flex;flex-direction:column;gap:.25rem;font-size:.85rem;color:var(--muted)}
+.form label.wide{grid-column:1/-1}
+.formact{display:flex;gap:.5rem;align-items:center;margin-top:.75rem;flex-wrap:wrap}
+
+/* ---------- 1. fázis ---------- */
+.f1{display:grid;grid-template-columns:minmax(250px,300px) minmax(0,1fr);gap:1rem;align-items:start}
+@media (max-width:860px){.f1{grid-template-columns:minmax(0,1fr)}}
+.qrcard{text-align:center;position:sticky;top:5rem}
+@media (max-width:860px){.qrcard{position:static}}
+.qrbox{display:flex;justify-content:center;align-items:center;min-height:200px}
+.qrfeher{background:#fff;padding:10px;border-radius:10px;display:inline-block}
+.qrfeher img,.qrfeher canvas{display:block;max-width:100%;height:auto}
+.qrurl{font-size:.7rem;color:var(--muted);word-break:break-all;margin-top:.5rem;max-height:3.2em;overflow:hidden}
+.qrmsg{font-size:.85rem;color:var(--warn);background:var(--warn-bg);border-radius:8px;padding:.6rem;text-align:left}
+.qrnums{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.75rem}
+.qrnums div{background:var(--card2);border-radius:8px;padding:.45rem}
+.qrnums b{display:block;font-size:1.5rem;line-height:1.1}
+.qrnums span{font-size:.72rem;color:var(--muted)}
+.vbar{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem}
+.vbar .sp{flex:1}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.75rem;margin-bottom:1rem}
+.tiles.t5{grid-template-columns:repeat(auto-fit,minmax(112px,1fr))}
+.tiles.t5 .v{font-size:1.4rem}
+.tile{background:var(--card2);border-radius:10px;padding:.65rem 1rem}
+.tile .l{font-size:.8rem;color:var(--muted)}
+.tile .v{font-size:1.6rem;font-weight:600;line-height:1.2}
+.tile .d{font-size:.8rem}
+.tile .d.jo{color:var(--ok)}.tile .d.rossz{color:var(--danger)}
+.cover{position:relative}
+.cover.on>.covered{filter:blur(14px);opacity:.3;pointer-events:none;user-select:none}
+.cover .veil{display:none;position:absolute;inset:0;align-items:center;justify-content:center;text-align:center;font-size:1.1rem;color:var(--muted)}
+.cover.on .veil{display:flex}
+.qchips{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem}
+.qchips button{font-size:.8rem;padding:.25rem .55rem;border-radius:999px}
+.qchips button[aria-current="true"]{background:var(--accent-bg);color:var(--accent-text);border-color:transparent}
+.qchips .pc{color:var(--ok);margin-left:.3rem}
+.qhead{display:flex;align-items:flex-start;gap:1rem;justify-content:space-between;flex-wrap:wrap}
+.qtext{font-size:1.25rem;font-weight:600;line-height:1.35;margin:.25rem 0 1rem;flex:1;min-width:260px}
+.qnav{display:flex;gap:.4rem;align-items:center}
+.opts{display:grid;gap:.6rem}
+.opt{display:grid;grid-template-columns:2rem minmax(0,1fr) 6.5rem;gap:.75rem;align-items:center}
+.opt.nojel{grid-template-columns:minmax(0,1fr) 6.5rem}
+.opt .betu{width:2rem;height:2rem;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;font-weight:600}
+.opt.helyes .betu{background:var(--ok-bg);color:var(--ok)}
+.opt .tx{margin-bottom:.25rem}
+.opt .track{height:.9rem;background:var(--card2);border-radius:5px;overflow:hidden}
+.opt .track+.track{margin-top:3px}
+.opt .track span{display:block;height:100%;background:var(--bar);transition:width .4s ease}
+.opt.helyes .track span{background:var(--bar-ok)}
+.opt .track.valos span{background:var(--bar-valos)}
+.opt .num{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted);font-size:.9rem}
+.opt .num b{color:var(--text);font-size:1.05rem}
+.valosszam{color:var(--bar-valos);font-size:.8rem}
+.magyar{margin-top:1rem;background:var(--ok-bg);color:var(--ok);border-radius:10px;padding:.8rem 1rem}
+.magyar b{display:block;margin-bottom:.2rem}
+.lb{display:grid;gap:.45rem}
+.lbrow{display:grid;grid-template-columns:2.2rem minmax(0,12rem) minmax(0,1fr) 4.5rem 2rem;gap:.75rem;align-items:center}
+.lbrow .rk{font-weight:600;color:var(--muted);text-align:right}
+.lbrow.top .rk{color:var(--accent)}
+.lbrow .nm{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lbrow .track{height:1rem;background:var(--card2);border-radius:5px;overflow:hidden}
+.lbrow .track span{display:block;height:100%;background:var(--bar)}
+.lbrow.top .track span{background:var(--accent)}
+.lbrow .pt{text-align:right;font-variant-numeric:tabular-nums}
+.lbrow button{padding:.1rem .35rem;font-size:.75rem}
+@media (max-width:600px){.lbrow{grid-template-columns:2rem minmax(0,1fr) 4rem 2rem}.lbrow .track{display:none}}
+.cloudwrap{background:var(--card2);border-radius:12px;padding:.5rem;min-height:180px}
+.cloudwrap svg{width:100%;height:auto;display:block}
+.cloudwrap text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.cloudwrap text.sel{text-decoration:underline;fill:var(--new)!important}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media (max-width:760px){.cmp{grid-template-columns:1fr}}
+.cmp h4{margin:0 0 .4rem;font-size:.95rem;color:var(--muted);font-weight:500}
+.legend{display:flex;gap:1rem;font-size:.85rem;color:var(--muted);margin-top:.5rem;flex-wrap:wrap;align-items:center}
+.sw{display:inline-block;width:.8rem;height:.8rem;border-radius:3px;vertical-align:-1px;margin-right:.35rem}
+
+/* ---------- 2. fázis: elmélet ---------- */
+.elm{display:grid;gap:1rem}
+.lepesnav{display:flex;gap:.4rem;align-items:center;flex-wrap:wrap}
+.lepesnav .pont{border-radius:999px;font-size:.85rem;padding:.3rem .75rem}
+.lepesnav .pont[aria-current="true"]{background:var(--accent-bg);color:var(--accent-text);border-color:transparent}
+.elmcim{font-size:1.6rem;margin:.2rem 0 .2rem;line-height:1.25}
+.elmlead{font-size:1.15rem;color:var(--muted);margin:0 0 .5rem}
+.tanulas .elmlead{color:var(--text)}
+.ketoszlop{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:1rem;align-items:start}
+@media (max-width:900px){.ketoszlop{grid-template-columns:minmax(0,1fr)}}
+.szoveg{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1rem 1.15rem;line-height:1.6}
+.szoveg h4{margin:0 0 .4rem}
+.szoveg p{margin:.3rem 0 .6rem}
+.szoveg .forras{font-size:.8rem;color:var(--muted)}
+.idovonal{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.5rem;position:relative}
+.idovonal::before{content:"";position:absolute;left:0;right:0;top:1.35rem;height:3px;background:var(--line);z-index:0}
+.korsz{position:relative;z-index:1;text-align:left;border:1px solid var(--line);background:var(--card);border-radius:10px;padding:.6rem .7rem}
+.korsz .ev{font-size:.75rem;color:var(--muted)}
+.korsz .nev{font-weight:600}
+.korsz[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-bg);color:var(--accent-text)}
+.korsz[aria-pressed="true"] .ev{color:var(--accent-text)}
+@media (max-width:700px){.idovonal{grid-template-columns:1fr 1fr}}
+.abrawrap{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.5rem}
+.abrawrap svg{width:100%;height:auto;display:block}
+svg .csp rect{fill:var(--card2);stroke:var(--line);stroke-width:1.2}
+svg .csp.sel rect{fill:var(--accent-bg);stroke:var(--accent);stroke-width:2}
+svg .csp.halv{opacity:.35}
+svg .csp.szuk rect{stroke:var(--danger);stroke-width:2.5}
+svg .csp.hibas rect{fill:var(--danger-bg);stroke:var(--danger)}
+svg .svn{fill:var(--text);font-size:15px;font-weight:600}
+svg.abra .svn{font-size:19px}
+svg.abra .svt{font-size:16px}
+svg .svt.pp{fill:var(--danger)}
+svg .svt{fill:var(--muted);font-size:13px}
+svg .svt.keszl{fill:var(--aru)}
+svg .svt.veszt{fill:var(--penz)}
+svg .svt.veszt.fo{font-weight:700;fill:var(--danger)}
+svg .svt.szukt{fill:var(--danger);font-weight:600}
+svg .svt.hiany{fill:var(--danger)}
+svg .svt.kesest{fill:var(--info);font-weight:600}
+svg .kiemel{fill:var(--accent-bg);stroke:var(--accent);stroke-dasharray:6 4;opacity:.7}
+svg .lsav{fill:var(--card2);stroke:var(--line)}
+svg .pphatar{stroke:var(--danger);stroke-width:2;stroke-dasharray:4 4}
+svg .fl{stroke-width:3;fill:none}
+svg .fl.alap{stroke:var(--line);stroke-width:2}
+svg .fl.aru{stroke:var(--aru)}
+svg .fl.info{stroke:var(--info);stroke-width:2.5}
+svg .fl.penz{stroke:var(--penz);stroke-width:2.5}
+svg .fl.vissza{stroke:var(--aru);stroke-width:2;stroke-dasharray:3 5}
+@media (prefers-reduced-motion: no-preference){
+  svg .fl.on{stroke-dasharray:9 7;animation:folyik 1.1s linear infinite}
+  svg .fl.vissza.on{stroke-dasharray:3 5;animation:folyik 1.8s linear infinite}
+  svg.keses .fl.info.on{animation-duration:4.5s}
+}
+@keyframes folyik{to{stroke-dashoffset:-16}}
+.kapcsolok{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.kapcs{display:inline-flex;align-items:center;gap:.4rem;border:1px solid var(--line);border-radius:999px;padding:.3rem .8rem;background:var(--card)}
+.kapcs[aria-pressed="true"]{border-color:currentColor}
+.kapcs .pt{width:.7rem;height:.7rem;border-radius:50%;display:inline-block}
+.kapcs.aru{color:var(--aru)}.kapcs.aru .pt{background:var(--aru)}
+.kapcs.info{color:var(--info)}.kapcs.info .pt{background:var(--info)}
+.kapcs.penz{color:var(--penz)}.kapcs.penz .pt{background:var(--penz)}
+.kapcs.semleges{color:var(--text)}.kapcs.semleges .pt{background:var(--muted)}
+.kapcs[aria-pressed="false"]{color:var(--muted)}
+.kartya{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.9rem 1rem}
+.kartya h4{margin:0 0 .5rem}
+.kartya dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:.35rem .75rem;font-size:.95rem}
+.kartya dt{color:var(--muted)}
+.kartya dd{margin:0}
+.fin{display:grid;gap:.6rem}
+.fin label{display:grid;grid-template-columns:minmax(0,14rem) minmax(0,1fr) 4rem;gap:.6rem;align-items:center;font-size:.9rem}
+.finsor{display:grid;grid-template-columns:minmax(0,14rem) minmax(0,1fr) 4rem;gap:.6rem;align-items:center;font-size:.9rem}
+.fintrack{height:1.1rem;background:var(--card2);border-radius:6px;overflow:hidden}
+.fintrack span{display:block;height:100%;border-radius:6px}
+.fintrack .a{background:var(--aru)}.fintrack .b{background:var(--penz)}
+.finszoveg{font-weight:600}
+.lvl{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media (max-width:860px){.lvl{grid-template-columns:1fr}}
+.lvl h4{margin:0 0 .5rem}
+.modkapcs{display:grid;gap:.45rem;margin-bottom:.8rem}
+.modkapcs label{display:flex;gap:.6rem;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:.5rem .7rem;cursor:pointer;background:var(--card)}
+.modkapcs label.on{border-color:var(--accent);background:var(--accent-bg)}
+.modkapcs small{display:block;color:var(--muted)}
+.szemlelt{font-size:.8rem;color:var(--warn);background:var(--warn-bg);border-radius:6px;padding:.15rem .5rem;display:inline-block}
+.tanulsag{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.75rem}
+@media (max-width:860px){.tanulsag{grid-template-columns:1fr}}
+.tanulsag div{background:var(--card2);border-radius:12px;padding:.9rem 1rem}
+.tanulsag b{display:block;font-size:1.05rem;margin-bottom:.3rem}
+.onell{display:grid;gap:.75rem}
+.onell .k{font-weight:600;margin-bottom:.35rem}
+.onell .o{display:grid;gap:.35rem}
+.onell .o button{text-align:left}
+.onell .o button.jo{border-color:var(--ok);background:var(--ok-bg);color:var(--ok)}
+.onell .o button.rossz{border-color:var(--danger);background:var(--danger-bg);color:var(--danger)}
+.onell .m{font-size:.9rem;color:var(--muted);margin-top:.3rem}
+
+/* ---------- 3–4. fázis kivetítő ---------- */
+.csoportok{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.75rem}
+.cskartya{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.75rem .9rem;display:grid;gap:.4rem}
+.cskartya .fej{display:flex;justify-content:space-between;gap:.5rem;align-items:baseline}
+.cskartya .nev{font-weight:600;font-size:1.05rem}
+.cskartya .lepesek{display:flex;gap:.25rem}
+.cskartya .lepesek span{flex:1;height:.45rem;border-radius:3px;background:var(--card2)}
+.cskartya .lepesek span.kesz{background:var(--aru)}
+.cskartya .lepesek span.akt{background:var(--accent)}
+.cskartya .sor{display:flex;justify-content:space-between;font-size:.85rem;color:var(--muted);gap:.5rem;flex-wrap:wrap}
+.galeria{display:grid;gap:1rem}
+.galkartya{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.75rem 1rem}
+.galkartya .fej{display:flex;gap:.75rem;align-items:baseline;flex-wrap:wrap;margin-bottom:.25rem}
+.galkartya .fej b{font-size:1.1rem}
+.galkartya svg{width:100%;height:auto;display:block}
+.mtab{width:100%;border-collapse:collapse;font-size:.92rem}
+.mtab th,.mtab td{padding:.4rem .5rem;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+.mtab th:first-child,.mtab td:first-child{text-align:left;white-space:normal}
+.mtab th{color:var(--muted);font-weight:500}
+.tabwrap{overflow-x:auto}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:50;display:flex;align-items:flex-start;justify-content:center;padding:4vh 1rem;overflow:auto}
+.modal .ablak{background:var(--card);border-radius:14px;max-width:1100px;width:100%;padding:1rem 1.25rem}
+.modal .ablak .fej{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:.5rem}
+.qrnagy{text-align:center}
+.qrnagy .qrfeher{padding:16px}
+
+/* ---------- hallgatói (telefon) nézet ---------- */
+main.hallgato{max-width:560px;margin:0 auto;padding:14px 14px 48px}
+.htop{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);margin-bottom:10px;gap:.5rem}
+.prog{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-bottom:12px}
+.prog span{display:block;height:100%;background:var(--accent);transition:width .3s}
+.hcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.hcard h1{font-size:20px;margin:0 0 6px}
+.hcard h2{font-size:17px;margin:14px 0 8px}
+.hcard p{margin:0 0 10px}
+.hq{font-size:17px;font-weight:600;line-height:1.4;margin:0 0 14px}
+.hopts{display:grid;gap:8px}
+.hopt{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:transparent;font-size:15px;line-height:1.35}
+.hopt b{flex:0 0 auto;min-width:24px;height:24px;border-radius:12px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:13px;padding:0 6px}
+.hopt.sel{border-color:var(--accent);background:var(--accent-bg);color:var(--accent-text)}
+.hin{width:100%;padding:12px;font-size:16px;margin-bottom:8px}
+.hbtn{width:100%;padding:14px;border-radius:10px;font-weight:600;margin-top:12px}
+.hbtn2{display:flex;gap:8px;margin-top:12px}
+.hbtn2 button{flex:1;padding:13px;border-radius:10px;font-weight:600}
+.big{font-size:44px;font-weight:700;text-align:center;line-height:1.1;margin:10px 0 4px}
+.center{text-align:center}
+.okmsg{color:var(--ok);font-weight:600;font-size:20px;text-align:center;margin-bottom:6px}
+.varj{text-align:center;padding:10px 0}
+.varj .pul{width:12px;height:12px;border-radius:50%;background:var(--accent);margin:12px auto;animation:pul 1.4s ease-in-out infinite}
+@keyframes pul{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:1;transform:scale(1.15)}}
+.adatv{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.4}
+.hlanc{display:grid;gap:8px}
+.hlanc button{padding:14px;font-size:16px;border-radius:10px;text-align:center}
+.hlanc .nyil{text-align:center;color:var(--muted);line-height:1;font-size:14px}
+
+/* építő */
+.lepjel{display:flex;gap:6px;margin-bottom:12px}
+.lepjel span{flex:1;text-align:center;font-size:12px;padding:6px 0;border-radius:8px;background:var(--card2);color:var(--muted)}
+.lepjel span.akt{background:var(--accent-bg);color:var(--accent-text);font-weight:600}
+.lepjel span.kesz{background:var(--aru-bg);color:var(--aru)}
+.paletta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.paletta button{font-size:14px;padding:8px 10px;border-radius:999px;text-align:left}
+.paletta button.bent{opacity:.4}
+.lancsor{display:grid;gap:6px}
+.lancelem{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:8px;align-items:center;background:var(--card2);border-radius:10px;padding:8px 8px 8px 10px}
+.lancelem .sz{font-weight:700;color:var(--muted);text-align:center}
+.lancelem .nv{font-size:15px;line-height:1.3}
+.lancelem .gk{display:flex;gap:4px}
+.lancelem .gk button{width:36px;height:36px;padding:0;border-radius:8px}
+.kapcsblokk{border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:10px;display:grid;gap:8px}
+.kapcsblokk .cim{font-weight:600;font-size:14px}
+.kapcsblokk .cim span{color:var(--muted);font-weight:400}
+.mezok2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mezok2.egy{grid-template-columns:1fr}
+.mezok2 label,.mezo label{display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--muted)}
+.mezok2 input,.mezok2 select{width:100%;padding:9px;font-size:16px}
+.szamsor{display:grid;grid-template-columns:minmax(0,1fr) 72px 72px;gap:6px;align-items:center;font-size:14px;padding:6px 0;border-bottom:1px solid var(--line)}
+.szamsor input{width:100%;padding:8px;font-size:16px;text-align:right}
+.szamfej{display:grid;grid-template-columns:minmax(0,1fr) 72px 72px;gap:6px;font-size:11px;color:var(--muted)}
+.chk{display:flex;gap:8px;align-items:flex-start;padding:6px 0;font-size:15px}
+.chk input{width:20px;height:20px;margin-top:2px;flex:0 0 auto}
+.minimutat{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:10px 0}
+.minimutat div{background:var(--card2);border-radius:8px;padding:6px 8px;font-size:12px;color:var(--muted)}
+.minimutat b{display:block;font-size:17px;color:var(--text)}
+.tippdoboz{background:var(--warn-bg);color:var(--warn);border-radius:10px;padding:10px 12px;font-size:14px;margin:8px 0}
+.mentesjel{font-size:12px;color:var(--muted);text-align:right;min-height:16px}
+.lancmini svg{width:100%;height:auto}
+
+/* ---------- tanulás mód ---------- */
+.tanulasfej{max-width:1100px;margin:0 auto;padding:1rem}
+
+</style>
+</head>
+<body>
+
+<main class="hallgato" id="H" hidden>
+  <div class="htop"><span>ELM alapjai · <span id="hKod"></span></span><span id="hNev"></span></div>
+  <div class="prog" id="hProg"><span style="width:0%"></span></div>
+  <div class="hcard" id="hLap"><p>Betöltés…</p></div>
+</main>
+
+<div id="L" hidden>
+  <header class="top"><div class="topin">
+    <div class="brand">Ellátási lánc menedzsment alapjai<small>1. blokk: logisztikától az SCM-ig · tanulási változat</small></div>
+    <div class="seg" id="lSeg" role="tablist">
+      <button data-r="elm" aria-selected="true">Elmélet</button>
+      <button data-r="terk" aria-selected="false">Gyakorló térképező</button>
+      <button data-r="ossz" aria-selected="false">Három lánc összevetése</button>
+    </div>
+  </div></header>
+  <main class="tanar" id="lTest"></main>
+</div>
+
+<div id="T" hidden>
+<header class="top"><div class="topin">
+  <div class="brand">Ellátási lánc menedzsment alapjai<small>1. blokk: logisztikától az SCM-ig</small></div>
+  <nav class="fazis" id="fazisok" aria-label="Fázisok"></nav>
+  <div class="seg" id="modSeg" role="tablist" aria-label="Megjelenítés">
+    <button data-mod="prez" aria-selected="true">Prezentáció</button>
+    <button data-mod="tanulas" aria-selected="false">Tanulás</button>
+  </div>
+  <div class="tools">
+    <button class="ico" id="qrGomb" aria-label="QR-kód nagyban" title="QR-kód nagyban"></button>
+    <button class="ico" id="nagyGomb" aria-label="Betűméret váltása" title="Nagy betű (kivetítő)">A+</button>
+    <button class="ico" id="temaGomb" aria-label="Világos vagy sötét téma" title="Téma váltása"></button>
+    <button class="ico" id="beallGomb" aria-label="Beállítások" title="Beállítások" aria-expanded="false"></button>
+  </div>
+</div></header>
+<main class="tanar">
+  <section class="panel" id="beall" hidden>
+    <h2>Beállítások</h2>
+    <div class="form">
+      <label class="wide">Apps Script webalkalmazás címe (…/exec)
+        <input id="sUrl" type="url" placeholder="https://script.google.com/macros/s/AKfy…/exec" spellcheck="false">
+      </label>
+      <label>Alkalomkód (betű, szám, kötőjel)
+        <input id="sKod" type="text" spellcheck="false" maxlength="40">
+      </label>
+      <label>Tanári kulcs (a táblázat Beallitasok lapján)
+        <input id="sKulcs" type="password" spellcheck="false" autocomplete="off">
+      </label>
+      <label>Automatikus frissítés
+        <select id="sAuto">
+          <option value="0">Kikapcsolva</option>
+          <option value="3">3 másodpercenként</option>
+          <option value="5">5 másodpercenként</option>
+          <option value="10">10 másodpercenként</option>
+          <option value="30">30 másodpercenként</option>
+        </select>
+      </label>
+      <label class="wide">Hallgatói oldal címe (csak ha a fájlt helyben nyitod meg; GitHub Pages-en üresen hagyható)
+        <input id="sHUrl" type="url" placeholder="https://felhasznalonev.github.io/elm-blokk1/" spellcheck="false">
+      </label>
+    </div>
+    <div class="ferr" id="sHiba" role="alert"></div>
+    <div class="formact">
+      <button class="main" id="sMent">Mentés</button>
+      <button id="sTeszt">Kapcsolat tesztelése</button>
+      <button id="sMegse">Bezárás</button>
+      <span class="hint" id="sInfo"></span>
+    </div>
+  </section>
+  <div class="statusline">
+    <span class="badge ki" id="kapcs">Nincs beállítva</span>
+    <span id="telFazis"></span>
+    <span class="sp"></span>
+    <span id="frissIdo"></span>
+    <button id="frissGomb" title="Frissítés most (R)">Frissítés</button>
+  </div>
+  <div class="errline" id="hibaSor" role="status"></div>
+  <section id="f1" data-fazis="1"></section>
+  <section id="f2" data-fazis="2" hidden></section>
+  <section id="f3" data-fazis="3" hidden></section>
+  <section id="f4" data-fazis="4" hidden></section>
+</main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+/* ================= KÖZÖS TANANYAG-ADATOK ================= */
+
+/* Szereplőtípusok: fo = a lánc lényeges szereplője (pontot ér), opcio = lehet, nem kötelező,
+   hamis = nem ebbe a láncba való (levonás). szint = sorrendi hely (azonos szint: mindegy a sorrend). */
+
+var TERMEKEK = {
+  tej: {
+    nev: 'Tej',
+    alcim: 'Készletre gyártás, hatékony lánc',
+    jellemzok: ['rövid eltarthatóság', 'hűtőlánc', 'napi szállítás', 'kiszámítható kereslet'],
+    szereplok: [
+      { id: 'takarmany', nev: 'Takarmány- és input-beszállító', rov: 'Input', tipus: 'fo', szint: 1,
+        mit: 'Takarmányt, állatgyógyászati szereket, energiát és gépeket ad a tejtermelőnek.',
+        keszlet: 'Takarmánykészlet a saját raktárában és a gazdaságban.',
+        dont: 'Árak, szállítási ütemezés, hitelezés a gazdáknak.' },
+      { id: 'csomagolo', nev: 'Csomagolóanyag-beszállító', rov: 'Csomagolás', tipus: 'fo', szint: 1,
+        mit: 'Dobozt, flakont, kupakot és címkét szállít a tejüzemnek.',
+        keszlet: 'Csomagolóanyag-készlet nála és a tejüzemben.',
+        dont: 'Gyártási sorozatnagyság, szállítási gyakoriság.' },
+      { id: 'termelo', nev: 'Tejtermelő gazdaság', rov: 'Termelő', tipus: 'fo', szint: 2,
+        mit: 'Naponta fej, a nyerstejet a gazdaságban hűtve tárolja a begyűjtésig.',
+        keszlet: 'Hűtött nyerstej a tankban, jellemzően 1–2 napig.',
+        dont: 'Állománylétszám, takarmányozás, kinek adja el a tejet.' },
+      { id: 'felvasarlo', nev: 'Felvásárló vagy TÉSZ', rov: 'TÉSZ', tipus: 'opcio', szint: 3,
+        mit: 'Begyűjti a tejet több gazdától, minőséget vizsgál, és közösen alkudozik a feldolgozóval.',
+        keszlet: 'Rövid ideig, a gyűjtőtartályokban.',
+        dont: 'Begyűjtési útvonal, kinek és milyen áron értékesít.' },
+      { id: 'tejuzem', nev: 'Tejüzem (feldolgozó)', rov: 'Tejüzem', tipus: 'fo', szint: 4,
+        mit: 'Pasztőröz, homogenizál, kiszerel és csomagol.',
+        keszlet: 'Nyerstej-silók és késztermékraktár.',
+        dont: 'Termelési program, termékválaszték, árazás a kereskedőnek.' },
+      { id: 'eloszto', nev: 'Elosztóközpont vagy nagykereskedő', rov: 'Elosztó', tipus: 'fo', szint: 5,
+        mit: 'Fogadja a gyártók szállítmányait, és boltonként összeállítja a rendeléseket.',
+        keszlet: 'Rövid ideig, sokszor csak átrakodás (cross-docking).',
+        dont: 'Rendelési mennyiség, készletszint, járattervezés.' },
+      { id: 'bolt', nev: 'Kiskereskedelmi üzlet', rov: 'Bolt', tipus: 'fo', szint: 6,
+        mit: 'Polcra teszi és eladja a terméket.',
+        keszlet: 'Polcon és a hátsó raktárban.',
+        dont: 'Napi rendelés, polckép, akciók, leárazás lejárat előtt.' },
+      { id: 'fogyaszto', nev: 'Fogyasztó, háztartás', rov: 'Háztartás', tipus: 'fo', szint: 7,
+        mit: 'Megveszi, tárolja és elfogyasztja (vagy kidobja) a terméket.',
+        keszlet: 'A hűtőben, néhány napig.',
+        dont: 'Mit, mikor, mennyit és hol vásárol.' },
+      { id: 'logszolg', nev: 'Logisztikai szolgáltató (hűtött szállítás)', rov: '3PL', tipus: 'opcio', szint: 0,
+        mit: 'Szerződés alapján szállít és raktároz a lánc szereplői helyett.',
+        keszlet: 'Szállítás közben, a járművön.',
+        dont: 'Járatok, útvonal, kapacitás.' },
+      { id: 'nagybani', nev: 'Nagybani piac', rov: 'Nagybani', tipus: 'hamis', szint: 0,
+        mit: 'Zöldség-gyümölcs és virág kereskedelmi központja. A tej útján jellemzően nem szerepel.', keszlet: '', dont: '' },
+      { id: 'malom', nev: 'Malom', rov: 'Malom', tipus: 'hamis', szint: 0,
+        mit: 'A gabona feldolgozója, a kenyér láncának szereplője.', keszlet: '', dont: '' }
+    ],
+    visszautak: ['Rekeszek és göngyöleg vissza a tejüzembe', 'Lejárt vagy visszahívott termék visszaszállítása', 'Csomagolási hulladék szelektív gyűjtése'],
+    tippek: {
+      A: 'Gondoltatok arra, honnan kapja a tejüzem a dobozt és a kupakot? És ki szállítja a tejet, ha nem a tejüzem saját autója?',
+      B: 'A tej a gazdaságban legfeljebb 1–2 napot vár a begyűjtésre. A bolt jellemzően naponta rendel. Ki fizet kinek, és hány nap múlva?',
+      C: 'Hol a legrövidebb az idő és a legnagyobb a kockázat? Hol dobják ki a legtöbb tejet: a gyárban, a boltban vagy otthon?'
+    },
+    minta: {
+      lanc: ['takarmany', 'termelo', 'felvasarlo', 'tejuzem', 'eloszto', 'bolt', 'fogyaszto'],
+      kapcsolatok: [
+        { szallito: 'sajat', atfutas: 0.5, inditas: 'elorejelzes', fizetes: 30 },
+        { szallito: 'sajat', atfutas: 1, inditas: 'napi', fizetes: 30 },
+        { szallito: '3pl', atfutas: 0.5, inditas: 'napi', fizetes: 15 },
+        { szallito: 'sajat', atfutas: 1, inditas: 'napi', fizetes: 60 },
+        { szallito: 'sajat', atfutas: 0.5, inditas: 'napi', fizetes: 0 },
+        { szallito: 'vevo', atfutas: 0, inditas: 'pos', fizetes: 0 }
+      ],
+      keszlet: { takarmany: 20, termelo: 1, felvasarlo: 0.5, tejuzem: 2, eloszto: 1, bolt: 2, fogyaszto: 3 },
+      veszteseg: { takarmany: 1, termelo: 1, felvasarlo: 0.5, tejuzem: 1.5, eloszto: 0.5, bolt: 1.5, fogyaszto: 7 },
+      visszautak: ['Rekeszek és göngyöleg vissza a tejüzembe'],
+      szuk: 'eloszto',
+      vesztHely: 'fogyaszto',
+      eszkoz: 'pos',
+      indok: 'A rövid eltarthatóság miatt a bolt és az elosztó napi rendelése a szűk pont. Ha a tejüzem látja a bolti eladásokat, kevesebb a túlrendelés és a lejárat miatti selejt.'
+    }
+  },
+
+  zoldseg: {
+    nev: 'Zöldség-gyümölcs',
+    alcim: 'Szezonális, kínálatvezérelt lánc',
+    jellemzok: ['szezonalitás', 'minőségi szórás', 'rövid eltarthatóság', 'nagy veszteség'],
+    szereplok: [
+      { id: 'input', nev: 'Vetőmag-, palánta- és növényvédőszer-beszállító', rov: 'Input', tipus: 'fo', szint: 1,
+        mit: 'Szaporítóanyagot, tápanyagot és növényvédő szert ad a termelőnek.',
+        keszlet: 'Szezon előtt felhalmozott készlet.',
+        dont: 'Fajtakínálat, árak, szaktanácsadás.' },
+      { id: 'termelo', nev: 'Kertészet, termelő', rov: 'Termelő', tipus: 'fo', szint: 2,
+        mit: 'Megtermeli és betakarítja a terményt. A mennyiséget és a minőséget az időjárás is alakítja.',
+        keszlet: 'Rövid ideig a földeken vagy egyszerű tárolóban.',
+        dont: 'Mit, mennyit, mikor vet és szüretel, kinek ad el.' },
+      { id: 'tesz', nev: 'TÉSZ (termelői értékesítő szervezet)', rov: 'TÉSZ', tipus: 'fo', szint: 3,
+        mit: 'Összegyűjti sok kis termelő áruját, válogat, csomagol, és nagy vevőknek értékesít.',
+        keszlet: 'Válogatás és csomagolás alatt, hűtve.',
+        dont: 'Minőségi osztályba sorolás, vevőkör, árazás.' },
+      { id: 'hutohaz', nev: 'Válogató-csomagoló, hűtőház', rov: 'Hűtőház', tipus: 'opcio', szint: 3,
+        mit: 'Válogatja, csomagolja és hűtve tárolja a terményt (gyakran a TÉSZ része).',
+        keszlet: 'Almánál akár hónapokig, paprikánál csak napokig.',
+        dont: 'Tárolási idő, kiadási ütemezés.' },
+      { id: 'nagyker', nev: 'Nagykereskedő vagy nagybani piac', rov: 'Nagyker', tipus: 'opcio', szint: 4,
+        mit: 'Kisebb boltoknak, piaci árusoknak és vendéglátóknak értékesít.',
+        keszlet: 'Néhány nap.',
+        dont: 'Beszerzési forrás, napi ár.' },
+      { id: 'eloszto', nev: 'Áruházlánc elosztóközpontja', rov: 'Elosztó', tipus: 'fo', szint: 5,
+        mit: 'Fogadja és minőségileg átveszi az árut, majd boltonként szétosztja.',
+        keszlet: '1–2 nap, hűtve.',
+        dont: 'Átvételi minőségi feltételek, rendelés, járatok.' },
+      { id: 'bolt', nev: 'Kiskereskedelmi üzlet vagy piac', rov: 'Bolt', tipus: 'fo', szint: 6,
+        mit: 'Polcra teszi, válogatja, leárazza és eladja az árut.',
+        keszlet: 'Polcon, gyakran hűtés nélkül.',
+        dont: 'Rendelés, leárazás, kiválogatás.' },
+      { id: 'fogyaszto', nev: 'Fogyasztó, háztartás', rov: 'Háztartás', tipus: 'fo', szint: 7,
+        mit: 'Megveszi, tárolja és elfogyasztja (vagy kidobja) a terményt.',
+        keszlet: 'Néhány nap, otthon.',
+        dont: 'Mit, mikor és mennyit vásárol.' },
+      { id: 'logszolg', nev: 'Logisztikai szolgáltató (hűtött szállítás)', rov: '3PL', tipus: 'opcio', szint: 0,
+        mit: 'Szerződés alapján szállít és raktároz.', keszlet: 'Szállítás közben.', dont: 'Járatok, kapacitás.' },
+      { id: 'vagohid', nev: 'Vágóhíd', rov: 'Vágóhíd', tipus: 'hamis', szint: 0,
+        mit: 'A húsláncban dolgozza fel az állatokat, ebben a láncban nem szerepel.', keszlet: '', dont: '' },
+      { id: 'disztrib', nev: 'Elektronikai alkatrész-disztribútor', rov: 'Disztrib.', tipus: 'hamis', szint: 0,
+        mit: 'Elektronikai alkatrészeket forgalmaz, ebben a láncban nem szerepel.', keszlet: '', dont: '' }
+    ],
+    visszautak: ['Műanyag ládák (göngyöleg) visszaforgatása', 'Nem eladható áru: élelmiszerbank, takarmány, komposzt', 'Minőségi reklamáció, visszáru a beszállítónak'],
+    tippek: {
+      A: 'Egy kis kertészet egyedül ritkán tud egy áruházláncnak szállítani. Ki gyűjti össze, válogatja és csomagolja az árut?',
+      B: 'A termés mennyiségét nem a rendelés, hanem a szezon és az időjárás határozza meg. Mi indítja itt a szállítást?',
+      C: 'Hol kerül a legtöbb termény a kukába: a földön, a válogatásnál, a polcon vagy otthon? Mit tehet ellene a TÉSZ vagy a bolt?'
+    },
+    minta: {
+      lanc: ['input', 'termelo', 'tesz', 'eloszto', 'bolt', 'fogyaszto'],
+      kapcsolatok: [
+        { szallito: 'sajat', atfutas: 2, inditas: 'elorejelzes', fizetes: 60 },
+        { szallito: 'sajat', atfutas: 0.5, inditas: 'kinalat', fizetes: 30 },
+        { szallito: '3pl', atfutas: 1, inditas: 'napi', fizetes: 30 },
+        { szallito: 'sajat', atfutas: 0.5, inditas: 'napi', fizetes: 0 },
+        { szallito: 'vevo', atfutas: 0, inditas: 'pos', fizetes: 0 }
+      ],
+      keszlet: { input: 30, termelo: 1, tesz: 2, eloszto: 1, bolt: 2, fogyaszto: 4 },
+      veszteseg: { input: 0.5, termelo: 8, tesz: 6, eloszto: 1, bolt: 4, fogyaszto: 10 },
+      visszautak: ['Műanyag ládák (göngyöleg) visszaforgatása', 'Nem eladható áru: élelmiszerbank, takarmány, komposzt'],
+      szuk: 'tesz',
+      vesztHely: 'termelo',
+      eszkoz: 'eloreJelzes',
+      indok: 'A kínálatot a szezon hajtja, ezért a TÉSZ válogató és hűtő kapacitása a szűk pont. Ha a lánc előre egyeztet a várható terméssel, kevesebb marad a földön és kevesebbet kell leárazni.'
+    }
+  },
+
+  laptop: {
+    nev: 'Laptop-összeállító webshop',
+    alcim: 'Rendelésre szerelés, reagáló lánc',
+    jellemzok: ['vevői rendelésre szerelés', 'globális alkatrész-beszállítók', 'gyors avulás', 'futár és visszaút'],
+    szereplok: [
+      { id: 'alkatresz', nev: 'Alkatrészgyártók (processzor, memória, SSD, kijelző)', rov: 'Alkatrész', tipus: 'fo', szint: 1,
+        mit: 'Világszerte néhány nagy gyártó készíti a fő alkatrészeket, jellemzően Ázsiában.',
+        keszlet: 'Nagy sorozatokban, előrejelzés alapján gyárt.',
+        dont: 'Gyártási kapacitás, termékgenerációk, árak.' },
+      { id: 'barebone', nev: 'Laptopváz-gyártó (ODM)', rov: 'Váz', tipus: 'fo', szint: 1,
+        mit: 'Alap laptopvázat (ház, alaplap, billentyűzet) gyárt, amit a webshop tölt fel alkatrészekkel.',
+        keszlet: 'Modellenként sorozatban gyártott vázak.',
+        dont: 'Modellválaszték, minimális rendelési mennyiség.' },
+      { id: 'disztrib', nev: 'Alkatrész-disztribútor, importőr', rov: 'Disztrib.', tipus: 'fo', szint: 2,
+        mit: 'Európai raktárból kis tételben is kiszolgálja a webshopot.',
+        keszlet: 'Hetekre elegendő készlet európai raktárban.',
+        dont: 'Mit tart raktáron, milyen áron, mennyi idő alatt szállít.' },
+      { id: 'webshop', nev: 'Webshop szerelőműhellyel', rov: 'Webshop', tipus: 'fo', szint: 3,
+        mit: 'Fogadja a vevő egyedi összeállítását, a rendelés után összeszereli, teszteli és csomagolja a gépet.',
+        keszlet: 'Alkatrészkészlet (előrejelzésre), késztermék szinte nincs.',
+        dont: 'Kínálat a konfigurátorban, alkatrészkészlet, szállítási határidő ígérete.' },
+      { id: 'fulfillment', nev: 'Külső fulfillment-raktár', rov: 'Fulfillment', tipus: 'opcio', szint: 3,
+        mit: 'Tárol, csomagol és futárnak ad át a webshop helyett.',
+        keszlet: 'A webshop alkatrészei vagy kész gépei.',
+        dont: 'Kapacitás, díjszabás.' },
+      { id: 'futar', nev: 'Futárszolgálat', rov: 'Futár', tipus: 'fo', szint: 4,
+        mit: 'Házhoz vagy csomagpontra szállít, és a visszaküldött gépet is elhozza.',
+        keszlet: 'Csomag a depóban, legfeljebb néhány napig.',
+        dont: 'Kézbesítési idő, csomagpont-hálózat.' },
+      { id: 'vevo', nev: 'Vevő', rov: 'Vevő', tipus: 'fo', szint: 5,
+        mit: 'Összeállítja és megrendeli a gépet, kifizeti, használja.',
+        keszlet: 'Nincs (használja a gépet).',
+        dont: 'Konfiguráció, fizetési mód, elállás vagy garanciális igény.' },
+      { id: 'szerviz', nev: 'Szerviz, garanciális javítás', rov: 'Szerviz', tipus: 'opcio', szint: 0,
+        mit: 'A visszaküldött hibás gépeket javítja vagy cseréli.',
+        keszlet: 'Cserealkatrészek, javításra váró gépek.',
+        dont: 'Javítás vagy csere, átfutási idő.' },
+      { id: 'fizetes', nev: 'Fizetési szolgáltató', rov: 'Fizetés', tipus: 'opcio', szint: 0,
+        mit: 'A kártyás vagy átutalásos fizetést bonyolítja a vevő és a webshop között.',
+        keszlet: 'Pénzt tart vissza néhány napig.',
+        dont: 'Jutalék, kifizetési ütem.' },
+      { id: 'nagybani', nev: 'Nagybani piac', rov: 'Nagybani', tipus: 'hamis', szint: 0,
+        mit: 'Zöldség-gyümölcs kereskedelmi központja, ebben a láncban nem szerepel.', keszlet: '', dont: '' },
+      { id: 'hutohaz', nev: 'Hűtőház', rov: 'Hűtőház', tipus: 'hamis', szint: 0,
+        mit: 'Romlandó élelmiszert tárol, ebben a láncban nem szerepel.', keszlet: '', dont: '' }
+    ],
+    visszautak: ['Garanciális javítás: vevő, futár, szerviz, vevő', 'Visszaküldött vagy nem kívánt gép', 'Elektronikai hulladék visszagyűjtése'],
+    tippek: {
+      A: 'A webshop maga nem gyárt processzort. Honnan jönnek az alkatrészek, és ki tartja őket Európában raktáron?',
+      B: 'Itt a vevő rendelése indítja a szerelést. Mi indítja viszont az alkatrészek beszerzését, és mennyi idő az út Ázsiából?',
+      C: 'Mi a drágább: ha egy alkatrész hiányzik, vagy ha hónapokig áll a polcon, miközben jön az új generáció?'
+    },
+    minta: {
+      lanc: ['alkatresz', 'disztrib', 'webshop', 'futar', 'vevo'],
+      kapcsolatok: [
+        { szallito: '3pl', atfutas: 35, inditas: 'elorejelzes', fizetes: 30 },
+        { szallito: '3pl', atfutas: 2, inditas: 'elorejelzes', fizetes: 30 },
+        { szallito: '3pl', atfutas: 0.5, inditas: 'rendeles', fizetes: 0 },
+        { szallito: '3pl', atfutas: 1.5, inditas: 'rendeles', fizetes: 0 }
+      ],
+      keszlet: { alkatresz: 30, disztrib: 30, webshop: 20, futar: 0.5, vevo: 0 },
+      veszteseg: { alkatresz: 0.5, disztrib: 0.5, webshop: 1, futar: 0.3, vevo: 0 },
+      visszautak: ['Garanciális javítás: vevő, futár, szerviz, vevő', 'Visszaküldött vagy nem kívánt gép'],
+      szuk: 'disztrib',
+      vesztHely: 'webshop',
+      eszkoz: 'rendelesre',
+      indok: 'Az alkatrészek hosszú úton, előrejelzés alapján jönnek, a szerelés viszont csak a vevői rendelésre indul. A szűk pont a disztribútor készlete: ha egy alkatrész kifogy, minden konfiguráció csúszik. Az elavulás miatt a nagy készlet is drága.'
+    }
+  }
+};
+
+/* Kapcsolatok beállításai */
+var SZALLITOK = [
+  { id: 'sajat', nev: 'Saját járművel' },
+  { id: '3pl', nev: 'Logisztikai szolgáltató (3PL)' },
+  { id: 'vevo', nev: 'A vevő viszi el' }
+];
+var INDITASOK = [
+  { id: 'napi', nev: 'Rendszeres (napi, heti) rendelés' },
+  { id: 'elorejelzes', nev: 'Előrejelzés alapján' },
+  { id: 'pos', nev: 'Eladási (pénztári) adat alapján' },
+  { id: 'rendeles', nev: 'Vevői rendelésre' },
+  { id: 'kinalat', nev: 'Ami megtermett (kínálat hajtja)' }
+];
+
+/* Fejlesztési eszközök (C lépés és 4. elméleti lépés) */
+var ESZKOZOK = [
+  { id: 'pos', nev: 'Eladási (pénztári) adatok megosztása' },
+  { id: 'eloreJelzes', nev: 'Közös előrejelzés és tervezés' },
+  { id: 'vmi', nev: 'Beszállító által kezelt készlet (VMI)' },
+  { id: 'rovidebb', nev: 'Rövidebb lánc, kevesebb közvetítő' },
+  { id: 'hutolanc', nev: 'Hűtőlánc vagy tárolás javítása' },
+  { id: 'harmadik', nev: 'Logisztikai szolgáltató (3PL) bevonása' },
+  { id: 'osszevon', nev: 'Szállítások összevonása' },
+  { id: 'rendelesre', nev: 'Rendelésre gyártás vagy szerelés' },
+  { id: 'gongyoleg', nev: 'Csomagolás, göngyöleg fejlesztése' },
+  { id: 'fizetes', nev: 'Rövidebb fizetési határidő' },
+  { id: 'sajat', nev: 'Saját ötlet' }
+];
+var HATASOK = ['átfutási idő', 'készlet', 'veszteség', 'polci elérhetőség', 'költség', 'frissesség'];
+
+/* ================= ELMÉLETI MODUL ================= */
+
+var KORSZAKOK = [
+  { cim: 'Fizikai elosztás', ido: 'kb. 1950–60-as évek', lefed: ['tejuzem', 'eloszto', 'bolt'], csakKimeno: true,
+    rovid: 'Egy funkció: a késztermék raktározása és kiszállítása.',
+    pelda: 'A tejüzem a saját kiszállítási útvonalait és raktárát optimalizálja.',
+    hosszu: 'A logisztika kezdetben a késztermék fizikai elosztását jelentette: raktározás, szállítás, rakodás. A cél egyetlen funkció költségének csökkentése volt, gyakran a többi rovására (például olcsó, de ritka szállítás, ami a boltban hiányt okoz).' },
+  { cim: 'Integrált logisztika', ido: 'kb. 1970–80-as évek', lefed: ['termelo', 'tejuzem', 'eloszto'],
+    rovid: 'Egy vállalaton belül: beszerzés, termelés és elosztás együtt.',
+    pelda: 'A tejüzem egy tervben kezeli a nyerstej beszerzését, a gyártást és a kiszállítást.',
+    hosszu: 'A vállalatok rájöttek, hogy a beszerzés, a termelés és az elosztás egymásra hat. Az integrált logisztika ezeket egy vállalaton belül hangolja össze, például a teljes logisztikai költség és nem a részköltségek alapján dönt.' },
+  { cim: 'Ellátási lánc menedzsment', ido: 'kb. 1990-es évektől', lefed: ['takarmany', 'termelo', 'felvasarlo', 'tejuzem', 'eloszto', 'bolt', 'fogyaszto'],
+    rovid: 'Több vállalat együtt: a beszállító beszállítójától a vevő vevőjéig.',
+    pelda: 'A tejüzem, a termelők és az áruházlánc közösen terveznek, adatot osztanak meg.',
+    hosszu: 'Az ellátási lánc menedzsment (a kifejezés az 1980-as évek elején jelent meg) a vállalatok közötti áru-, információ- és pénzáramlás összehangolása. A verseny egysége már nem a vállalat, hanem a lánc: a vásárló a polcon a teljes lánc teljesítményét érzékeli.' },
+  { cim: 'Hálózatos, digitális lánc', ido: 'kb. 2010-es évektől', lefed: ['takarmany', 'csomagolo', 'termelo', 'felvasarlo', 'tejuzem', 'eloszto', 'bolt', 'fogyaszto'], visszaut: true,
+    rovid: 'Valós idejű adat, nyomon követés, kockázat, fenntarthatóság, visszaút.',
+    pelda: 'Nyomon követhető tételek, közös adatplatform, a göngyöleg és a hulladék visszaútja is a lánc része.',
+    hosszu: 'A lánc ma inkább hálózat: sok beszállító, több értékesítési csatorna, valós idejű adat. Előtérbe került a kockázat és a rugalmasság (a járvány és az energiaválság tapasztalatai), a nyomon követhetőség és a fenntarthatóság, így a visszutas logisztika is.' }
+];
+
+var ARAMLASOK = {
+  aru: { nev: 'Áru', irany: 'a beszállítótól a vevő felé', leiras: 'A termék fizikai útja: szállítás, tárolás, átrakás. Visszafelé is áramolhat (göngyöleg, visszáru, garanciális javítás).' },
+  info: { nev: 'Információ', irany: 'mindkét irányba, főleg a vevőtől visszafelé', leiras: 'Rendelés, előrejelzés, eladási adat, készletszint, szállítási értesítés. Ha késik vagy torzul, a lánc vakon dönt.' },
+  penz: { nev: 'Pénz', irany: 'a vevőtől a beszállító felé', leiras: 'Fizetés, a fizetési határidővel. Aki később fizet, az valójában a partnerével finanszíroztatja a készletét.' }
+};
+
+/* Elméleti lánc-elrendezések (1000 × 380-as vásznon) */
+var ELMELET_LANC = {
+  tej: {
+    fo: ['termelo', 'felvasarlo', 'tejuzem', 'eloszto', 'bolt', 'fogyaszto'],
+    oldal: [{ id: 'takarmany', ide: 'termelo' }, { id: 'csomagolo', ide: 'tejuzem' }],
+    logszolg: ['felvasarlo', 'tejuzem'],
+    vissza: { tol: 'bolt', ig: 'tejuzem', nev: 'rekesz, göngyöleg' }
+  },
+  zoldseg: {
+    fo: ['termelo', 'tesz', 'eloszto', 'bolt', 'fogyaszto'],
+    oldal: [{ id: 'input', ide: 'termelo' }, { id: 'nagyker', ide: 'tesz', ki: true }],
+    logszolg: ['tesz', 'eloszto'],
+    vissza: { tol: 'bolt', ig: 'tesz', nev: 'ládák, visszáru' }
+  },
+  laptop: {
+    fo: ['alkatresz', 'disztrib', 'webshop', 'futar', 'vevo'],
+    oldal: [{ id: 'barebone', ide: 'disztrib', dx: -110 }],
+    logszolg: ['alkatresz', 'disztrib'],
+    vissza: { tol: 'vevo', ig: 'webshop', nev: 'garancia, visszaküldés' },
+    pushPull: 'webshop'
+  }
+};
+
+/* Élelmiszer-pazarlás az EU-ban, 2023 (Eurostat) */
+var PAZARLAS = {
+  forras: 'Eurostat, 2023-as adatok (az EU becsült átlaga)',
+  url: 'https://ec.europa.eu/eurostat/statistics-explained/index.php/Food_waste_and_food_waste_prevention_-_estimates',
+  osszes: 130,
+  szakaszok: [
+    { id: 'p_term', nev: 'Mezőgazdasági termelés', rov: 'Termelés', szazalek: 10, kg: 12 },
+    { id: 'p_feld', nev: 'Élelmiszer-feldolgozás', rov: 'Feldolgozás', szazalek: 19, kg: 24 },
+    { id: 'p_ker', nev: 'Kereskedelem', rov: 'Kereskedelem', szazalek: 8, kg: 10 },
+    { id: 'p_vend', nev: 'Vendéglátás, közétkeztetés', rov: 'Vendéglátás', szazalek: 11, kg: 14 },
+    { id: 'p_haz', nev: 'Háztartások', rov: 'Háztartások', szazalek: 53, kg: 69 }
+  ]
+};
+
+/* Lánc verseng lánccal: modell-paraméterek */
+var MODELL = {
+  szakaszok: ['Bolt', 'Elosztó', 'Tejüzem', 'Begyűjtés'],
+  L: [2, 2, 2, 2],          // információs és szállítási átfutás szakaszonként (nap)
+  p: 5,                     // előrejelzéshez használt napok száma
+  pEgyutt: 14,              // közös előrejelzéssel
+  cv: 0.35,                 // napi kereslet relatív szórása
+  z: 1.65,                  // biztonsági tényező (95%-os cél)
+  boltBiztonsag: 1,         // a bolt polcán tartható biztonsági készlet (nap)
+  eszkozok: [
+    { id: 'pos', nev: 'Eladási adatok megosztása', dij: 3, leiras: 'Minden szereplő a valós bolti eladást látja, nem csak a közvetlen vevője rendelését.' },
+    { id: 'elore', nev: 'Közös előrejelzés', dij: 4, leiras: 'A lánc közösen, hosszabb adatsorból jelez előre, kisebb a tévedés.' },
+    { id: 'vmi', nev: 'Beszállító által kezelt készlet', dij: 3, leiras: 'A bolt nem ad le rendelést, a beszállító tölti fel a polcot. Eggyel kevesebb döntési lépcső.' },
+    { id: 'fuvar', nev: 'Hosszú távú fuvarszerződés', dij: 2, leiras: 'Tervezett, megbízható járatok: rövidebb átfutás és olcsóbb egységköltség, cserébe fix elkötelezettség.' }
+  ]
+};
+
+/* Önellenőrző kérdések a tanulás módhoz */
+var ONELLENORZES = {
+  2: [
+    { k: 'Mi a fő különbség az integrált logisztika és az ellátási lánc menedzsment között?',
+      o: ['Az SCM csak a nemzetközi szállítással foglalkozik', 'Az integrált logisztika egy vállalaton belül hangol össze, az SCM több vállalat között', 'Nincs különbség, a két kifejezés ugyanazt jelenti'], h: 1,
+      m: 'Az integrált logisztika hatóköre a vállalat határáig tart, az SCM a vállalatok közötti folyamatokat is összehangolja.' },
+    { k: 'Miért nem elég, ha egy tejüzem a saját kiszállítási költségét minimalizálja?',
+      o: ['Mert az olcsó, ritka szállítás máshol (a boltban) okozhat hiányt vagy selejtet', 'Mert a szállítási költség nem számít', 'Mert a tejüzem nem szállíthat'], h: 0,
+      m: 'Egy funkció részoptimuma ronthatja a lánc egészének teljesítményét.' }
+  ],
+  3: [
+    { k: 'Melyik áramlás indul jellemzően a vevőtől a beszállító felé?',
+      o: ['Csak az áru', 'A pénz és a rendelési információ', 'Egyik sem'], h: 1,
+      m: 'A pénz és a rendelés a vevőtől indul, az áru jellemzően a beszállítótól a vevő felé megy (a visszaút kivételével).' },
+    { k: 'A laptop-összeállító webshopnál hol van a „nyomás és húzás határa”?',
+      o: ['A futárnál', 'Az alkatrészkészletnél: addig előrejelzés hajtja, onnan a vevői rendelés', 'A processzorgyártónál'], h: 1,
+      m: 'Az alkatrészek előrejelzésre, készletre jönnek (nyomás), a szerelést viszont a vevő rendelése indítja (húzás).' }
+  ],
+  4: [
+    { k: 'Miért csökkenti az eladási adatok megosztása az ostorcsapás-hatást?',
+      o: ['Mert minden szereplő a valós keresletre reagál, nem a torzult rendelésekre', 'Mert csökkenti a szállítási távolságot', 'Mert olcsóbb a termék'], h: 0,
+      m: 'A torzítás abból jön, hogy minden lépcső a közvetlen vevője (már torzult) rendeléseiből jelez előre.' },
+    { k: 'Mit jelent, hogy „lánc verseng lánccal”?',
+      o: ['A legolcsóbb fuvarozót választó lánc nyer', 'A versenyképességet a teljes lánc összehangolt teljesítménye adja', 'Csak a bolt számít'], h: 1,
+      m: 'A vásárló a frissességet, az elérhetőséget és az árat érzékeli, ezek a lánc egészén múlnak.' }
+  ]
+};
+
+/* ================= KÖZÖS SEGÉDFÜGGVÉNYEK ================= */
+var NS = 'http://www.w3.org/2000/svg';
+function $(id) { return document.getElementById(id); }
+function tarOlvas(k, alap) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : alap; } catch (e) { return alap; } }
+function tarIr(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+function el(tag, cls, szoveg) { var e = document.createElement(tag); if (cls) e.className = cls; if (szoveg !== undefined && szoveg !== null) e.textContent = szoveg; return e; }
+function sv(tag, attr, szoveg) { var e = document.createElementNS(NS, tag); if (attr) for (var k in attr) e.setAttribute(k, attr[k]); if (szoveg !== undefined) e.textContent = szoveg; return e; }
+function gomb(szoveg, cls, fn) { var b = el('button', cls || null, szoveg); b.type = 'button'; if (fn) b.onclick = fn; return b; }
+function kerek(x, t) { if (x === null || x === undefined || !isFinite(x)) return '–'; var m = Math.pow(10, t || 0); return String(Math.round(x * m) / m).replace('.', ','); }
+function szam(v) { var n = parseFloat(String(v === undefined || v === null ? '' : v).replace(',', '.')); return isFinite(n) ? n : null; }
+function ujId() { var s = ''; for (var i = 0; i < 20; i++) s += 'abcdefghijklmnopqrstuvwxyz0123456789'[Math.floor(Math.random() * 36)]; return s; }
+function ma() { var d = new Date(); return d.getFullYear() + String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0'); }
+function ora(iso) { var d = new Date(iso); return isNaN(d) ? '' : String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'); }
+function execUrl(id) { return 'https://script.google.com/macros/s/' + id + '/exec'; }
+function deployId(url) { var m = /\/macros\/s\/([A-Za-z0-9_-]+)\/exec/.exec(url || ''); return m ? m[1] : ''; }
+function qs(o) { return Object.keys(o).filter(function (k) { return o[k] !== undefined && o[k] !== null; }).map(function (k) { return encodeURIComponent(k) + '=' + encodeURIComponent(o[k]); }).join('&'); }
+function szin(nev) { return getComputedStyle(document.documentElement).getPropertyValue(nev).trim(); }
+function szereplo(termek, id, sajatNevek) {
+  if (id && id.indexOf('sajat_') === 0) return { id: id, nev: (sajatNevek && sajatNevek[id]) || 'Saját szereplő', rov: ((sajatNevek && sajatNevek[id]) || 'Saját').slice(0, 11), tipus: 'sajat', szint: 0, mit: 'A csoport által felvett szereplő.', keszlet: '', dont: '' };
+  var t = TERMEKEK[termek]; if (!t) return null;
+  for (var i = 0; i < t.szereplok.length; i++) if (t.szereplok[i].id === id) return t.szereplok[i];
+  return null;
+}
+
+/* ---------- hálózat ---------- */
+function jsonp(url) {
+  return new Promise(function (ok, nem) {
+    var cb = 'elmcb' + Date.now() + Math.floor(Math.random() * 1e6);
+    var s = document.createElement('script');
+    var t = setTimeout(function () { vege(); nem(new Error('időtúllépés')); }, 15000);
+    function vege() { clearTimeout(t); try { delete window[cb]; } catch (e) { window[cb] = undefined; } if (s.parentNode) s.parentNode.removeChild(s); }
+    window[cb] = function (j) { vege(); ok(j); };
+    s.onerror = function () { vege(); nem(new Error('hálózati hiba')); };
+    s.src = url + (url.indexOf('?') < 0 ? '?' : '&') + 'callback=' + cb;
+    document.head.appendChild(s);
+  });
+}
+function lekeres(url) {
+  var ctrl = ('AbortController' in window) ? new AbortController() : null;
+  var t = setTimeout(function () { if (ctrl) ctrl.abort(); }, 15000);
+  return fetch(url, { redirect: 'follow', cache: 'no-store', signal: ctrl ? ctrl.signal : undefined })
+    .then(function (r) { clearTimeout(t); if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .catch(function () { clearTimeout(t); return jsonp(url); });
+}
+function varj(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+function apiGet(base, param, probak) {
+  probak = probak || 1;
+  var url = base + '?' + qs(param) + '&_=' + Date.now();
+  return lekeres(url).then(function (j) {
+    if (!j) throw new Error('üres válasz');
+    return j;
+  }).catch(function (e) {
+    if (probak <= 1) throw e;
+    return varj(500 + Math.random() * 1000).then(function () { return apiGet(base, param, probak - 1); });
+  });
+}
+function apiPost(base, adat, probak) {
+  probak = probak || 1;
+  return fetch(base, { method: 'POST', redirect: 'follow', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(adat) })
+    .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .catch(function (e) {
+      if (probak <= 1) throw e;
+      return varj(600 + Math.random() * 1000).then(function () { return apiPost(base, adat, probak - 1); });
+    });
+}
+
+/* ---------- térkép mutatók és pontozás (a szerveren is ugyanez fut) ---------- */
+function ujTerkep(termek) {
+  return { termek: termek, lanc: [], sajatNevek: {}, kapcsolatok: [], keszlet: {}, veszteseg: {}, visszautak: [], sajatVisszaut: '', szuk: '', vesztHely: '', eszkoz: '', sajatEszkoz: '', indok: '', hatas: [] };
+}
+function igazitKapcsolatok(t) {
+  var n = Math.max(0, t.lanc.length - 1);
+  while (t.kapcsolatok.length < n) t.kapcsolatok.push({ szallito: '', atfutas: '', inditas: '', fizetes: '' });
+  t.kapcsolatok.length = n;
+}
+function mutatok(t) {
+  var lanc = t.lanc || [], k = t.kapcsolatok || [];
+  var atfutas = 0, keszlet = 0, megmarad = 100, maxFiz = null, maxFizHol = '', toltott = 0, mezok = 0;
+  k.forEach(function (x, i) {
+    mezok += 4;
+    var a = szam(x.atfutas); if (a !== null) { atfutas += a; toltott++; }
+    var f = szam(x.fizetes); if (f !== null) { toltott++; if (maxFiz === null || f > maxFiz) { maxFiz = f; maxFizHol = i; } }
+    if (x.szallito) toltott++;
+    if (x.inditas) toltott++;
+  });
+  lanc.forEach(function (id) {
+    mezok += 2;
+    var ke = szam(t.keszlet && t.keszlet[id]); if (ke !== null) { keszlet += ke; atfutas += ke; toltott++; }
+    var v = szam(t.veszteseg && t.veszteseg[id]); if (v !== null) { megmarad *= (1 - Math.min(100, Math.max(0, v)) / 100); toltott++; }
+  });
+  return {
+    szereplok: lanc.length,
+    atadasok: Math.max(0, lanc.length - 1),
+    atfutas: atfutas,
+    keszlet: keszlet,
+    megmarad: megmarad,
+    maxFizetes: maxFiz,
+    maxFizetesHol: maxFizHol,
+    kitoltottseg: mezok ? toltott / mezok : 0
+  };
+}
+function pontszam(t) {
+  var termek = TERMEKEK[t.termek]; if (!termek) return { osszes: 0, reszek: {} };
+  var lanc = t.lanc || [];
+  var fo = termek.szereplok.filter(function (s) { return s.tipus === 'fo'; });
+  var szintje = {}; termek.szereplok.forEach(function (s) { szintje[s.id] = s; });
+  var jelen = fo.filter(function (s) { return lanc.indexOf(s.id) >= 0; });
+  var r1 = 4 * (fo.length ? jelen.length / fo.length : 0);
+  var jo = 0, ossz = 0;
+  for (var i = 0; i < jelen.length; i++) for (var j = i + 1; j < jelen.length; j++) {
+    var a = jelen[i], b = jelen[j]; if (a.szint === b.szint) continue;
+    ossz++;
+    var pa = lanc.indexOf(a.id), pb = lanc.indexOf(b.id);
+    if ((a.szint < b.szint) === (pa < pb)) jo++;
+  }
+  var r2 = ossz ? 2 * jo / ossz : 0;
+  var hamis = lanc.filter(function (id) { return szintje[id] && szintje[id].tipus === 'hamis'; }).length;
+  var r3 = Math.max(0, 1 - 0.5 * hamis);
+  var r4 = 1.5 * mutatok(t).kitoltottseg;
+  var r5 = ((t.visszautak && t.visszautak.length) || (t.sajatVisszaut && t.sajatVisszaut.trim())) ? 0.5 : 0;
+  var r6 = (t.szuk ? 0.25 : 0) + (t.vesztHely ? 0.25 : 0) + (t.eszkoz ? 0.25 : 0) + ((t.indok || '').trim().length >= 20 ? 0.25 : 0);
+  var osszes = Math.round((r1 + r2 + r3 + r4 + r5 + r6) * 10) / 10;
+  return { osszes: Math.min(10, osszes), reszek: { szereplok: r1, sorrend: r2, hamis: r3, szamok: r4, visszaut: r5, diagnozis: r6 } };
+}
+
+/* ---------- lánctérkép rajzolása (csoportok térképei) ---------- */
+function lancSvg(t, opt) {
+  opt = opt || {};
+  var lanc = t.lanc || [], n = lanc.length, fugg = !!opt.fuggoleges;
+  var W = fugg ? 340 : Math.max(opt.szel || 1000, n * 170), boxW = fugg ? 200 : Math.min(130, Math.max(80, (W - 40) / Math.max(1, n) * 0.64)), boxH = 46;
+  var gap = fugg ? 62 : (n > 1 ? (W - 40 - n * boxW) / (n - 1) : 0);
+  var H = fugg ? 30 + n * boxH + Math.max(0, n - 1) * gap + 20 : 170;
+  var s = sv('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'aria-label': 'Lánctérkép: ' + lanc.map(function (id) { var x = szereplo(t.termek, id, t.sajatNevek); return x ? x.nev : id; }).join(', ') });
+  s.appendChild(nyilDef('nyA', 'var(--aru)'));
+  var pos = lanc.map(function (id, i) { return fugg ? { x: (W - boxW) / 2, y: 20 + i * (boxH + gap) } : { x: 20 + i * (boxW + gap), y: 50 }; });
+  lanc.forEach(function (id, i) {
+    if (i === 0) return;
+    var a = pos[i - 1], b = pos[i], k = (t.kapcsolatok || [])[i - 1] || {};
+    var x1, y1, x2, y2;
+    if (fugg) { x1 = x2 = W / 2; y1 = a.y + boxH; y2 = b.y - 4; } else { y1 = y2 = a.y + boxH / 2; x1 = a.x + boxW; x2 = b.x - 4; }
+    s.appendChild(sv('line', { x1: x1, y1: y1, x2: x2, y2: y2, stroke: 'var(--aru)', 'stroke-width': 2, 'marker-end': 'url(#nyA)' }));
+    var cimke = [];
+    if (szam(k.atfutas) !== null) cimke.push(kerek(szam(k.atfutas), 1) + ' nap');
+    if (szam(k.fizetes) !== null) cimke.push('fiz. ' + kerek(szam(k.fizetes), 0) + (fugg ? ' nap' : ''));
+    if (k.szallito === '3pl') cimke.push('3PL');
+    if (cimke.length) {
+      if (fugg) s.appendChild(sv('text', { x: W / 2 + 10, y: (y1 + y2) / 2 + 4, 'class': 'svt' }, cimke.join(' · ')));
+      else {
+        s.appendChild(sv('text', { x: (x1 + x2) / 2, y: y1 - 10, 'text-anchor': 'middle', 'class': 'svt' }, cimke[0]));
+        if (cimke.length > 1) s.appendChild(sv('text', { x: (x1 + x2) / 2, y: y1 + 18, 'text-anchor': 'middle', 'class': 'svt' }, cimke.slice(1).join(' · ')));
+      }
+    }
+  });
+  lanc.forEach(function (id, i) {
+    var sz = szereplo(t.termek, id, t.sajatNevek) || { rov: id, tipus: '' }, p = pos[i];
+    var cls = 'csp' + (sz.tipus === 'hamis' && opt.hibak ? ' hibas' : '') + (t.szuk === id ? ' szuk' : '');
+    var g = sv('g', { 'class': cls });
+    g.appendChild(sv('rect', { x: p.x, y: p.y, width: boxW, height: boxH, rx: 8 }));
+    var felirat = fugg ? sz.nev : sz.rov;
+    if (fugg && felirat.length > 30) felirat = sz.rov;
+    g.appendChild(sv('text', { x: p.x + boxW / 2, y: p.y + boxH / 2 + 5, 'text-anchor': 'middle', 'class': 'svn' }, felirat));
+    var ti = sv('title', null, sz.nev); g.appendChild(ti);
+    s.appendChild(g);
+    var ke = szam(t.keszlet && t.keszlet[id]), v = szam(t.veszteseg && t.veszteseg[id]);
+    var mx = fugg ? p.x + boxW + 8 : p.x + 4, my = fugg ? p.y + 16 : p.y + boxH + 20;
+    if (ke !== null) { s.appendChild(sv('text', { x: mx, y: my, 'class': 'svt keszl' }, '▲ ' + kerek(ke, 1) + ' nap')); }
+    if (v !== null) { s.appendChild(sv('text', { x: fugg ? mx : p.x + boxW - 4, y: fugg ? my + 16 : my, 'text-anchor': fugg ? 'start' : 'end', 'class': 'svt veszt' + (t.vesztHely === id ? ' fo' : '') }, kerek(v, 1) + '%')); }
+    if (t.szuk === id) s.appendChild(sv('text', { x: p.x + boxW / 2, y: fugg ? p.y - 6 : p.y - 8, 'text-anchor': 'middle', 'class': 'svt szukt' }, 'szűk keresztmetszet'));
+  });
+  if (opt.minta) {
+    var m = TERMEKEK[t.termek].szereplok.filter(function (x) { return x.tipus === 'fo' && lanc.indexOf(x.id) < 0; });
+    if (m.length && !fugg) s.appendChild(sv('text', { x: 20, y: H - 8, 'class': 'svt hiany' }, 'Hiányzik a mintához képest: ' + m.map(function (x) { return x.rov; }).join(', ')));
+  }
+  return s;
+}
+function nyilDef(id, szinErtek) {
+  var d = sv('defs');
+  var m = sv('marker', { id: id, viewBox: '0 0 10 10', refX: 8, refY: 5, markerWidth: 7, markerHeight: 7, orient: 'auto-start-reverse' });
+  m.appendChild(sv('path', { d: 'M1 1L9 5L1 9z', fill: szinErtek }));
+  d.appendChild(m);
+  return d;
+}
+
+/* ---------- elméleti lánc-ábra (áramlásokkal) ---------- */
+function elmeletAbra(termekKulcs, o) {
+  o = o || {};
+  var L = ELMELET_LANC[termekKulcs], W = 1000, H = o.vissza ? 370 : 270, n = L.fo.length;
+  var bw = 132, bh = 60, y0 = 160, x0 = 16, lep = (W - 2 * x0 - bw) / (n - 1);
+  var pos = {};
+  L.fo.forEach(function (id, i) { pos[id] = { x: x0 + i * lep, y: y0 }; });
+  L.oldal.forEach(function (s) { var t = pos[s.ide]; pos[s.id] = { x: Math.max(10, Math.min(W - bw - 10, t.x + (s.dx !== undefined ? s.dx : (s.ki ? 70 : -70)))), y: 22 }; });
+  var s = sv('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'class': 'abra' + (o.keses ? ' keses' : '') });
+  s.setAttribute('aria-label', 'Az ellátási lánc szereplői (' + TERMEKEK[termekKulcs].nev + ') az áru-, információ- és pénzáramlással');
+  var defs = sv('defs');
+  [['mA', 'var(--aru)'], ['mI', 'var(--info)'], ['mP', 'var(--penz)'], ['mV', 'var(--muted)']].forEach(function (p) { defs.appendChild(nyilDef(p[0], p[1]).firstChild); });
+  s.appendChild(defs);
+
+  // korszak-kiemelés
+  if (o.kiemel && o.kiemel.length) {
+    var xs = o.kiemel.filter(function (id) { return pos[id]; }).map(function (id) { return pos[id].x; });
+    if (xs.length) {
+      var minx = Math.min.apply(null, xs) - 14, maxx = Math.max.apply(null, xs) + bw + 14;
+      var ys = o.kiemel.filter(function (id) { return pos[id]; }).map(function (id) { return pos[id].y; });
+      var miny = Math.min.apply(null, ys) - 14;
+      s.appendChild(sv('rect', { x: minx, y: miny, width: maxx - minx, height: y0 + bh + 14 - miny, rx: 14, 'class': 'kiemel' }));
+    }
+  }
+  // 3PL sáv
+  if (o.logszolg !== false && L.logszolg) {
+    var a = pos[L.logszolg[0]], b = pos[L.logszolg[1]];
+    s.appendChild(sv('rect', { x: a.x, y: y0 + bh + 12, width: b.x + bw - a.x, height: 28, rx: 14, 'class': 'lsav' }));
+    s.appendChild(sv('text', { x: (a.x + b.x + bw) / 2, y: y0 + bh + 31, 'text-anchor': 'middle', 'class': 'svt' }, 'logisztikai szolgáltató szállít'));
+  }
+  // nyomás-húzás határ
+  if (L.pushPull && o.pushPull !== false) {
+    var pp = pos[L.pushPull];
+    var px = pp.x + bw / 2;
+    s.appendChild(sv('line', { x1: px, y1: 40, x2: px, y2: y0 - 6, 'class': 'pphatar' }));
+    s.appendChild(sv('line', { x1: px, y1: y0 + bh + 4, x2: px, y2: y0 + bh + 50, 'class': 'pphatar' }));
+    s.appendChild(sv('text', { x: px - 10, y: 52, 'text-anchor': 'end', 'class': 'svt pp' }, '← előrejelzés hajtja (nyomás)'));
+    s.appendChild(sv('text', { x: px + 10, y: 52, 'class': 'svt pp' }, 'vevői rendelés hajtja (húzás) →'));
+  }
+  function vonal(x1, y1, x2, y2, cls, marker) {
+    var l = sv('line', { x1: x1, y1: y1, x2: x2, y2: y2, 'class': cls });
+    if (marker) l.setAttribute('marker-end', 'url(#' + marker + ')');
+    s.appendChild(l); return l;
+  }
+  // fő lánc áramlásai
+  for (var i = 1; i < n; i++) {
+    var p = pos[L.fo[i - 1]], q = pos[L.fo[i]];
+    var xa = p.x + bw + 4, xb = q.x - 6;
+    vonal(xa, y0 + bh / 2, xb, y0 + bh / 2, 'fl aru' + (o.aru ? ' on' : ''), o.aru ? 'mA' : null);
+    if (!o.aru) vonal(xa, y0 + bh / 2, xb, y0 + bh / 2, 'fl alap', 'mV');
+    if (o.info) vonal(xb, y0 + 10, xa, y0 + 10, 'fl info on', 'mI');
+    if (o.penz) vonal(xb, y0 + bh - 10, xa, y0 + bh - 10, 'fl penz on', 'mP');
+  }
+  L.oldal.forEach(function (sd) {
+    var p = pos[sd.id], q = pos[sd.ide];
+    var x1 = p.x + bw / 2, y1 = p.y + bh + 2, x2 = q.x + bw / 2 + (sd.ki ? 24 : -24), y2 = q.y - 6;
+    if (sd.ki) { vonal(x2, q.y - 2, x1, p.y + bh + 6, 'fl aru' + (o.aru ? ' on' : ''), o.aru ? 'mA' : 'mV'); return; }
+    vonal(x1, y1, x2, y2, 'fl aru' + (o.aru ? ' on' : ''), o.aru ? 'mA' : 'mV');
+    if (o.penz) vonal(x2 + 22, y2, x1 + 22, y1 + 2, 'fl penz on', 'mP');
+  });
+  // visszaút
+  if (o.vissza && L.vissza) {
+    var va = pos[L.vissza.tol], vb = pos[L.vissza.ig];
+    var xa2 = va.x + bw / 2, xb2 = vb.x + bw / 2, yb = y0 + bh + 120;
+    s.appendChild(sv('path', { d: 'M' + xa2 + ' ' + (y0 + bh + 2) + ' C ' + xa2 + ' ' + yb + ', ' + xb2 + ' ' + yb + ', ' + xb2 + ' ' + (y0 + bh + 6), 'class': 'fl vissza on', 'marker-end': 'url(#mA)', fill: 'none' }));
+    s.appendChild(sv('text', { x: (xa2 + xb2) / 2, y: yb - 14, 'text-anchor': 'middle', 'class': 'svt' }, 'visszaút: ' + L.vissza.nev));
+  }
+  // dobozok
+  Object.keys(pos).forEach(function (id) {
+    var sz = szereplo(termekKulcs, id), p = pos[id];
+    var halvany = o.kiemel && o.kiemel.length && o.kiemel.indexOf(id) < 0;
+    var g = sv('g', { 'class': 'csp' + (o.kijelolt === id ? ' sel' : '') + (halvany ? ' halv' : ''), tabindex: 0, role: 'button' });
+    g.appendChild(sv('rect', { x: p.x, y: p.y, width: bw, height: bh, rx: 9 }));
+    g.appendChild(sv('text', { x: p.x + bw / 2, y: p.y + bh / 2 + 5, 'text-anchor': 'middle', 'class': 'svn' }, sz.rov));
+    g.appendChild(sv('title', null, sz.nev));
+    if (o.onNode) { g.style.cursor = 'pointer'; g.addEventListener('click', function () { o.onNode(id); }); g.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); o.onNode(id); } }); }
+    s.appendChild(g);
+  });
+  if (o.keses && o.info) s.appendChild(sv('text', { x: W - 16, y: y0 - 14, 'text-anchor': 'end', 'class': 'svt kesest' }, 'az információ lassabban halad, mint az áru'));
+  return s;
+}
+
+/* ---------- szófelhő ---------- */
+var meroCtx = null;
+function szofelho(szavak, W, H, opt) {
+  opt = opt || {};
+  if (!meroCtx) meroCtx = document.createElement('canvas').getContext('2d');
+  var s = sv('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img' });
+  s.setAttribute('aria-label', 'Szófelhő: ' + szavak.slice(0, 10).map(function (x) { return x[0] + ' (' + x[1] + ')'; }).join(', '));
+  if (!szavak.length) { s.appendChild(sv('text', { x: W / 2, y: H / 2, 'text-anchor': 'middle', fill: szin('--muted'), 'font-size': 18 }, 'Még nincs beküldött szó.')); return s; }
+  var max = szavak[0][1], min = Math.max(13, W / 48), fmax = Math.min(W / 7, 72), hely = [];
+  var c = { a: szin('--accent'), t: szin('--aru'), x: szin('--text'), m: szin('--muted'), n: szin('--new') };
+  szavak.slice(0, 80).forEach(function (p, i) {
+    var f = min + (fmax - min) * Math.sqrt(p[1] / max), suly = i < 3 ? 700 : 500;
+    meroCtx.font = suly + ' ' + f + 'px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif';
+    var w = meroCtx.measureText(p[0]).width + 6, h = f * 1.05, ok = null;
+    for (var t = 0; t < 1600; t += 0.35) {
+      var r = 2 * t, x = W / 2 + r * Math.cos(t) * Math.max(1.2, W / H) - w / 2, y = H / 2 + r * Math.sin(t) * 0.8 - h / 2;
+      if (x < 4 || y < 4 || x + w > W - 4 || y + h > H - 4) { if (r > Math.max(W, H)) break; continue; }
+      var utk = false;
+      for (var j = 0; j < hely.length; j++) { var q = hely[j]; if (x < q.x + q.w && x + w > q.x && y < q.y + q.h && y + h > q.y) { utk = true; break; } }
+      if (!utk) { ok = { x: x, y: y, w: w, h: h }; break; }
+    }
+    if (!ok) return;
+    hely.push(ok);
+    var tx = sv('text', { x: ok.x + ok.w / 2, y: ok.y + ok.h / 2, 'text-anchor': 'middle', 'dominant-baseline': 'central', 'font-size': f.toFixed(1), 'font-weight': suly });
+    tx.setAttribute('fill', opt.ujak ? (opt.ujak[p[0]] ? c.n : c.m) : (i < 3 ? c.a : i < 10 ? c.t : c.x));
+    tx.textContent = p[0];
+    tx.appendChild(sv('title', null, p[0] + ': ' + p[1]));
+    if (opt.kijelolt === p[0]) tx.setAttribute('class', 'sel');
+    if (opt.onClick) { tx.style.cursor = 'pointer'; tx.addEventListener('click', function () { opt.onClick(p[0]); }); }
+    s.appendChild(tx);
+  });
+  return s;
+}
+
+/* ---------- vízszintes sávdiagram (kvíz, tippelés) ---------- */
+function savok(cont, sorok, opt) {
+  opt = opt || {};
+  cont.innerHTML = '';
+  var max = 1, ossz = 0;
+  sorok.forEach(function (r) { max = Math.max(max, r.ertek); ossz += r.ertek; });
+  if (opt.max) max = opt.max;
+  sorok.forEach(function (r) {
+    var sor = el('div', 'opt' + (r.kiemel ? ' helyes' : '') + (r.jel ? '' : ' nojel'));
+    if (r.jel) sor.appendChild(el('div', 'betu', r.jel));
+    var body = el('div', 'body'); body.appendChild(el('div', 'tx', r.cimke));
+    if (!opt.csakValos) { var tr = el('div', 'track'); var sp = el('span'); sp.style.width = (r.ertek / max * 100) + '%'; tr.appendChild(sp); body.appendChild(tr); }
+    if (r.valos !== undefined) { var tr2 = el('div', 'track valos'); var sp2 = el('span'); sp2.style.width = r.valos + '%'; tr2.appendChild(sp2); body.appendChild(tr2); }
+    sor.appendChild(body);
+    var num = el('div', 'num'); if (!opt.csakValos) num.appendChild(el('b', null, opt.szazalekKiir ? (ossz ? Math.round(r.ertek / ossz * 100) : 0) + '%' : String(r.ertek)));
+    if (!opt.szazalekKiir && !opt.csakValos) num.appendChild(document.createTextNode(' · ' + (ossz ? Math.round(r.ertek / ossz * 100) : 0) + '%'));
+    if (r.valos !== undefined) num.appendChild(el('div', 'valosszam', 'valós: ' + r.valos + '%'));
+    sor.appendChild(num);
+    cont.appendChild(sor);
+  });
+}
+
+/* ---------- QR ---------- */
+function qrRajzol(cont, url, meret) {
+  cont.innerHTML = '';
+  if (!url) return false;
+  if (typeof QRCode === 'undefined') { cont.appendChild(el('div', 'qrmsg', 'A QR-kód nem tölthető be (nincs internet?). A cím alább olvasható.')); return false; }
+  var d = el('div', 'qrfeher'); cont.appendChild(d);
+  new QRCode(d, { text: url, width: meret || 256, height: meret || 256, colorDark: '#000000', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.L });
+  return true;
+}
+
+/* ---------- lánc vs lánc modell ---------- */
+/* Feltevések: 4 rendelési lépcső (bolt, elosztó, tejüzem, begyűjtés), napi utánpótlás,
+   a rendelések ingadozása Chen és mtsai (2000) ostorcsapás-képlete szerint nő,
+   a biztonsági készlet a beérkező rendelések szórásával és az átfutással arányos. */
+function modellSzamol(be) {
+  var M = MODELL, p = be.elore ? M.pEgyutt : M.p;
+  var L = M.L.map(function (x) { return be.fuvar ? x - 0.5 : x; });
+  var f = function (l) { return 1 + 2 * l / p + 2 * l * l / (p * p); };
+  var m = [], kum = 1, sumL = 0;
+  L.forEach(function (l, i) {
+    var aktiv = !(be.vmi && i === 0);
+    if (aktiv) { sumL += l; kum = be.pos ? f(sumL) : kum * f(l); }
+    m.push(kum);
+  });
+  var L0 = be.vmi ? L[0] * 0.6 : L[0];
+  var keszletek = L.map(function (l, i) {
+    if (i === 0) return 0.5 + M.boltBiztonsag;
+    var bejovo = m[i - 1];
+    var ss = M.z * M.cv * Math.sqrt(bejovo) * Math.sqrt(l) * Math.sqrt(1 + l / p);
+    return 0.5 + ss;
+  });
+  var keszlet = keszletek.reduce(function (a, b) { return a + b; }, 0);
+  var kor = keszletek[1] / 2 + keszletek[2] / 2 + keszletek[0] / 2 + L.slice(0, 2).reduce(function (a, l) { return a + Math.min(1, l / 2) * 0.5; }, 0);
+  var zEff = M.boltBiztonsag / (M.cv * Math.sqrt(L0) * Math.sqrt(1 + L0 / p) * (be.pos ? 0.95 : 1));
+  var dij = 0; M.eszkozok.forEach(function (e) { if (be[e.id]) dij += e.dij; });
+  return { bw: m[m.length - 1], szoras: Math.sqrt(m[m.length - 1]), keszlet: keszlet, kor: kor, elerheto: normCdf(zEff) * 100, dij: dij, szallitas: be.fuvar ? 0.88 : 1 };
+}
+function modellKoltseg(r, alap) {
+  return 40 * (r.keszlet / alap.keszlet) + 35 * r.szallitas + 25 * (r.kor / alap.kor) + r.dij + ((100 - r.elerheto) - (100 - alap.elerheto));
+}
+function normCdf(z) {
+  var t = 1 / (1 + 0.2316419 * Math.abs(z)), d = 0.3989423 * Math.exp(-z * z / 2);
+  var p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
+  return z > 0 ? 1 - p : p;
+}
+
+/* ================= 2. FÁZIS: ELMÉLETI MODUL ================= */
+var ELM_LEPESEK = ['Híd', 'SCM útja', 'Három áramlás', 'Lánc vs lánc', 'Tovább'];
+
+function Elmelet(cont, ctx) {
+  var A = tarOlvas('elm-elmelet-allapot', null) || {};
+  var S = {
+    lepes: A.lepes || 1, korszak: A.korszak === undefined ? 0 : A.korszak, termek: A.termek || 'tej',
+    kapcs: { aru: true, info: false, penz: false, keses: false, vissza: false },
+    kijelolt: null, fiz: 60, elad: 4, mod: {}, hid: 0, hidFelfed: false, pazFelfed: false, sajatTipp: null, valasz: {}
+  };
+  function ment() { tarIr('elm-elmelet-allapot', { lepes: S.lepes, korszak: S.korszak, termek: S.termek }); }
+  function tanul() { return !!(ctx.tanulas && ctx.tanulas()); }
+
+  function rajz() {
+    cont.innerHTML = '';
+    cont.className = 'elm' + (tanul() ? ' tanulas' : '');
+    var nav = el('div', 'lepesnav');
+    nav.appendChild(gomb('‹', 'ico', function () { lep(-1); })).setAttribute('aria-label', 'Előző lépés');
+    ELM_LEPESEK.forEach(function (n, i) {
+      var b = gomb((i + 1) + '. ' + n, 'pont', function () { S.lepes = i + 1; ment(); rajz(); });
+      b.setAttribute('aria-current', S.lepes === i + 1 ? 'true' : 'false');
+      nav.appendChild(b);
+    });
+    nav.appendChild(gomb('›', 'ico', function () { lep(1); })).setAttribute('aria-label', 'Következő lépés');
+    cont.appendChild(nav);
+    var test = el('div'); cont.appendChild(test);
+    [null, hid, scm, aramlas, lancVsLanc, tovabb][S.lepes](test);
+  }
+  function lep(d) { S.lepes = Math.max(1, Math.min(5, S.lepes + d)); ment(); rajz(); }
+  function fej(c, cim, lead) { c.appendChild(el('h2', 'elmcim', cim)); if (lead) c.appendChild(el('p', 'elmlead', lead)); }
+  function szovegDoboz(cim, bekezdesek, forras) {
+    var d = el('div', 'szoveg'); if (cim) d.appendChild(el('h4', null, cim));
+    bekezdesek.forEach(function (p) { d.appendChild(el('p', null, p)); });
+    if (forras) { var f = el('div', 'forras'); f.appendChild(document.createTextNode('Forrás: ')); var a = el('a', null, forras.nev); a.href = forras.url; a.target = '_blank'; a.rel = 'noopener'; f.appendChild(a); d.appendChild(f); }
+    return d;
+  }
+  function onellenorzo(lepes) {
+    var lista = ONELLENORZES[lepes]; if (!lista) return el('div');
+    var d = el('div', 'szoveg'); d.appendChild(el('h4', null, 'Ellenőrizd magad'));
+    var w = el('div', 'onell'); d.appendChild(w);
+    lista.forEach(function (q, qi) {
+      var kulcs = lepes + '_' + qi, blokk = el('div');
+      blokk.appendChild(el('div', 'k', q.k));
+      var o = el('div', 'o'), m = el('div', 'm');
+      q.o.forEach(function (szov, oi) {
+        var b = gomb(szov, null, function () { S.valasz[kulcs] = oi; rajz(); });
+        if (S.valasz[kulcs] !== undefined) { if (oi === q.h) b.classList.add('jo'); else if (oi === S.valasz[kulcs]) b.classList.add('rossz'); }
+        o.appendChild(b);
+      });
+      if (S.valasz[kulcs] !== undefined) m.textContent = (S.valasz[kulcs] === q.h ? 'Helyes. ' : 'Nem egészen. ') + q.m;
+      blokk.appendChild(o); blokk.appendChild(m); w.appendChild(blokk);
+    });
+    return d;
+  }
+
+  /* --- 1. Híd --- */
+  function hid(c) {
+    var a = ctx.adat && ctx.adat();
+    fej(c, 'Honnan indulunk?', 'Mi jutott eszetekbe az óra elején, és hol tévedtünk a legtöbben?');
+    var K = (a && a.kviz && a.kviz.kerdesek || []).filter(function (k) { return k.n > 0; });
+    if (!a || (!K.length && !(a.szofelho && a.szofelho.eleje.szavak.length))) {
+      c.appendChild(szovegDoboz('Mi az ellátási lánc?', [
+        'Az ellátási lánc azoknak a szereplőknek és folyamatoknak a hálózata, amelyek egy terméket a nyersanyagtól a végső vevőig eljuttatnak, az ehhez tartozó áru-, információ- és pénzáramlással együtt.',
+        'Ebben a blokkban három kérdésre keressük a választ: hogyan tágult a logisztika szemlélete a vállalatok közötti együttműködésig, milyen áramlások kötik össze a szereplőket, és miért a lánc egésze verseng, nem az egyes cégek.'
+      ]));
+      return;
+    }
+    var w = el('div', 'ketoszlop'); c.appendChild(w);
+    var bal = el('div'); bal.appendChild(el('h4', null, 'Belépő szófelhő'));
+    var cw = el('div', 'cloudwrap'); bal.appendChild(cw); w.appendChild(bal);
+    setTimeout(function () { cw.appendChild(szofelho(a.szofelho.eleje.szavak, Math.max(320, cw.clientWidth || 600), 340)); }, 0);
+    var jobb = el('div', 'panel'); w.appendChild(jobb);
+    if (!K.length) { jobb.appendChild(el('div', 'empty', 'Még nincs kvízválasz.')); return; }
+    var rend = K.slice().sort(function (x, y) { return ((x.db[x.helyes] || 0) / x.n) - ((y.db[y.helyes] || 0) / y.n); });
+    S.hid = Math.min(S.hid, rend.length - 1);
+    var k = rend[S.hid], pc = Math.round((k.db[k.helyes] || 0) / k.n * 100);
+    var fj = el('div', 'vbar');
+    fj.appendChild(el('b', null, S.hid === 0 ? 'A legnehezebb kérdés' : (S.hid + 1) + '. legnehezebb'));
+    fj.appendChild(el('span', 'sp'));
+    fj.appendChild(el('span', 'badge ' + (pc < 50 ? 'hiba' : 'ok'), pc + '% helyes'));
+    fj.appendChild(gomb('‹', 'ico', function () { S.hid = Math.max(0, S.hid - 1); S.hidFelfed = false; rajz(); }));
+    fj.appendChild(gomb('›', 'ico', function () { S.hid = Math.min(rend.length - 1, S.hid + 1); S.hidFelfed = false; rajz(); }));
+    jobb.appendChild(fj);
+    jobb.appendChild(el('div', 'qtext', k.kerdes));
+    var o = el('div', 'opts'); jobb.appendChild(o);
+    savok(o, k.opciok.map(function (x) { return { jel: S.hidFelfed && x.betu === k.helyes ? '✓' : x.betu, cimke: x.szoveg, ertek: k.db[x.betu] || 0, kiemel: S.hidFelfed && x.betu === k.helyes }; }));
+    if (S.hidFelfed && k.magyarazat) { var m = el('div', 'magyar'); m.appendChild(el('b', null, 'Helyes válasz: ' + k.helyes)); m.appendChild(document.createTextNode(k.magyarazat)); jobb.appendChild(m); }
+    var fa = el('div', 'formact'); fa.appendChild(gomb(S.hidFelfed ? 'Megoldás elrejtése' : 'Megoldás mutatása', null, function () { S.hidFelfed = !S.hidFelfed; rajz(); })); jobb.appendChild(fa);
+  }
+
+  /* --- 2. SCM útja --- */
+  function scm(c) {
+    fej(c, 'Logisztikától az ellátási lánc menedzsmentig', 'A lánc egyre nagyobb részét kezeljük egy egységként.');
+    var iv = el('div', 'idovonal'); c.appendChild(iv);
+    KORSZAKOK.forEach(function (k, i) {
+      var b = el('button', 'korsz'); b.type = 'button';
+      b.appendChild(el('div', 'ev', k.ido)); b.appendChild(el('div', 'nev', k.cim));
+      b.setAttribute('aria-pressed', S.korszak === i ? 'true' : 'false');
+      b.onclick = function () { S.korszak = i; ment(); rajz(); };
+      iv.appendChild(b);
+    });
+    var k = KORSZAKOK[S.korszak];
+    var w = el('div', 'ketoszlop'); c.appendChild(w);
+    var aw = el('div', 'abrawrap');
+    aw.appendChild(elmeletAbra('tej', { aru: true, kiemel: k.lefed, vissza: !!k.visszaut, logszolg: S.korszak >= 2 }));
+    w.appendChild(aw);
+    var jobb = el('div');
+    jobb.appendChild(szovegDoboz(k.cim, [k.rovid, 'Példa: ' + k.pelda].concat(tanul() ? [k.hosszu] : [])));
+    if (tanul()) jobb.appendChild(onellenorzo(2));
+    w.appendChild(jobb);
+  }
+
+  /* --- 3. Szereplők és áramlások --- */
+  function aramlas(c) {
+    fej(c, 'Szereplők és a három áramlás', 'Áru megy előre, pénz és rendelés jön vissza, és nem mindegy, milyen gyorsan.');
+    var sor = el('div', 'vbar');
+    var seg = el('div', 'seg'); seg.setAttribute('role', 'tablist');
+    Object.keys(ELMELET_LANC).forEach(function (t) {
+      var b = gomb(TERMEKEK[t].nev, null, function () { S.termek = t; S.kijelolt = null; ment(); rajz(); });
+      b.setAttribute('role', 'tab'); b.setAttribute('aria-selected', S.termek === t ? 'true' : 'false'); seg.appendChild(b);
+    });
+    sor.appendChild(seg);
+    sor.appendChild(el('span', 'hint', TERMEKEK[S.termek].alcim));
+    c.appendChild(sor);
+    var ks = el('div', 'kapcsolok');
+    [['aru', 'Áru', 'aru'], ['info', 'Információ', 'info'], ['penz', 'Pénz', 'penz'], ['keses', 'Információs késés', 'semleges'], ['vissza', 'Visszaút', 'semleges']].forEach(function (x) {
+      var b = el('button', 'kapcs ' + x[2]); b.type = 'button';
+      b.appendChild(el('span', 'pt')); b.appendChild(document.createTextNode(x[1]));
+      b.setAttribute('aria-pressed', S.kapcs[x[0]] ? 'true' : 'false');
+      b.onclick = function () { S.kapcs[x[0]] = !S.kapcs[x[0]]; if (x[0] === 'keses' && S.kapcs.keses) S.kapcs.info = true; rajz(); };
+      ks.appendChild(b);
+    });
+    c.appendChild(ks);
+    var w = el('div', 'ketoszlop'); w.style.marginTop = '.75rem'; c.appendChild(w);
+    var aw = el('div', 'abrawrap');
+    aw.appendChild(elmeletAbra(S.termek, { aru: S.kapcs.aru, info: S.kapcs.info, penz: S.kapcs.penz, keses: S.kapcs.keses, vissza: S.kapcs.vissza, kijelolt: S.kijelolt, onNode: function (id) { S.kijelolt = S.kijelolt === id ? null : id; rajz(); } }));
+    w.appendChild(aw);
+    var jobb = el('div'); w.appendChild(jobb);
+    if (S.kijelolt) {
+      var sz = szereplo(S.termek, S.kijelolt), kt = el('div', 'kartya');
+      kt.appendChild(el('h4', null, sz.nev));
+      var dl = el('dl');
+      [['Mit csinál?', sz.mit], ['Hol tart készletet?', sz.keszlet], ['Miről dönt?', sz.dont]].forEach(function (p) { if (p[1]) { dl.appendChild(el('dt', null, p[0])); dl.appendChild(el('dd', null, p[1])); } });
+      kt.appendChild(dl); jobb.appendChild(kt);
+    } else jobb.appendChild(el('div', 'kartya hint', 'Kattints egy szereplőre az ábrán: mit csinál, hol tart készletet, miről dönt.'));
+    if (tanul()) {
+      jobb.appendChild(szovegDoboz('A három áramlás', Object.keys(ARAMLASOK).map(function (k) { var a = ARAMLASOK[k]; return a.nev + ' (' + a.irany + '): ' + a.leiras; })));
+      jobb.appendChild(szovegDoboz(TERMEKEK[S.termek].nev + ': ' + TERMEKEK[S.termek].alcim, ['Jellemzők: ' + TERMEKEK[S.termek].jellemzok.join(', ') + '.'].concat(S.termek === 'laptop' ? ['A szaggatott piros vonal a nyomás és húzás határa: az alkatrészek előrejelzés alapján, készletre érkeznek, a szerelést viszont már a vevő rendelése indítja.'] : [])));
+    }
+    // finanszírozás
+    var fin = el('div', 'panel'); fin.style.marginTop = '1rem'; c.appendChild(fin);
+    fin.appendChild(el('h4', null, 'Ki finanszírozza a készletet?'));
+    fin.appendChild(el('p', 'hint', 'A kereskedő ennyi nap múlva fizet a beszállítónak, és ennyi nap alatt adja el az árut.'));
+    var f = el('div', 'fin'); fin.appendChild(f);
+    function csuszka(cim, kulcs, max) {
+      var l = el('label'); l.appendChild(el('span', null, cim));
+      var r = el('input'); r.type = 'range'; r.min = 0; r.max = max; r.step = 1; r.value = S[kulcs];
+      var o = el('b', null, S[kulcs] + ' nap');
+      r.oninput = function () { S[kulcs] = Number(r.value); o.textContent = r.value + ' nap'; frissFin(); };
+      l.appendChild(r); l.appendChild(o); f.appendChild(l);
+    }
+    csuszka('Fizetési határidő', 'fiz', 120);
+    csuszka('Eladásig eltelt idő (raktár és polc)', 'elad', 120);
+    var r1 = el('div', 'finsor'), r2 = el('div', 'finsor'), szov = el('div', 'finszoveg');
+    var t1 = el('div', 'fintrack'), t2 = el('div', 'fintrack'), s1 = el('span', 'a'), s2 = el('span', 'b'), n1 = el('b'), n2 = el('b');
+    t1.appendChild(s1); t2.appendChild(s2);
+    r1.appendChild(el('span', null, 'Az áru eladva')); r1.appendChild(t1); r1.appendChild(n1);
+    r2.appendChild(el('span', null, 'A beszállító megkapja a pénzt')); r2.appendChild(t2); r2.appendChild(n2);
+    f.appendChild(r1); f.appendChild(r2); f.appendChild(szov);
+    function frissFin() {
+      var max = Math.max(S.fiz, S.elad, 1);
+      s1.style.width = (S.elad / max * 100) + '%'; s2.style.width = (S.fiz / max * 100) + '%';
+      n1.textContent = S.elad + '. nap'; n2.textContent = S.fiz + '. nap';
+      var d = S.fiz - S.elad;
+      szov.textContent = d > 0 ? 'A beszállító ' + d + ' napig finanszírozza a kereskedőt: az áru ára már a kasszában van, de a beszállító még nem kapta meg.'
+        : d < 0 ? 'A kereskedő ' + (-d) + ' napig a saját pénzéből finanszírozza a készletet.' : 'Pont kiegyenlítődik: senki nem finanszírozza a másikat.';
+    }
+    frissFin();
+    if (tanul()) c.appendChild(onellenorzo(3));
+  }
+
+  /* --- 4. Lánc verseng lánccal --- */
+  function lancVsLanc(c) {
+    fej(c, 'Lánc verseng lánccal', 'Ugyanaz a bolti kereslet, két tejlánc. Mit változtat az együttműködés?');
+    var szl = el('span', 'szemlelt', 'Szemléltető modell, nem valós adat'); c.appendChild(szl);
+    var alap = modellSzamol({}), uj = modellSzamol(S.mod);
+    var w = el('div', 'lvl'); w.style.marginTop = '.75rem'; c.appendChild(w);
+    var bal = el('div', 'panel'); bal.appendChild(el('h4', null, 'A lánc: mindenki a saját költségét nézi'));
+    bal.appendChild(el('p', 'hint', 'Minden szereplő csak a közvetlen vevője rendeléseit látja, és abból jelez előre.'));
+    bal.appendChild(mutatoCsempek(alap, null, alap));
+    w.appendChild(bal);
+    var jobb = el('div', 'panel'); jobb.appendChild(el('h4', null, 'B lánc: összehangolt lánc'));
+    var mk = el('div', 'modkapcs');
+    MODELL.eszkozok.forEach(function (e) {
+      var l = el('label' + ''); l.className = S.mod[e.id] ? 'on' : '';
+      var cb = el('input'); cb.type = 'checkbox'; cb.checked = !!S.mod[e.id];
+      cb.onchange = function () { S.mod[e.id] = cb.checked; rajz(); };
+      var t = el('span'); t.appendChild(el('b', null, e.nev)); t.appendChild(el('small', null, e.leiras + ' Díja: ' + e.dij + ' pont a költségindexben.'));
+      l.appendChild(cb); l.appendChild(t); mk.appendChild(l);
+    });
+    jobb.appendChild(mk);
+    jobb.appendChild(mutatoCsempek(uj, alap, alap));
+    w.appendChild(jobb);
+    if (tanul()) {
+      c.appendChild(szovegDoboz('A modell feltevései', [
+        'Négy rendelési lépcső van (bolt, elosztó, tejüzem, begyűjtés), szakaszonként 2 nap átfutással, napi utánpótlással. A bolti kereslet napi relatív szórása 35%.',
+        'A rendelések ingadozása lépcsőnként nő: minden szereplő a közvetlen vevője rendeléseiből jelez előre. Ezt Chen és szerzőtársai (2000) képletével számoljuk: az ingadozás az átfutási idővel nő, és annál kisebb, minél hosszabb adatsorból jelzünk előre. Ha a bolti eladási adatot mindenki látja, a torzítás nem halmozódik lépcsőről lépcsőre.',
+        'A biztonsági készlet a beérkező rendelések szórásával és az átfutással arányos (95%-os célszint). A polci elérhetőséget a bolt egynapos biztonsági készlete és a bolt felé irányuló utánpótlás bizonytalansága adja.',
+        'A költségindex súlyai: készlettartás 40, szállítás 35, a termék kora miatti selejt 25, és az eszközök díja. Az A lánc értéke 100.'
+      ]));
+      c.appendChild(onellenorzo(4));
+    }
+  }
+  function mutatoCsempek(r, ref, alap) {
+    var t = el('div', 'tiles t5');
+    var koltseg = modellKoltseg(r, alap);
+    var refKoltseg = ref ? modellKoltseg(ref, alap) : null;
+    [
+      ['Rendelések ingadozása a lánc elején', '×' + kerek(r.szoras, 1), ref ? r.szoras - ref.szoras : null, true, 'a bolti eladások szórásához képest'],
+      ['Készlet a láncban', kerek(r.keszlet, 1) + ' nap', ref ? r.keszlet - ref.keszlet : null, true],
+      ['A tej átlagos kora a polcon', kerek(r.kor, 1) + ' nap', ref ? r.kor - ref.kor : null, true],
+      ['Polci elérhetőség', kerek(r.elerheto, 1) + '%', ref ? r.elerheto - ref.elerheto : null, false],
+      ['Teljes lánc költsége (index)', kerek(koltseg, 0), ref ? koltseg - refKoltseg : null, true]
+    ].forEach(function (x) {
+      var d = el('div', 'tile'); d.appendChild(el('div', 'l', x[0])); d.appendChild(el('div', 'v', x[1]));
+      if (x[2] !== null && Math.abs(x[2]) > 0.05) {
+        var jo = x[3] ? x[2] < 0 : x[2] > 0;
+        d.appendChild(el('div', 'd ' + (jo ? 'jo' : 'rossz'), (x[2] > 0 ? '+' : '') + kerek(x[2], 1) + ' az A lánchoz képest'));
+      } else if (x[4] && !ref) d.appendChild(el('div', 'd', x[4]));
+      t.appendChild(d);
+    });
+    return t;
+  }
+
+  /* --- 5. Tovább --- */
+  function tovabb(c) {
+    fej(c, 'Mit viszünk tovább?', null);
+    var t = el('div', 'tanulsag');
+    [['Hatókör', 'A logisztika egy funkcióból indult, ma a vállalatok közötti összehangolásról szól.'],
+     ['Három áramlás', 'Az áru előre megy, a pénz és a rendelés visszafelé. Ha az információ késik, a lánc vakon dönt.'],
+     ['Lánc szintű optimum', 'A cégek külön optimumainak összege nem a lánc optimuma. A vásárló a lánc egészét érzékeli.']
+    ].forEach(function (x) { var d = el('div'); d.appendChild(el('b', null, x[0])); d.appendChild(document.createTextNode(x[1])); t.appendChild(d); });
+    c.appendChild(t);
+    var p = el('div', 'panel'); p.style.marginTop = '1rem'; c.appendChild(p);
+    var fj = el('div', 'vbar'); fj.appendChild(el('h3', null, 'Tippeljetek: hol vész kárba a legtöbb élelmiszer az EU-ban?')); fj.appendChild(el('span', 'sp'));
+    var a = ctx.adat && ctx.adat();
+    if (ctx.elo) {
+      var nyitva = ctx.tippNyitva && ctx.tippNyitva();
+      fj.appendChild(el('span', 'badge ' + (nyitva ? 'ok' : 'ki'), nyitva ? 'Tippelés nyitva' : 'Tippelés zárva'));
+      fj.appendChild(gomb(nyitva ? 'Tippelés lezárása' : 'Tippelés indítása (telefonokon)', nyitva ? null : 'main', function () { ctx.tippValt(!nyitva).then(rajz, function (e) { alert('Nem sikerült: ' + e.message); }); }));
+    }
+    fj.appendChild(gomb(S.pazFelfed ? 'Valós adat elrejtése' : 'Valós adat felfedése', null, function () { S.pazFelfed = !S.pazFelfed; rajz(); }));
+    p.appendChild(fj);
+    var tipp = (a && a.tipp) || {};
+    var o = el('div', 'opts'); p.appendChild(o);
+    var vanTipp = Object.keys(tipp).some(function (k) { return tipp[k] > 0; });
+    if (!ctx.elo) {
+      p.insertBefore(el('p', 'hint', 'Válaszd ki, szerinted melyik szakaszban, aztán fedd fel a valós adatot.'), o);
+      var hg = el('div', 'kapcsolok'); hg.style.marginBottom = '.75rem';
+      PAZARLAS.szakaszok.forEach(function (sz) { var b = gomb(sz.nev, S.sajatTipp === sz.id ? 'on' : null, function () { S.sajatTipp = sz.id; rajz(); }); hg.appendChild(b); });
+      p.insertBefore(hg, o);
+    }
+    savok(o, PAZARLAS.szakaszok.map(function (sz) {
+      var r = { jel: '', cimke: sz.nev + (S.sajatTipp === sz.id ? ' (a te tipped)' : ''), ertek: ctx.elo ? (tipp[sz.id] || 0) : 0, kiemel: !ctx.elo && S.sajatTipp === sz.id };
+      if (S.pazFelfed) r.valos = sz.szazalek; else if (!ctx.elo) r.valos = 0;
+      return r;
+    }), { szazalekKiir: true, csakValos: !ctx.elo });
+    if (ctx.elo && !vanTipp) p.appendChild(el('p', 'hint', 'Még nincs tipp. Indítsd el a tippelést, és a telefonokon megjelenik a kérdés.'));
+    if (S.pazFelfed) {
+      var f = el('p', 'hint'); f.appendChild(document.createTextNode('Az EU-ban 2023-ban fejenként kb. ' + PAZARLAS.osszes + ' kg élelmiszer vált hulladékká, ennek több mint fele a háztartásokban. Forrás: '));
+      var l = el('a', null, PAZARLAS.forras); l.href = PAZARLAS.url; l.target = '_blank'; l.rel = 'noopener'; f.appendChild(l); p.appendChild(f);
+    }
+    var kov = el('div', 'panel'); kov.style.marginTop = '1rem'; c.appendChild(kov);
+    kov.appendChild(el('h3', null, 'Következik: rajzoljátok meg a láncot (40 perc)'));
+    var ul = el('ol');
+    ['Telefonon: alakítsatok csoportot, válasszatok terméket (tej, zöldség-gyümölcs vagy laptop-összeállító webshop).',
+     'A) Szereplők és sorrend. B) Áramlások és számok. C) Szűk keresztmetszet, veszteséghely és egy fejlesztési javaslat.',
+     'A végén a láncokat összevetjük, és szavaztok a legjobb javaslatra.'].forEach(function (x) { ul.appendChild(el('li', null, x)); });
+    kov.appendChild(ul);
+  }
+
+  return { rajz: rajz, lep: lep, lepes: function () { return S.lepes; } };
+}
+
+/* ================= 3. FÁZIS: TELEFONOS TÉRKÉPEZŐ ================= */
+function Terkepezo(cont, o) {
+  var T = o.terkep, lepes = o.lepes || 'A', mentesT = null, utolsoMentes = null;
+  var termek = TERMEKEK[T.termek];
+  var keveres = (o.mag || 'x').split('').reduce(function (a, ch) { return (a * 31 + ch.charCodeAt(0)) % 9973; }, 7);
+  var paletta = termek.szereplok.slice().sort(function (a, b) { return ((a.id.length * 37 + a.id.charCodeAt(0) * keveres) % 101) - ((b.id.length * 37 + b.id.charCodeAt(0) * keveres) % 101); });
+  var tippLatszik = {};
+
+  function valtozott() {
+    igazitKapcsolatok(T);
+    if (!o.onMent) return;
+    jelez('Mentés…');
+    clearTimeout(mentesT);
+    mentesT = setTimeout(ment, 1200);
+  }
+  function ment() {
+    if (!o.onMent) return Promise.resolve();
+    clearTimeout(mentesT);
+    return o.onMent(T, lepes).then(function () { utolsoMentes = new Date(); jelez('Mentve ' + utolsoMentes.toLocaleTimeString('hu-HU')); },
+      function (e) { jelez('Nem sikerült menteni, újrapróbálom… (' + e.message + ')', true); mentesT = setTimeout(ment, 4000); });
+  }
+  var jelzo = null;
+  function jelez(s, hiba) { if (jelzo) { jelzo.textContent = s; jelzo.style.color = hiba ? 'var(--danger)' : ''; } }
+
+  function rajz() {
+    cont.innerHTML = '';
+    var lj = el('div', 'lepjel');
+    [['A', 'A) Szereplők'], ['B', 'B) Számok'], ['C', 'C) Diagnózis']].forEach(function (x) {
+      var cls = lepes === x[0] ? 'akt' : ('ABC'.indexOf(lepes) > 'ABC'.indexOf(x[0]) || lepes === 'kesz' ? 'kesz' : '');
+      lj.appendChild(el('span', cls, x[1]));
+    });
+    cont.appendChild(lj);
+    var lap = el('div', 'hcard'); cont.appendChild(lap);
+    lap.appendChild(el('div', 'hint', (o.csoportNev ? o.csoportNev + ' · ' : '') + termek.nev));
+    if (lepes === 'A') lepesA(lap); else if (lepes === 'B') lepesB(lap); else if (lepes === 'C') lepesC(lap); else kesz(lap);
+    jelzo = el('div', 'mentesjel'); cont.appendChild(jelzo);
+    if (utolsoMentes) jelez('Mentve ' + utolsoMentes.toLocaleTimeString('hu-HU'));
+  }
+  function tippGomb(lap, l) {
+    if (tippLatszik[l]) { lap.appendChild(el('div', 'tippdoboz', termek.tippek[l])); return; }
+    var b = gomb('Segítség kérése', null, function () { tippLatszik[l] = true; if (o.onTipp) o.onTipp(l); rajz(); });
+    b.style.marginTop = '8px'; lap.appendChild(b);
+  }
+  function lepesValt(uj) { lepes = uj; rajz(); window.scrollTo(0, 0); if (o.onMent) ment(); }
+
+  /* A) szereplők és sorrend */
+  function lepesA(lap) {
+    lap.appendChild(el('h1', null, 'Szereplők és sorrend'));
+    lap.appendChild(el('p', 'hint', 'Koppints a szereplőkre, hogy bekerüljenek a láncba, majd a nyilakkal rendezd őket sorba, az elejétől a vevőig. Nem minden szereplő illik ebbe a láncba.'));
+    var pal = el('div', 'paletta');
+    paletta.forEach(function (sz) {
+      var bent = T.lanc.indexOf(sz.id) >= 0;
+      var b = gomb((bent ? '✓ ' : '+ ') + sz.nev, bent ? 'bent' : null, function () {
+        var regi = T.lanc.slice(); if (bent) T.lanc.splice(T.lanc.indexOf(sz.id), 1); else T.lanc.push(sz.id);
+        atrendez(regi); valtozott(); rajz();
+      });
+      pal.appendChild(b);
+    });
+    lap.appendChild(pal);
+    var sajat = el('div', 'hbtn2'); var inp = el('input'); inp.placeholder = 'Saját szereplő neve'; inp.maxLength = 40; inp.style.flex = '2';
+    var bs = gomb('Hozzáad', null, function () {
+      var v = inp.value.replace(/\s+/g, ' ').trim(); if (v.length < 2) return;
+      var id = 'sajat_' + (Object.keys(T.sajatNevek || {}).length + 1) + '_' + Date.now().toString(36).slice(-3);
+      T.sajatNevek = T.sajatNevek || {}; T.sajatNevek[id] = v; var regi = T.lanc.slice(); T.lanc.push(id); atrendez(regi); valtozott(); rajz();
+    });
+    sajat.appendChild(inp); sajat.appendChild(bs); lap.appendChild(sajat);
+    lap.appendChild(el('h2', null, 'A ti láncotok (' + T.lanc.length + ' szereplő)'));
+    var ls = el('div', 'lancsor');
+    if (!T.lanc.length) ls.appendChild(el('div', 'hint', 'Még üres. Koppints fent a szereplőkre.'));
+    T.lanc.forEach(function (id, i) {
+      var sz = szereplo(T.termek, id, T.sajatNevek), sor = el('div', 'lancelem');
+      sor.appendChild(el('div', 'sz', String(i + 1)));
+      sor.appendChild(el('div', 'nv', sz ? sz.nev : id));
+      var gk = el('div', 'gk');
+      var fel = gomb('↑', null, function () { if (i > 0) { var regi = T.lanc.slice(); var t = T.lanc[i - 1]; T.lanc[i - 1] = id; T.lanc[i] = t; atrendez(regi); valtozott(); rajz(); } }); fel.disabled = i === 0; fel.setAttribute('aria-label', 'Feljebb');
+      var le = gomb('↓', null, function () { if (i < T.lanc.length - 1) { var regi = T.lanc.slice(); var t = T.lanc[i + 1]; T.lanc[i + 1] = id; T.lanc[i] = t; atrendez(regi); valtozott(); rajz(); } }); le.disabled = i === T.lanc.length - 1; le.setAttribute('aria-label', 'Lejjebb');
+      var x = gomb('✕', null, function () { var regi = T.lanc.slice(); T.lanc.splice(i, 1); atrendez(regi); valtozott(); rajz(); }); x.setAttribute('aria-label', 'Törlés');
+      gk.appendChild(fel); gk.appendChild(le); gk.appendChild(x); sor.appendChild(gk); ls.appendChild(sor);
+    });
+    lap.appendChild(ls);
+    tippGomb(lap, 'A');
+    var err = el('div', 'ferr'); lap.appendChild(err);
+    lap.appendChild(gomb('Tovább: számok', 'hbtn main', function () { if (T.lanc.length < 3) { err.textContent = 'Legalább 3 szereplő kell a láncba.'; return; } lepesValt('B'); }));
+  }
+  function atrendez(regi) {
+    /* a kapcsolatok szereplőpárokhoz tartoznak: sorrendváltozáskor a megmaradó párok adatai megmaradnak */
+    var m = {};
+    for (var i = 0; i < regi.length - 1; i++) if (T.kapcsolatok[i]) m[regi[i] + '>' + regi[i + 1]] = T.kapcsolatok[i];
+    var uj = [];
+    for (var j = 0; j < T.lanc.length - 1; j++) uj.push(m[T.lanc[j] + '>' + T.lanc[j + 1]] || { szallito: '', atfutas: '', inditas: '', fizetes: '' });
+    T.kapcsolatok = uj;
+  }
+
+  /* B) áramlások és számok */
+  function lepesB(lap) {
+    igazitKapcsolatok(T);
+    lap.appendChild(el('h1', null, 'Áramlások és számok'));
+    lap.appendChild(el('p', 'hint', 'Becsüljetek bátran, a nagyságrend számít. Napokban gondolkodjatok (fél nap is írható: 0,5).'));
+    lap.appendChild(el('h2', null, 'Kapcsolatok'));
+    T.kapcsolatok.forEach(function (k, i) {
+      var a = szereplo(T.termek, T.lanc[i], T.sajatNevek), b = szereplo(T.termek, T.lanc[i + 1], T.sajatNevek);
+      var blk = el('div', 'kapcsblokk');
+      var c = el('div', 'cim'); c.textContent = a.rov + ' → ' + b.rov; blk.appendChild(c);
+      var m1 = el('div', 'mezok2 egy'), m = el('div', 'mezok2');
+      m1.appendChild(valaszto('Ki szállít?', SZALLITOK, k.szallito, function (v) { k.szallito = v; valtozott(); }));
+      m1.appendChild(valaszto('Mi indítja a rendelést?', INDITASOK, k.inditas, function (v) { k.inditas = v; valtozott(); }));
+      m.appendChild(szamMezo('Átfutás (nap)', k.atfutas, function (v) { k.atfutas = v; valtozott(); frissMini(); }));
+      m.appendChild(szamMezo('Fizetési határidő (nap)', k.fizetes, function (v) { k.fizetes = v; valtozott(); frissMini(); }));
+      blk.appendChild(m1); blk.appendChild(m); lap.appendChild(blk);
+    });
+    lap.appendChild(el('h2', null, 'Szereplők'));
+    var fej = el('div', 'szamfej'); fej.appendChild(el('span', null, '')); fej.appendChild(el('span', null, 'Készlet (nap)')); fej.appendChild(el('span', null, 'Veszteség (%)')); lap.appendChild(fej);
+    T.lanc.forEach(function (id) {
+      var sz = szereplo(T.termek, id, T.sajatNevek), sor = el('div', 'szamsor');
+      sor.appendChild(el('span', null, sz.rov));
+      var i1 = el('input'); i1.inputMode = 'decimal'; i1.value = T.keszlet[id] === undefined ? '' : T.keszlet[id]; i1.setAttribute('aria-label', sz.rov + ' készlet napban');
+      i1.oninput = function () { T.keszlet[id] = i1.value; valtozott(); frissMini(); };
+      var i2 = el('input'); i2.inputMode = 'decimal'; i2.value = T.veszteseg[id] === undefined ? '' : T.veszteseg[id]; i2.setAttribute('aria-label', sz.rov + ' veszteség százalékban');
+      i2.oninput = function () { T.veszteseg[id] = i2.value; valtozott(); frissMini(); };
+      sor.appendChild(i1); sor.appendChild(i2); lap.appendChild(sor);
+    });
+    lap.appendChild(el('h2', null, 'Van visszaút is?'));
+    termek.visszautak.forEach(function (v) {
+      var l = el('label', 'chk'); var cb = el('input'); cb.type = 'checkbox'; cb.checked = T.visszautak.indexOf(v) >= 0;
+      cb.onchange = function () { var i = T.visszautak.indexOf(v); if (cb.checked && i < 0) T.visszautak.push(v); if (!cb.checked && i >= 0) T.visszautak.splice(i, 1); valtozott(); };
+      l.appendChild(cb); l.appendChild(el('span', null, v)); lap.appendChild(l);
+    });
+    var sv2 = el('input', 'hin'); sv2.placeholder = 'Más visszaút (nem kötelező)'; sv2.value = T.sajatVisszaut || ''; sv2.maxLength = 80;
+    sv2.oninput = function () { T.sajatVisszaut = sv2.value; valtozott(); }; lap.appendChild(sv2);
+    var mini = el('div', 'minimutat'); lap.appendChild(mini);
+    function frissMini() { miniMutatok(mini, T); }
+    frissMini();
+    tippGomb(lap, 'B');
+    var g = el('div', 'hbtn2');
+    g.appendChild(gomb('Vissza', null, function () { lepesValt('A'); }));
+    g.appendChild(gomb('Tovább: diagnózis', 'main', function () { lepesValt('C'); }));
+    lap.appendChild(g);
+  }
+  function valaszto(cim, lista, ertek, fn) {
+    var l = el('label'); l.appendChild(document.createTextNode(cim));
+    var s = el('select'); s.appendChild(new Option('Válassz…', ''));
+    lista.forEach(function (x) { s.appendChild(new Option(x.nev, x.id)); });
+    s.value = ertek || ''; s.onchange = function () { fn(s.value); };
+    l.appendChild(s); return l;
+  }
+  function szamMezo(cim, ertek, fn) {
+    var l = el('label'); l.appendChild(document.createTextNode(cim));
+    var i = el('input'); i.inputMode = 'decimal'; i.value = ertek === undefined ? '' : ertek;
+    i.oninput = function () { fn(i.value); };
+    l.appendChild(i); return l;
+  }
+  function miniMutatok(c, t) {
+    var m = mutatok(t); c.innerHTML = '';
+    [['Átadások', m.atadasok], ['Teljes átfutás', kerek(m.atfutas, 1) + ' nap'], ['Készlet a láncban', kerek(m.keszlet, 1) + ' nap'], ['100 egységből a vevőig ér', kerek(m.megmarad, 1)]].forEach(function (x) {
+      var d = el('div'); d.appendChild(el('b', null, String(x[1]))); d.appendChild(document.createTextNode(x[0])); c.appendChild(d);
+    });
+  }
+
+  /* C) diagnózis és javaslat */
+  function lepesC(lap) {
+    lap.appendChild(el('h1', null, 'Diagnózis és javaslat'));
+    var lista = T.lanc.map(function (id) { var s = szereplo(T.termek, id, T.sajatNevek); return { id: id, nev: s.nev }; });
+    var m = el('div'); m.style.display = 'grid'; m.style.gap = '10px';
+    m.appendChild(valaszto('Hol a szűk keresztmetszet?', lista, T.szuk, function (v) { T.szuk = v; valtozott(); }));
+    m.appendChild(valaszto('Hol a legnagyobb a veszteség?', lista, T.vesztHely, function (v) { T.vesztHely = v; valtozott(); }));
+    var esz = valaszto('Melyik eszközzel javítanátok?', ESZKOZOK, T.eszkoz, function (v) { T.eszkoz = v; valtozott(); rajz(); });
+    m.appendChild(esz);
+    m.querySelectorAll('select').forEach(function (s) { s.style.width = '100%'; s.style.padding = '10px'; s.style.fontSize = '16px'; });
+    m.querySelectorAll('label').forEach(function (l) { l.style.display = 'flex'; l.style.flexDirection = 'column'; l.style.gap = '4px'; l.style.fontSize = '13px'; l.style.color = 'var(--muted)'; });
+    lap.appendChild(m);
+    if (T.eszkoz === 'sajat') { var se = el('input', 'hin'); se.placeholder = 'A saját ötletetek röviden'; se.maxLength = 80; se.value = T.sajatEszkoz || ''; se.style.marginTop = '8px'; se.oninput = function () { T.sajatEszkoz = se.value; valtozott(); }; lap.appendChild(se); }
+    lap.appendChild(el('h2', null, 'Mit javít?'));
+    HATASOK.forEach(function (h) {
+      var l = el('label', 'chk'); var cb = el('input'); cb.type = 'checkbox'; cb.checked = T.hatas.indexOf(h) >= 0;
+      cb.onchange = function () { var i = T.hatas.indexOf(h); if (cb.checked && i < 0) T.hatas.push(h); if (!cb.checked && i >= 0) T.hatas.splice(i, 1); valtozott(); };
+      l.appendChild(cb); l.appendChild(el('span', null, h)); lap.appendChild(l);
+    });
+    lap.appendChild(el('h2', null, 'Indoklás (1–2 mondat)'));
+    var ta = el('textarea', 'hin'); ta.rows = 4; ta.maxLength = 400; ta.value = T.indok || ''; ta.placeholder = 'Miért itt a szűk keresztmetszet, és mit várunk a javaslattól?';
+    var cnt = el('div', 'hint'); function sz() { cnt.textContent = ta.value.length + ' / 400'; } sz();
+    ta.oninput = function () { T.indok = ta.value; sz(); valtozott(); };
+    lap.appendChild(ta); lap.appendChild(cnt);
+    var mini = el('div', 'minimutat'); lap.appendChild(mini); miniMutatok(mini, T);
+    tippGomb(lap, 'C');
+    var err = el('div', 'ferr'); lap.appendChild(err);
+    var g = el('div', 'hbtn2');
+    g.appendChild(gomb('Vissza', null, function () { lepesValt('B'); }));
+    var bk = gomb(o.onBekuld ? 'Beküldés' : 'Kész, összevetem a mintával', 'main', function () {
+      var hiany = [];
+      if (!T.szuk) hiany.push('szűk keresztmetszet'); if (!T.vesztHely) hiany.push('veszteséghely'); if (!T.eszkoz) hiany.push('eszköz');
+      if ((T.indok || '').trim().length < 20) hiany.push('indoklás (legalább 20 karakter)');
+      if (hiany.length) { err.textContent = 'Még hiányzik: ' + hiany.join(', ') + '.'; return; }
+      if (!o.onBekuld) { lepesValt('kesz'); return; }
+      if (!confirm('Biztosan beküldöd? Utána már nem módosítható.')) return;
+      bk.disabled = true; bk.textContent = 'Küldés…';
+      clearTimeout(mentesT);
+      o.onBekuld(T).then(function () { lepes = 'kesz'; rajz(); }, function (e) { bk.disabled = false; bk.textContent = 'Beküldés'; err.textContent = 'Nem sikerült beküldeni: ' + e.message; });
+    });
+    g.appendChild(bk); lap.appendChild(g);
+  }
+
+  function kesz(lap) {
+    lap.appendChild(el('div', 'okmsg', o.onBekuld ? 'Beküldve!' : 'Kész a láncotok'));
+    var lm = el('div', 'lancmini'); lm.appendChild(lancSvg(T, { fuggoleges: true })); lap.appendChild(lm);
+    var mini = el('div', 'minimutat'); lap.appendChild(mini); miniMutatok(mini, T);
+    if (o.mintaMutat) {
+      var p = pontszam(T);
+      lap.appendChild(el('h2', null, 'Összevetés a mintával: ' + kerek(p.osszes, 1) + ' / 10 pont'));
+      var ul = el('ul');
+      [['Fontos szereplők', p.reszek.szereplok, 4], ['Sorrend', p.reszek.sorrend, 2], ['Oda nem illő szereplők kerülése', p.reszek.hamis, 1], ['Kitöltött számok', p.reszek.szamok, 1.5], ['Visszaút', p.reszek.visszaut, 0.5], ['Diagnózis', p.reszek.diagnozis, 1]].forEach(function (x) { ul.appendChild(el('li', null, x[0] + ': ' + kerek(x[1], 1) + ' / ' + x[2])); });
+      lap.appendChild(ul);
+      var minta = JSON.parse(JSON.stringify(termek.minta));
+      var mt = { termek: T.termek, lanc: minta.lanc, kapcsolatok: minta.kapcsolatok, keszlet: minta.keszlet, veszteseg: minta.veszteseg, szuk: minta.szuk, vesztHely: minta.vesztHely };
+      lap.appendChild(el('h2', null, 'A mintamegoldás'));
+      var mm = el('div', 'lancmini'); mm.appendChild(lancSvg(mt, { fuggoleges: true })); lap.appendChild(mm);
+      var e = ESZKOZOK.filter(function (x) { return x.id === minta.eszkoz; })[0];
+      lap.appendChild(el('p', null, 'Javaslat: ' + (e ? e.nev : '') + '. ' + minta.indok));
+      lap.appendChild(el('p', 'hint', 'A minta számai szemléltető becslések, nem mérési adatok.'));
+      lap.appendChild(gomb('Újrakezdem', 'hbtn', function () { if (o.onUj) o.onUj(); }));
+    } else {
+      lap.appendChild(el('p', 'center hint', 'Készüljetek egy 2 perces bemutatóra: mi a szűk keresztmetszet, és mit javasoltok?'));
+    }
+  }
+
+  rajz();
+  return { rajz: rajz, ment: ment, terkep: function () { return T; }, lepes: function () { return lepes; } };
+}
+
+/* ================= KIVETÍTŐS (TANÁRI) NÉZET ================= */
+var IKON = {
+  gear: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>',
+  tema: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>',
+  qr: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h3v-3"/></svg>'
+};
+var FAZISOK = [{ n: 1, cim: 'Felmérés', perc: 10 }, { n: 2, cim: 'Elmélet', perc: 25 }, { n: 3, cim: 'Térképező', perc: 40 }, { n: 4, cim: 'Összevetés', perc: 15 }];
+
+function tanar() {
+  document.title = 'ELM alapjai, 1. blokk';
+  var gyoker = $('T'); gyoker.hidden = false;
+  var B = tarOlvas('elm-b1v3-beall', null) || { url: '', kod: 'ELM-' + ma(), kulcs: '', auto: 5, hurl: '' };
+  var helyi = tarOlvas('elm-b1v3-helyi-' + B.kod, null) || ujHelyi();
+  function ujHelyi() { return { felfedve: {}, rejtNev: {}, szoRejt: {}, szoOssze: {} }; }
+  function helyiMent() { tarIr('elm-b1v3-helyi-' + B.kod, helyi); }
+  var adat = null, allapot = { fazis: 1 }, aktFazis = tarOlvas('elm-b1v3-fazis', 1), tanulasMod = false;
+
+  /* ---------- fejléc ---------- */
+  var nav = $('fazisok');
+  function fazisRajz() {
+    nav.innerHTML = '';
+    FAZISOK.forEach(function (f) {
+      var b = gomb(f.n + ' ' + f.cim); b.appendChild(el('span', 'p', f.perc + ' p'));
+      b.setAttribute('aria-current', f.n === aktFazis ? 'true' : 'false');
+      b.onclick = function () { fazisValt(f.n); };
+      nav.appendChild(b);
+    });
+    document.querySelectorAll('[data-fazis]').forEach(function (s) { s.hidden = Number(s.dataset.fazis) !== aktFazis; });
+    rajz();
+  }
+  function fazisValt(n) {
+    aktFazis = n; tarIr('elm-b1v3-fazis', n); fazisRajz();
+    if (B.kulcs && deployId(B.url)) {
+      allit({ fazis: n }).then(function () { frissit(); }, function (e) { hiba('A telefonok nem kapták meg a fázisváltást: ' + e.message); });
+    } else hiba('A tanári kulcs nincs megadva, ezért a telefonok nem követik a fázisváltást (Beállítások).');
+  }
+  var modSeg = $('modSeg');
+  modSeg.querySelectorAll('button').forEach(function (b) {
+    b.onclick = function () { tanulasMod = b.dataset.mod === 'tanulas'; modSeg.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-selected', x === b ? 'true' : 'false'); }); rajz(); };
+  });
+  var tema = tarOlvas('elm-b1-tema', '');
+  function temaAlk() { if (tema) document.documentElement.setAttribute('data-theme', tema); else document.documentElement.removeAttribute('data-theme'); }
+  temaAlk();
+  $('temaGomb').innerHTML = IKON.tema;
+  $('temaGomb').onclick = function () { var s = tema ? tema === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; tema = s ? 'light' : 'dark'; tarIr('elm-b1-tema', tema); temaAlk(); rajz(); };
+  if (tarOlvas('elm-b1-nagy', false)) document.documentElement.classList.add('nagy');
+  $('nagyGomb').onclick = function () { var on = document.documentElement.classList.toggle('nagy'); tarIr('elm-b1-nagy', on); rajz(); };
+  $('qrGomb').innerHTML = IKON.qr;
+  $('qrGomb').onclick = qrModal;
+
+  /* ---------- beállítások ---------- */
+  $('beallGomb').innerHTML = IKON.gear;
+  function beallNyit(ny) {
+    $('beall').hidden = !ny; $('beallGomb').setAttribute('aria-expanded', ny ? 'true' : 'false');
+    if (ny) { $('sUrl').value = B.url; $('sKod').value = B.kod; $('sKulcs').value = B.kulcs || ''; $('sAuto').value = String(B.auto); $('sHUrl').value = B.hurl || ''; $('sHiba').textContent = ''; $('sInfo').textContent = ''; }
+  }
+  $('beallGomb').onclick = function () { beallNyit($('beall').hidden); };
+  $('sMegse').onclick = function () { beallNyit(false); };
+  ['sUrl', 'sKod', 'sKulcs', 'sHUrl'].forEach(function (id) { $(id).oninput = function () { $('sHiba').textContent = ''; }; });
+  $('sMent').onclick = function () {
+    var u = $('sUrl').value.trim(), k = $('sKod').value.trim(), h = $('sHUrl').value.trim(), kulcs = $('sKulcs').value.trim();
+    if (!deployId(u)) { $('sHiba').textContent = 'A webalkalmazás címe így néz ki: https://script.google.com/macros/s/…/exec'; return; }
+    if (!/^[A-Za-z0-9_-]{1,40}$/.test(k)) { $('sHiba').textContent = 'Az alkalomkód csak betűt, számot, kötőjelet és aláhúzást tartalmazhat.'; return; }
+    if (h && !/^https?:\/\//.test(h)) { $('sHiba').textContent = 'A hallgatói oldal címe http:// vagy https:// kezdetű legyen.'; return; }
+    var kodValt = k !== B.kod;
+    B = { url: u, kod: k, kulcs: kulcs, auto: Number($('sAuto').value), hurl: h }; tarIr('elm-b1v3-beall', B);
+    if (kodValt) { adat = null; helyi = tarOlvas('elm-b1v3-helyi-' + B.kod, null) || ujHelyi(); }
+    beallNyit(false); autoIndit(); frissit(); rajz();
+  };
+  $('sTeszt').onclick = function () {
+    var id = deployId($('sUrl').value.trim());
+    if (!id) { $('sHiba').textContent = 'Előbb adj meg egy érvényes …/exec címet.'; return; }
+    $('sInfo').textContent = 'Tesztelés…';
+    apiGet(execUrl(id), { api: 'kulcsTeszt', k: $('sKulcs').value.trim() }).then(function (j) {
+      if (!j.ok) throw new Error(j.hiba || 'hiba');
+      $('sInfo').textContent = 'A kapcsolat működik, ' + j.kerdesek + ' kvízkérdés érhető el. Tanári kulcs: ' + (j.kulcsJo ? 'helyes.' : 'HIBÁS vagy hiányzik.');
+    }).catch(function (e) { $('sInfo').textContent = ''; $('sHiba').textContent = 'Nem érhető el: ' + e.message; });
+  };
+
+  /* ---------- kapcsolat ---------- */
+  function base() { return execUrl(deployId(B.url)); }
+  function hiba(s) { $('hibaSor').textContent = s || ''; }
+  function allit(p) {
+    p.api = 'allit'; p.a = B.kod; p.k = B.kulcs;
+    return apiGet(base(), p, 2).then(function (j) { if (!j.ok) throw new Error(j.hiba || 'hiba'); allapot = j.allapot; return j; });
+  }
+  var folyamatban = false, autoT = null;
+  function frissit(kezi) {
+    if (folyamatban) return;
+    if (!deployId(B.url)) { kapcsJel('ki', 'Nincs beállítva'); hiba('Add meg a webalkalmazás címét, az alkalomkódot és a tanári kulcsot a Beállításokban (fogaskerék).'); rajz(); return; }
+    folyamatban = true; $('frissGomb').disabled = true;
+    apiGet(base(), { api: 'eredmeny', a: B.kod, friss: kezi === true ? 1 : undefined })
+      .then(function (j) {
+        if (!j.ok) throw new Error(j.hiba || 'hibás válasz');
+        adat = j; allapot = j.allapot || allapot; kapcsJel('ok', 'Élő kapcsolat'); hiba('');
+        $('frissIdo').textContent = 'Frissítve: ' + new Date().toLocaleTimeString('hu-HU') + (B.auto ? ' · auto ' + B.auto + ' mp' : ' · kézi');
+        $('telFazis').textContent = 'Telefonokon: ' + allapot.fazis + '. fázis · ' + (j.regisztraltak || 0) + ' regisztrált';
+        rajz();
+      })
+      .catch(function (e) { kapcsJel('hiba', 'Nincs kapcsolat'); hiba('Nem sikerült frissíteni (' + e.message + '). Az utolsó ismert állapot látszik.'); })
+      .then(function () { folyamatban = false; $('frissGomb').disabled = false; });
+  }
+  function kapcsJel(t, s) { var b = $('kapcs'); b.className = 'badge ' + t; b.textContent = s; }
+  function autoIndit() { if (autoT) clearInterval(autoT); autoT = null; if (B.auto > 0) autoT = setInterval(function () { if (!document.hidden && !$('modal')) frissit(); }, B.auto * 1000); }
+  $('frissGomb').onclick = function () { frissit(true); };
+
+  /* ---------- hallgatói link, QR ---------- */
+  function hallgatoAlap() { if (B.hurl) return B.hurl.split('?')[0]; if (/^https?:$/.test(location.protocol)) return location.origin + location.pathname; return ''; }
+  function hallgatoUrl() { var id = deployId(B.url), a = hallgatoAlap(); return id && a ? a + '?' + qs({ mod: 'hallgato', a: B.kod, s: id }) : ''; }
+  function qrKartya(c) {
+    var u = hallgatoUrl(), box = el('div', 'qrbox'); c.appendChild(box);
+    if (!deployId(B.url)) box.appendChild(el('div', 'qrmsg', 'Add meg a webalkalmazás címét a Beállításokban.'));
+    else if (!hallgatoAlap()) box.appendChild(el('div', 'qrmsg', 'A fájl helyben van megnyitva, így a telefonok nem érik el. Tedd fel GitHub Pages-re, vagy add meg a hallgatói oldal címét a Beállításokban.'));
+    else qrRajzol(box, u, 240);
+    c.appendChild(el('div', 'qrurl', u));
+  }
+  function qrModal() {
+    var m = modal('Csatlakozás a blokkhoz');
+    var w = el('div', 'qrnagy'); m.appendChild(w);
+    var u = hallgatoUrl();
+    if (u) { var box = el('div', 'qrbox'); w.appendChild(box); qrRajzol(box, u, Math.min(520, window.innerHeight - 220)); w.appendChild(el('div', 'qrurl', u)); }
+    else w.appendChild(el('div', 'qrmsg', 'Nincs beállítva a hallgatói oldal (Beállítások).'));
+    w.appendChild(el('p', 'hint', 'Egy kód az egész blokkhoz: a telefonok mindig azt mutatják, ahol az óra tart.'));
+  }
+  function modal(cim) {
+    var r = $('modal'); if (r) r.remove();
+    var m = el('div', 'modal'); m.id = 'modal';
+    var a = el('div', 'ablak'); m.appendChild(a);
+    var f = el('div', 'fej'); f.appendChild(el('h3', null, cim)); f.appendChild(gomb('Bezárás', null, function () { m.remove(); })); a.appendChild(f);
+    m.addEventListener('click', function (e) { if (e.target === m) m.remove(); });
+    document.body.appendChild(m);
+    var b = el('div'); a.appendChild(b); return b;
+  }
+
+  /* ---------- rajzolás fázisonként ---------- */
+  function rajz() {
+    if (aktFazis === 1) f1();
+    else if (aktFazis === 2) f2();
+    else if (aktFazis === 3) f3();
+    else f4();
+  }
+
+  /* ===== 1. fázis ===== */
+  var nezet1 = 'kviz', kIdx = 0, takart = {}, mind = false, kijelolt = null;
+  function f1() {
+    var c = $('f1'); c.innerHTML = '';
+    var g = el('div', 'f1'); c.appendChild(g);
+    var q = el('aside', 'panel qrcard'); q.appendChild(el('h3', null, 'Szavazz telefonról')); qrKartya(q);
+    var nums = el('div', 'qrnums');
+    [['regisztrált', adat ? adat.regisztraltak : 0], ['kvízező', adat ? adat.kviz.resztvevok : 0]].forEach(function (x) { var d = el('div'); d.appendChild(el('b', null, String(x[1]))); d.appendChild(el('span', null, x[0])); nums.appendChild(d); });
+    q.appendChild(nums); g.appendChild(q);
+    var jobb = el('section'); g.appendChild(jobb);
+    var vb = el('div', 'vbar'); var seg = el('div', 'seg');
+    [['kviz', 'Kvíz'], ['top', 'Toplista'], ['szo', 'Szófelhő']].forEach(function (x) {
+      var b = gomb(x[1], null, function () { nezet1 = x[0]; f1(); }); b.setAttribute('aria-selected', nezet1 === x[0] ? 'true' : 'false'); seg.appendChild(b);
+    });
+    vb.appendChild(seg); vb.appendChild(el('span', 'sp'));
+    var tk = gomb(takart[nezet1] ? 'Mutasd' : 'Takarás', null, function () { takart[nezet1] = !takart[nezet1]; f1(); });
+    tk.title = 'Eredmény takarása, amíg válaszolnak'; vb.appendChild(tk);
+    jobb.appendChild(vb);
+    var p = el('div', 'panel'); jobb.appendChild(p);
+    var cov = el('div', 'cover' + (takart[nezet1] ? ' on' : '')), inner = el('div', 'covered'); cov.appendChild(inner);
+    cov.appendChild(el('div', 'veil', 'Az eredmény rejtve, amíg válaszoltok.'));
+    if (nezet1 === 'kviz') kvizNezet(p, inner, cov); else if (nezet1 === 'top') { p.appendChild(cov); topNezet(inner, p); } else { p.appendChild(cov); szoNezet(inner, p, 'eleje'); }
+  }
+  function kvizNezet(p, inner, cov) {
+    var K = (adat && adat.kviz && adat.kviz.kerdesek) || [];
+    var t = el('div', 'tiles');
+    [['Kitöltők', adat ? adat.kviz.resztvevok : 0], ['Átlagpont', adat && adat.kviz.atlag !== null ? kerek(adat.kviz.atlag, 1) + ' / ' + adat.kviz.max : '–'], ['Erre a kérdésre válaszolt', K[kIdx] ? K[kIdx].n : 0]].forEach(function (x) { var d = el('div', 'tile'); d.appendChild(el('div', 'l', x[0])); d.appendChild(el('div', 'v', String(x[1]))); t.appendChild(d); });
+    p.appendChild(t);
+    if (kIdx >= K.length) kIdx = Math.max(0, K.length - 1);
+    var ch = el('div', 'qchips');
+    K.forEach(function (k, i) {
+      var b = gomb((i + 1) + '.', null, function () { kIdx = i; f1(); }); b.setAttribute('aria-current', i === kIdx ? 'true' : 'false');
+      if (helyi.felfedve[k.id] && k.n) b.appendChild(el('span', 'pc', Math.round((k.db[k.helyes] || 0) / k.n * 100) + '%'));
+      ch.appendChild(b);
+    });
+    p.appendChild(ch); p.appendChild(cov);
+    var k = K[kIdx];
+    if (!k) { inner.appendChild(el('div', 'empty', 'Még nincsenek kérdések vagy válaszok.')); return; }
+    var fel = !!helyi.felfedve[k.id];
+    var qh = el('div', 'qhead'); qh.appendChild(el('div', 'qtext', k.kerdes));
+    var qn = el('div', 'qnav');
+    var e1 = gomb('‹', 'ico', function () { if (kIdx > 0) { kIdx--; f1(); } }); e1.disabled = kIdx === 0; e1.setAttribute('aria-label', 'Előző kérdés');
+    var e2 = gomb('›', 'ico', function () { if (kIdx < K.length - 1) { kIdx++; f1(); } }); e2.disabled = kIdx >= K.length - 1; e2.setAttribute('aria-label', 'Következő kérdés');
+    qn.appendChild(e1); qn.appendChild(el('span', 'hint', (kIdx + 1) + ' / ' + K.length)); qn.appendChild(e2); qh.appendChild(qn);
+    inner.appendChild(qh);
+    var o = el('div', 'opts'); inner.appendChild(o);
+    savok(o, k.opciok.map(function (x) { return { jel: fel && x.betu === k.helyes ? '✓' : x.betu, cimke: x.szoveg, ertek: k.db[x.betu] || 0, kiemel: fel && x.betu === k.helyes }; }));
+    if (fel && k.magyarazat) { var m = el('div', 'magyar'); m.appendChild(el('b', null, 'Helyes válasz: ' + k.helyes)); m.appendChild(document.createTextNode(k.magyarazat)); inner.appendChild(m); }
+    var fa = el('div', 'formact');
+    fa.appendChild(gomb(fel ? 'Helyes válasz elrejtése' : 'Helyes válasz mutatása', null, function () { helyi.felfedve[k.id] = !fel; helyiMent(); f1(); }));
+    fa.appendChild(el('span', 'hint', 'Billentyűk: ← → kérdés, H felfedés, R frissítés'));
+    p.appendChild(fa);
+  }
+  function topNezet(inner, p) {
+    inner.appendChild(el('h3', null, 'Toplista'));
+    inner.appendChild(el('p', 'hint', 'Holtversenynél az előbb végző áll elöl.'));
+    var L = ((adat && adat.toplista) || []).filter(function (j) { return !helyi.rejtNev[j.becenev]; });
+    var rejt = ((adat && adat.toplista) || []).length - L.length, max = (adat && adat.kviz.max) || 1;
+    var lb = el('div', 'lb'); inner.appendChild(lb);
+    if (!L.length) lb.appendChild(el('div', 'empty', 'Még senki nem töltötte ki a kvízt.'));
+    (mind ? L : L.slice(0, 10)).forEach(function (j, i) {
+      var r = el('div', 'lbrow' + (i < 3 ? ' top' : ''));
+      r.appendChild(el('div', 'rk', (i + 1) + '.')); r.appendChild(el('div', 'nm', j.becenev));
+      var tr = el('div', 'track'), sp = el('span'); sp.style.width = (j.pont / max * 100) + '%'; tr.appendChild(sp); r.appendChild(tr);
+      r.appendChild(el('div', 'pt', j.pont + ' / ' + max));
+      var x = gomb('✕', null, function () { helyi.rejtNev[j.becenev] = 1; helyiMent(); f1(); }); x.setAttribute('aria-label', 'Név elrejtése'); r.appendChild(x);
+      lb.appendChild(r);
+    });
+    var fa = el('div', 'formact');
+    fa.appendChild(gomb(mind ? 'Csak az első 10' : 'Mindenki mutatása', null, function () { mind = !mind; f1(); }));
+    if (rejt) fa.appendChild(gomb('Elrejtett nevek visszaállítása (' + rejt + ')', null, function () { helyi.rejtNev = {}; helyiMent(); f1(); }));
+    p.appendChild(fa);
+  }
+  function szerkesztett(lista) {
+    var m = {};
+    (lista || []).forEach(function (p) { var s = p[0], seen = {}; while (helyi.szoOssze[s] && !seen[s]) { seen[s] = 1; s = helyi.szoOssze[s]; } if (helyi.szoRejt[s]) return; m[s] = (m[s] || 0) + p[1]; });
+    return Object.keys(m).map(function (s) { return [s, m[s]]; }).sort(function (x, y) { return (y[1] - x[1]) || (x[0] < y[0] ? -1 : 1); });
+  }
+  function szoNezet(inner, p, kor) {
+    var F = adat && adat.szofelho, ujra = aktFazis === 1 ? f1 : f4;
+    inner.appendChild(el('h3', null, kor === 'cmp' ? 'Szófelhő: belépő és záró' : kor === 'vege' ? 'Záró szófelhő (' + (F ? F.vege.resztvevok : 0) + ' fő)' : 'Belépő szófelhő (' + (F ? F.eleje.resztvevok : 0) + ' fő)'));
+    inner.appendChild(el('p', 'hint', F ? F.kerdes : ''));
+    var W = Math.max(320, Math.min(1000, (p.clientWidth || 900) - 40));
+    function katt(s) { if (!kijelolt) kijelolt = s; else if (kijelolt === s) kijelolt = null; else { helyi.szoOssze[kijelolt] = s; delete helyi.szoOssze[s]; kijelolt = null; helyiMent(); } ujra(); }
+    if (kor === 'cmp') {
+      var e = szerkesztett(F && F.eleje.szavak), v = szerkesztett(F && F.vege.szavak), eS = {}, vS = {}, ujV = {}, csakE = {};
+      e.forEach(function (x) { eS[x[0]] = 1; }); v.forEach(function (x) { vS[x[0]] = 1; });
+      v.forEach(function (x) { if (!eS[x[0]]) ujV[x[0]] = 1; }); e.forEach(function (x) { if (!vS[x[0]]) csakE[x[0]] = 1; });
+      var g = el('div', 'cmp');
+      [['Belépő (' + (F ? F.eleje.resztvevok : 0) + ' fő)', e, csakE], ['Záró (' + (F ? F.vege.resztvevok : 0) + ' fő)', v, ujV]].forEach(function (x) {
+        var b = el('div'); b.appendChild(el('h4', null, x[0])); var w = el('div', 'cloudwrap'); w.appendChild(szofelho(x[1], Math.round(W / 2), 360, { ujak: x[2], kijelolt: kijelolt, onClick: katt })); b.appendChild(w); g.appendChild(b);
+      });
+      inner.appendChild(g);
+      var lg = el('div', 'legend');
+      [['var(--new)', 'csak az egyik körben szerepel'], ['var(--muted)', 'mindkét körben szerepel']].forEach(function (x) { var s = el('span'); var i = el('i', 'sw'); i.style.background = x[0]; s.appendChild(i); s.appendChild(document.createTextNode(x[1])); lg.appendChild(s); });
+      inner.appendChild(lg);
+    } else {
+      var w = el('div', 'cloudwrap'); w.appendChild(szofelho(szerkesztett(F && F[kor].szavak), W, Math.round(W * 0.48), { kijelolt: kijelolt, onClick: katt })); inner.appendChild(w);
+    }
+    var fa = el('div', 'formact');
+    fa.appendChild(el('span', 'hint', kijelolt ? 'Kijelölve: „' + kijelolt + '”. Kattints egy másik szóra az összevonáshoz, vagy rejtsd el.' : 'Kattints egy szóra a kijelöléshez, utána elrejtheted, vagy egy másik szóra kattintva összevonhatod.'));
+    if (kijelolt) { fa.appendChild(gomb('Elrejtés', null, function () { helyi.szoRejt[kijelolt] = 1; kijelolt = null; helyiMent(); ujra(); })); fa.appendChild(gomb('Mégse', null, function () { kijelolt = null; ujra(); })); }
+    if (Object.keys(helyi.szoRejt).length + Object.keys(helyi.szoOssze).length) fa.appendChild(gomb('Szerkesztések visszavonása', null, function () { helyi.szoRejt = {}; helyi.szoOssze = {}; kijelolt = null; helyiMent(); ujra(); }));
+    p.appendChild(fa);
+  }
+
+  /* ===== 2. fázis ===== */
+  var elm = null;
+  function f2() {
+    var c = $('f2');
+    if (!elm) elm = Elmelet(c, {
+      tanulas: function () { return tanulasMod; }, adat: function () { return adat; }, elo: true,
+      tippNyitva: function () { return !!allapot.tipp; },
+      tippValt: function (ny) { if (!B.kulcs) return Promise.reject(new Error('nincs megadva a tanári kulcs')); return allit({ tipp: ny ? 1 : 0 }).then(frissit); }
+    });
+    elm.rajz();
+  }
+
+  /* ===== 3. fázis ===== */
+  function f3() {
+    var c = $('f3'); c.innerHTML = '';
+    var cs = (adat && adat.csoportok) || [];
+    var fej = el('div', 'vbar');
+    fej.appendChild(el('h2', null, 'Lánctérkép-építés csoportokban'));
+    fej.appendChild(el('span', 'sp'));
+    var zarva = !!allapot.csoportZarva;
+    var autoZar = allapot.f3Kezdet ? new Date(new Date(allapot.f3Kezdet).getTime() + 5 * 60000) : null;
+    var hatarido = allapot.f3Kezdet ? new Date(new Date(allapot.f3Kezdet).getTime() + 40 * 60000) : null;
+    fej.appendChild(el('span', 'badge ' + (zarva ? 'ki' : 'ok'), zarva ? 'Csoportalakítás lezárva' : 'Csoportalakítás nyitva' + (autoZar ? ' (automatikusan zár ' + ora(autoZar) + '-kor)' : '')));
+    fej.appendChild(gomb(zarva ? 'Újranyitás' : 'Csoportalakítás lezárása', null, function () { allit({ csoportZarva: zarva ? 0 : 1 }).then(frissit, function (e) { hiba(e.message); }); }));
+    if (hatarido) fej.appendChild(el('span', 'badge warn', 'Beküldési határidő: ' + ora(hatarido)));
+    fej.appendChild(gomb('QR-kód', null, qrModal));
+    c.appendChild(fej);
+    var regDb = adat ? adat.regisztraltak : 0, bentDb = cs.reduce(function (a, x) { return a + x.tagok; }, 0);
+    c.appendChild(el('p', 'hint', cs.length + ' csoport · ' + bentDb + ' hallgató csoportban · ' + Math.max(0, regDb - bentDb) + ' regisztrált még nincs csoportban · ' + cs.filter(function (x) { return x.bekuldve; }).length + ' beküldve'));
+    var g = el('div', 'csoportok'); c.appendChild(g);
+    if (!cs.length) g.appendChild(el('div', 'empty', 'Még nincs csoport. A telefonokon a 3. fázisban jelenik meg a csoportalakítás.'));
+    cs.forEach(function (x) {
+      var k = el('div', 'cskartya');
+      var f = el('div', 'fej'); f.appendChild(el('span', 'nev', x.nev)); f.appendChild(el('span', 'badge ' + (x.bekuldve ? 'ok' : 'ki'), x.bekuldve ? 'beküldve ' + ora(x.bekuldve) : 'dolgozik')); k.appendChild(f);
+      k.appendChild(el('div', 'hint', TERMEKEK[x.termek].nev + ' · ' + x.tagok + ' fő'));
+      var l = el('div', 'lepesek');
+      ['A', 'B', 'C'].forEach(function (s) { var cls = x.bekuldve || (x.lepesIdok && x.lepesIdok[s]) ? 'kesz' : (x.lepes === s ? 'akt' : ''); l.appendChild(el('span', cls)); });
+      k.appendChild(l);
+      var m = mutatok(x.terkep || ujTerkep(x.termek));
+      var sor = el('div', 'sor'); sor.appendChild(el('span', null, m.szereplok + ' szereplő')); sor.appendChild(el('span', null, kerek(m.atfutas, 1) + ' nap')); sor.appendChild(el('span', null, 'segítség: ' + (x.segitseg || 0))); k.appendChild(sor);
+      k.appendChild(gomb('Megnyitás', null, function () { csoportModal(x); }));
+      g.appendChild(k);
+    });
+  }
+  function csoportModal(x) {
+    var m = modal(x.nev + ' · ' + TERMEKEK[x.termek].nev);
+    var t = x.terkep || ujTerkep(x.termek);
+    var aw = el('div', 'abrawrap'); aw.appendChild(lancSvg(t, { hibak: true })); m.appendChild(aw);
+    m.appendChild(mutatoTabla([x]));
+    var e = ESZKOZOK.filter(function (z) { return z.id === t.eszkoz; })[0];
+    var sz = szereplo(t.termek, t.szuk, t.sajatNevek), vh = szereplo(t.termek, t.vesztHely, t.sajatNevek);
+    var d = el('div', 'szoveg'); d.style.marginTop = '.75rem';
+    d.appendChild(el('p', null, 'Szűk keresztmetszet: ' + (sz ? sz.nev : '–') + ' · Legnagyobb veszteség: ' + (vh ? vh.nev : '–')));
+    d.appendChild(el('p', null, 'Javaslat: ' + (e ? (t.eszkoz === 'sajat' ? t.sajatEszkoz : e.nev) : '–') + (t.hatas && t.hatas.length ? ' (javítja: ' + t.hatas.join(', ') + ')' : '')));
+    if (t.indok) d.appendChild(el('p', null, '„' + t.indok + '”'));
+    if (t.visszautak && t.visszautak.length || t.sajatVisszaut) d.appendChild(el('p', 'hint', 'Visszaút: ' + (t.visszautak || []).concat(t.sajatVisszaut ? [t.sajatVisszaut] : []).join('; ')));
+    m.appendChild(d);
+  }
+  function mutatoTabla(lista) {
+    var w = el('div', 'tabwrap'), tb = el('table', 'mtab'); w.appendChild(tb);
+    var h = el('tr'); ['Csoport', 'Szereplők', 'Teljes átfutás (nap)', 'Készlet (nap)', '100-ból a vevőig', 'Pont (0–10)', 'Szavazat'].forEach(function (x) { h.appendChild(el('th', null, x)); });
+    tb.appendChild(h);
+    lista.forEach(function (x) {
+      var m = mutatok(x.terkep || ujTerkep(x.termek)), r = el('tr');
+      [x.nev, m.szereplok, kerek(m.atfutas, 1), kerek(m.keszlet, 1), kerek(m.megmarad, 1), x.pont === null || x.pont === undefined ? '–' : kerek(x.pont, 1), x.szavazat || 0].forEach(function (v) { r.appendChild(el('td', null, String(v))); });
+      tb.appendChild(r);
+    });
+    return w;
+  }
+
+  /* ===== 4. fázis ===== */
+  var nezet4 = 'gal', mintaLatszik = {};
+  function f4() {
+    var c = $('f4'); c.innerHTML = '';
+    var fej = el('div', 'vbar'); var seg = el('div', 'seg');
+    [['gal', 'Galéria'], ['termek', 'Termékek összevetése'], ['szo', 'Szófelhők']].forEach(function (x) {
+      var b = gomb(x[1], null, function () { nezet4 = x[0]; f4(); }); b.setAttribute('aria-selected', nezet4 === x[0] ? 'true' : 'false'); seg.appendChild(b);
+    });
+    fej.appendChild(seg); fej.appendChild(el('span', 'sp'));
+    var ny = !!allapot.szavazas;
+    fej.appendChild(el('span', 'badge ' + (ny ? 'ok' : 'ki'), ny ? 'Szavazás és záró szófelhő nyitva · ' + ((adat && adat.szavazok) || 0) + ' szavazat' : 'Szavazás zárva'));
+    fej.appendChild(gomb(ny ? 'Lezárás' : 'Szavazás és záró szófelhő indítása', ny ? null : 'main', function () { allit({ szavazas: ny ? 0 : 1 }).then(frissit, function (e) { hiba(e.message); }); }));
+    c.appendChild(fej);
+    if (nezet4 === 'gal') galeria(c); else if (nezet4 === 'termek') termekOssz(c); else { var p = el('div', 'panel'); c.appendChild(p); var inner = el('div'); p.appendChild(inner); szoNezet(inner, p, 'cmp'); }
+  }
+  function galeria(c) {
+    var cs = ((adat && adat.csoportok) || []).filter(function (x) { return x.terkep && x.terkep.lanc && x.terkep.lanc.length; });
+    if (!cs.length) { c.appendChild(el('div', 'empty', 'Még nincs beküldött vagy elkezdett térkép.')); return; }
+    Object.keys(TERMEKEK).forEach(function (tk) {
+      var L = cs.filter(function (x) { return x.termek === tk; }).sort(function (a, b) { return (b.szavazat || 0) - (a.szavazat || 0); });
+      if (!L.length) return;
+      var sec = el('section'); sec.style.marginBottom = '1.25rem';
+      var h = el('div', 'vbar'); h.appendChild(el('h3', null, TERMEKEK[tk].nev + ' (' + L.length + ' csoport)')); h.appendChild(el('span', 'hint', TERMEKEK[tk].alcim)); h.appendChild(el('span', 'sp'));
+      h.appendChild(gomb(mintaLatszik[tk] ? 'Mintamegoldás elrejtése' : 'Mintamegoldás mutatása', null, function () { mintaLatszik[tk] = !mintaLatszik[tk]; f4(); }));
+      sec.appendChild(h);
+      if (mintaLatszik[tk]) {
+        var mn = TERMEKEK[tk].minta, mk = el('div', 'galkartya'); mk.style.borderColor = 'var(--ok)';
+        var mf = el('div', 'fej'); mf.appendChild(el('b', null, 'Mintamegoldás')); mf.appendChild(el('span', 'szemlelt', 'szemléltető számok')); mk.appendChild(mf);
+        mk.appendChild(lancSvg({ termek: tk, lanc: mn.lanc, kapcsolatok: mn.kapcsolatok, keszlet: mn.keszlet, veszteseg: mn.veszteseg, szuk: mn.szuk, vesztHely: mn.vesztHely }));
+        var e = ESZKOZOK.filter(function (z) { return z.id === mn.eszkoz; })[0];
+        mk.appendChild(el('p', null, 'Javaslat: ' + (e ? e.nev : '') + '. ' + mn.indok));
+        sec.appendChild(mk);
+      }
+      var gl = el('div', 'galeria');
+      L.forEach(function (x) {
+        var k = el('div', 'galkartya');
+        var f = el('div', 'fej'); f.appendChild(el('b', null, x.nev)); f.appendChild(el('span', 'badge ok', (x.szavazat || 0) + ' szavazat'));
+        if (!x.bekuldve) f.appendChild(el('span', 'badge warn', 'nincs beküldve'));
+        var mm = mutatok(x.terkep); f.appendChild(el('span', 'hint', mm.szereplok + ' szereplő · ' + kerek(mm.atfutas, 1) + ' nap átfutás · 100-ból ' + kerek(mm.megmarad, 0) + ' ér a vevőig'));
+        k.appendChild(f);
+        k.appendChild(lancSvg(x.terkep, { hibak: true, minta: !!mintaLatszik[tk] }));
+        var e = ESZKOZOK.filter(function (z) { return z.id === x.terkep.eszkoz; })[0];
+        if (e) k.appendChild(el('p', null, 'Javaslat: ' + (x.terkep.eszkoz === 'sajat' ? x.terkep.sajatEszkoz : e.nev) + (x.terkep.indok ? '. „' + x.terkep.indok + '”' : '')));
+        k.style.cursor = 'pointer'; k.onclick = function (ev) { if (ev.target.tagName !== 'BUTTON') csoportModal(x); };
+        gl.appendChild(k);
+      });
+      sec.appendChild(gl); c.appendChild(sec);
+    });
+  }
+  function termekOssz(c) {
+    var cs = ((adat && adat.csoportok) || []).filter(function (x) { return x.terkep && x.terkep.lanc && x.terkep.lanc.length >= 3; });
+    var p = el('div', 'panel'); c.appendChild(p);
+    p.appendChild(el('h3', null, 'Három termék, három lánc'));
+    var w = el('div', 'tabwrap'), tb = el('table', 'mtab'); w.appendChild(tb);
+    var h = el('tr'); ['Termék (csoportok átlaga)', 'Csoportok', 'Szereplők', 'Teljes átfutás (nap)', 'Készlet (nap)', '100-ból a vevőig'].forEach(function (x) { h.appendChild(el('th', null, x)); }); tb.appendChild(h);
+    Object.keys(TERMEKEK).forEach(function (tk) {
+      var L = cs.filter(function (x) { return x.termek === tk; }).map(function (x) { return mutatok(x.terkep); });
+      var atl = function (f) { return L.length ? L.reduce(function (a, m) { return a + m[f]; }, 0) / L.length : null; };
+      var r = el('tr');
+      [TERMEKEK[tk].nev + ' · ' + TERMEKEK[tk].alcim, L.length, kerek(atl('szereplok'), 1), kerek(atl('atfutas'), 1), kerek(atl('keszlet'), 1), kerek(atl('megmarad'), 1)].forEach(function (v) { r.appendChild(el('td', null, String(v))); });
+      tb.appendChild(r);
+    });
+    p.appendChild(w);
+    var tan = el('div', 'tanulsag'); tan.style.marginTop = '1rem';
+    [['Tej: hatékony lánc', 'Kiszámítható kereslet, rövid eltarthatóság. A cél az alacsony költség és a frissesség: kis készlet, gyakori szállítás.'],
+     ['Zöldség-gyümölcs: kínálat hajtja', 'A szezon és az időjárás dönt, nem a rendelés. A nagy veszteség miatt a válogatás, a hűtés és a gyors értékesítés a kulcs.'],
+     ['Laptop: reagáló lánc', 'Gyorsan avuló, sokféle termék. A cél a gyors, rugalmas kiszolgálás: alkatrészkészlet és rendelésre szerelés.']
+    ].forEach(function (x) { var d = el('div'); d.appendChild(el('b', null, x[0])); d.appendChild(document.createTextNode(x[1])); tan.appendChild(d); });
+    p.appendChild(tan);
+    var sz = el('div', 'szoveg'); sz.style.marginTop = '1rem';
+    sz.appendChild(el('p', null, 'Nincs egyetlen jó ellátási lánc. Marshall Fisher (1997) szerint a kiszámítható keresletű, alapvető termékekhez fizikailag hatékony (olcsó) lánc illik, az innovatív, gyorsan avuló termékekhez piacra reagáló (gyors, rugalmas) lánc. A baj ott kezdődik, ahol a termék és a lánc nem illik össze.'));
+    if (tanulasMod) sz.appendChild(el('p', 'forras', 'Fisher, M. L. (1997): What is the right supply chain for your product? Harvard Business Review, 75(2), 105–116.'));
+    p.appendChild(sz);
+  }
+
+  /* ---------- billentyűk ---------- */
+  document.addEventListener('keydown', function (e) {
+    var t = e.target.tagName; if (t === 'INPUT' || t === 'SELECT' || t === 'TEXTAREA') return;
+    if (e.key === 'Escape' && $('modal')) { $('modal').remove(); return; }
+    if (e.key === 'r' || e.key === 'R') { frissit(true); return; }
+    if (aktFazis === 2 && elm && (e.key === 'ArrowRight' || e.key === 'PageDown')) { e.preventDefault(); elm.lep(1); }
+    else if (aktFazis === 2 && elm && (e.key === 'ArrowLeft' || e.key === 'PageUp')) { e.preventDefault(); elm.lep(-1); }
+    else if (aktFazis === 1 && nezet1 === 'kviz' && e.key === 'ArrowRight') { kIdx++; f1(); }
+    else if (aktFazis === 1 && nezet1 === 'kviz' && e.key === 'ArrowLeft') { kIdx = Math.max(0, kIdx - 1); f1(); }
+    else if (aktFazis === 1 && nezet1 === 'kviz' && (e.key === 'h' || e.key === 'H')) { var K = (adat && adat.kviz.kerdesek) || []; if (K[kIdx]) { helyi.felfedve[K[kIdx].id] = !helyi.felfedve[K[kIdx].id]; helyiMent(); f1(); } }
+  });
+  var atmT = null; window.addEventListener('resize', function () { clearTimeout(atmT); atmT = setTimeout(rajz, 250); });
+
+  fazisRajz(); autoIndit(); frissit();
+  if (!deployId(B.url)) beallNyit(true);
+}
+
+/* ================= HALLGATÓI (TELEFONOS) NÉZET ================= */
+function hallgato(P) {
+  $('H').hidden = false; document.title = 'ELM alapjai';
+  var A = P.get('a') || '', S = P.get('s') || '';
+  var lap = $('hLap');
+  function uzenet(cim, szoveg, gombSz, fn) {
+    lap.innerHTML = ''; lap.appendChild(el('h1', null, cim)); if (szoveg) lap.appendChild(el('p', null, szoveg));
+    if (gombSz) lap.appendChild(gomb(gombSz, 'hbtn main', fn));
+  }
+  if (!/^[A-Za-z0-9_-]{1,40}$/.test(A) || !/^[A-Za-z0-9_-]{20,}$/.test(S)) { uzenet('Hiányos hivatkozás', 'Olvasd be újra a QR-kódot a kivetítőről.'); return; }
+  $('hKod').textContent = A;
+  var BASE = execUrl(S);
+  var eszkoz = tarOlvas('elm-h-eszkoz', ''); if (!eszkoz) { eszkoz = ujId(); tarIr('elm-h-eszkoz', eszkoz); }
+  var TK = 'elm-h3-' + A, helyi = tarOlvas(TK, { kvizLatta: false });
+  function helyiMent() { tarIr(TK, helyi); }
+  var all = null, en = null, kerdesek = null, szoKerdes = '', szoMax = 3, pollT = null, aktKepernyo = '', terk = null;
+  function prog(x) { $('hProg').firstElementChild.style.width = Math.round(x * 100) + '%'; }
+  function api(p, n) { p.a = A; p.e = eszkoz; return apiGet(BASE, p, n || 3).then(function (j) { if (!j.ok) { var e = new Error(j.hiba || 'hiba'); e.szerver = true; throw e; } return j; }); }
+
+  function betolt() {
+    return api({ api: 'allapot' }).then(function (j) {
+      all = j.allapot; var uj = j.en || {};
+      if (en) {
+        /* a szerver gyorsítótára néhány másodpercig régebbi lehet: amit itt már elvégeztünk, az kész marad */
+        ['regisztralt', 'szoEleje', 'szoVege', 'tipp', 'szavazott', 'kvizKesz'].forEach(function (f) { if (en[f]) uj[f] = true; });
+        uj.kviz = Object.assign({}, en.kviz || {}, uj.kviz || {});
+        if (!uj.csoport && en.csoport) uj.csoport = en.csoport;
+        if (!uj.becenev && en.becenev) uj.becenev = en.becenev;
+      }
+      en = uj; $('hNev').textContent = en.becenev || '';
+    });
+  }
+  function frissitEsDont() {
+    return betolt().then(dont, function (e) { uzenet('Nincs kapcsolat', 'Ellenőrizd a netkapcsolatot. (' + e.message + ')', 'Újra', frissitEsDont); });
+  }
+  function figyel(ms) {
+    clearTimeout(pollT);
+    pollT = setTimeout(function () {
+      betolt().then(function () { var k = melyik(); if (k !== aktKepernyo) dont(); else figyel(ms); }, function () { figyel(ms * 1.5); });
+    }, ms + Math.random() * 3000);
+  }
+
+  function melyik() {
+    if (!en.regisztralt) return all.regNyitva ? 'reg' : 'regzar';
+    if (all.fazis < 3 && (!en.kvizKesz || !helyi.kvizLatta)) return 'kviz';
+    if (all.fazis < 3 && !en.szoEleje) return 'szoEleje';
+    if (all.fazis === 2 && all.tipp && !en.tipp) return 'tipp';
+    if (all.fazis === 3) return en.csoport ? 'csoport:' + en.csoport : (all.csatlakozasNyitva ? 'csoportValaszt' : 'csoportZar');
+    if (all.fazis === 4 && all.szavazas && !en.szavazott) return 'szavaz';
+    if (all.fazis === 4 && all.szavazas && !en.szoVege) return 'szoVege';
+    return 'var:' + all.fazis;
+  }
+  function dont() {
+    clearTimeout(pollT);
+    var k = melyik(); aktKepernyo = k;
+    if (k !== 'csoport:' + en.csoport) terk = null;
+    if (k === 'reg') regLap();
+    else if (k === 'regzar') uzenet('A regisztráció lezárult', 'A térképező fázis már elindult, új résztvevő nem tud csatlakozni. Ha szerinted ez hiba, szólj az oktatónak.');
+    else if (k === 'kviz') kviz();
+    else if (k === 'szoEleje') szoLap('eleje');
+    else if (k === 'tipp') tippLap();
+    else if (k === 'csoportValaszt') csoportValaszt();
+    else if (k === 'csoportZar') { uzenet('A csoportalakítás lezárult', 'Szólj az oktatónak, hogy csatlakozhass egy csoporthoz.'); figyel(10000); }
+    else if (k.indexOf('csoport:') === 0) csoportLap();
+    else if (k === 'szavaz') szavazLap();
+    else if (k === 'szoVege') szoLap('vege');
+    else varakozas();
+  }
+  function varakozas() {
+    prog(all.fazis / 4); lap.innerHTML = '';
+    var szov = { 1: 'Köszönjük, mindent kitöltöttél. Nézz a kivetítőre.', 2: 'Figyelj a kivetítőre. Ha itt is lesz feladat, magától megjelenik.', 3: 'Nézz a kivetítőre.', 4: 'Köszönjük! Nézz a kivetítőre.' }[all.fazis] || 'Nézz a kivetítőre.';
+    var d = el('div', 'varj'); d.appendChild(el('div', 'okmsg', all.fazis === 4 && en.szoVege ? 'Kész vagy' : 'Minden rendben')); d.appendChild(el('p', null, szov)); d.appendChild(el('div', 'pul'));
+    lap.appendChild(d);
+    lap.appendChild(gomb('Frissítés', 'hbtn', frissitEsDont));
+    figyel(8000);
+  }
+
+  /* --- regisztráció --- */
+  function regLap() {
+    prog(0); lap.innerHTML = '';
+    lap.appendChild(el('h1', null, 'Szia!'));
+    lap.appendChild(el('p', null, 'Add meg az adataidat. A pluszpontokhoz kellenek.'));
+    function mezo(cim, ph, max) { var l = el('label', 'hint', cim); var i = el('input', 'hin'); i.placeholder = ph; i.maxLength = max; i.autocomplete = 'off'; lap.appendChild(l); lap.appendChild(i); return i; }
+    var nev = mezo('Teljes név', 'Kovács Anna', 60), nep = mezo('Neptun-kód', 'ABC123', 6), bec = mezo('Becenév (ez látszik a kivetítőn)', 'Tejfutár', 16);
+    nep.style.textTransform = 'uppercase';
+    var chk = el('label', 'chk'); var cb = el('input'); cb.type = 'checkbox'; chk.appendChild(cb);
+    chk.appendChild(el('span', null, 'Tudomásul veszem, hogy a nevemet és a Neptun-kódomat csak az oktató látja, a pluszpontok kiosztásához használja, és a félév végén törli. A kivetítőn csak a becenevem jelenik meg.'));
+    lap.appendChild(chk);
+    var err = el('div', 'ferr'); lap.appendChild(err);
+    [nev, nep, bec].forEach(function (i) { i.oninput = function () { err.textContent = ''; }; });
+    var b = gomb('Belépés', 'hbtn main', function () {
+      var n = nev.value.replace(/\s+/g, ' ').trim(), k = nep.value.trim().toUpperCase(), be = bec.value.replace(/\s+/g, ' ').trim();
+      if (n.length < 4 || n.indexOf(' ') < 0) { err.textContent = 'Add meg a teljes nevedet (vezeték- és utónév).'; return; }
+      if (!/^[A-Z0-9]{6}$/.test(k)) { err.textContent = 'A Neptun-kód 6 karakter: betűk és számok.'; return; }
+      if (be.length < 2 || /[<>]/.test(be)) { err.textContent = 'A becenév 2–16 karakter legyen (< és > nélkül).'; return; }
+      if (!cb.checked) { err.textContent = 'A belépéshez fogadd el a tájékoztatást.'; return; }
+      b.disabled = true; b.textContent = 'Belépés…';
+      api({ api: 'reg', nev: n, neptun: k, becenev: be }).then(function () { en = en || {}; en.regisztralt = true; en.becenev = be; frissitEsDont(); }, function (e) { b.disabled = false; b.textContent = 'Belépés'; err.textContent = e.szerver ? e.message : 'Nem sikerült, próbáld újra. (' + e.message + ')'; });
+    });
+    lap.appendChild(b);
+  }
+
+  /* --- kvíz --- */
+  function kviz() {
+    if (!kerdesek) {
+      uzenet('Betöltés…', '');
+      api({ api: 'kviz' }, 4).then(function (j) { kerdesek = j.kerdesek || []; szoKerdes = j.szofelhoKerdes || ''; szoMax = j.szoMaxDb || 3; kviz(); },
+        function (e) { uzenet('Nem sikerült betölteni', '(' + e.message + ')', 'Újra', kviz); });
+      return;
+    }
+    var kesz = en.kviz || {};
+    for (var i = 0; i < kerdesek.length; i++) if (kesz[kerdesek[i].id] === undefined) return kerdesLap(i);
+    eredmenyLap();
+  }
+  function kerdesLap(i) {
+    var k = kerdesek[i]; prog(i / (kerdesek.length + 2)); lap.innerHTML = '';
+    lap.appendChild(el('div', 'hint', 'Belépő kvíz · ' + (i + 1) + '. kérdés / ' + kerdesek.length));
+    lap.appendChild(el('div', 'hq', k.kerdes));
+    var lista = el('div', 'hopts'), err = el('div', 'ferr'), val = null, gk = [];
+    k.opciok.forEach(function (o) {
+      var b = el('button', 'hopt'); b.type = 'button'; b.appendChild(el('b', null, o.betu)); b.appendChild(el('span', null, o.szoveg));
+      b.onclick = function () { val = o.betu; gk.forEach(function (g) { g.classList.toggle('sel', g === b); }); err.textContent = ''; };
+      gk.push(b); lista.appendChild(b);
+    });
+    lap.appendChild(lista); lap.appendChild(err);
+    var kb = gomb('Válaszolok', 'hbtn main', function () {
+      if (!val) { err.textContent = 'Válassz egy lehetőséget.'; return; }
+      kb.disabled = true; kb.textContent = 'Küldés…'; gk.forEach(function (g) { g.disabled = true; });
+      api({ api: 'kuld', t: 'kviz', q: k.id, v: val }, 4).then(function (j) { en.kviz = en.kviz || {}; en.kviz[k.id] = j.helyes ? 1 : 0; kviz(); },
+        function (e) { kb.disabled = false; kb.textContent = 'Válaszolok'; gk.forEach(function (g) { g.disabled = false; }); err.textContent = e.szerver ? e.message : 'Nem sikerült elküldeni, próbáld újra.'; if (e.szerver && /lezárult/.test(e.message)) frissitEsDont(); });
+    });
+    lap.appendChild(kb); window.scrollTo(0, 0);
+  }
+  function eredmenyLap() {
+    prog(kerdesek.length / (kerdesek.length + 2)); lap.innerHTML = '';
+    var pont = 0; Object.keys(en.kviz || {}).forEach(function (k) { pont += en.kviz[k] ? 1 : 0; });
+    lap.appendChild(el('h1', 'center', 'A kvíz kész'));
+    lap.appendChild(el('div', 'big', pont + ' / ' + kerdesek.length));
+    lap.appendChild(el('p', 'center hint', 'helyes válasz. A megoldásokat a kivetítőn együtt nézzük meg.'));
+    lap.appendChild(gomb('Tovább', 'hbtn main', function () { helyi.kvizLatta = true; en.kvizKesz = true; helyiMent(); dont(); }));
+  }
+
+  /* --- szófelhő --- */
+  function szoLap(kor) {
+    prog(kor === 'vege' ? 0.95 : 0.3); lap.innerHTML = '';
+    lap.appendChild(el('h1', null, kor === 'vege' ? 'Záró szófelhő' : 'Szófelhő'));
+    lap.appendChild(el('div', 'hq', szoKerdes || 'Egy-három szóban: mi jut eszedbe az ellátási láncról?'));
+    if (kor === 'vege') lap.appendChild(el('p', 'hint', 'Ugyanaz a kérdés, mint az óra elején. Most mit mondanál?'));
+    var mz = [];
+    for (var i = 0; i < szoMax; i++) { var m = el('input', 'hin'); m.maxLength = 30; m.placeholder = (i + 1) + '. szó' + (i ? ' (nem kötelező)' : ''); m.autocomplete = 'off'; mz.push(m); lap.appendChild(m); }
+    var err = el('div', 'ferr'); lap.appendChild(err);
+    mz.forEach(function (m) { m.oninput = function () { err.textContent = ''; }; });
+    var b = gomb('Beküldöm', 'hbtn main', function () {
+      var sz = mz.map(function (m) { return m.value.replace(/\s+/g, ' ').trim(); }).filter(function (x) { return x.length >= 2; });
+      if (!sz.length) { err.textContent = 'Írj legalább egy, minimum 2 betűs szót.'; return; }
+      b.disabled = true; b.textContent = 'Küldés…';
+      api({ api: 'kuld', t: 'szo', q: kor, v: sz.join('|') }, 4).then(function () { if (kor === 'vege') en.szoVege = true; else en.szoEleje = true; dont(); },
+        function (e) { b.disabled = false; b.textContent = 'Beküldöm'; err.textContent = e.szerver ? e.message : 'Nem sikerült elküldeni, próbáld újra.'; });
+    });
+    lap.appendChild(b);
+    if (!szoKerdes) api({ api: 'kviz' }).then(function (j) { szoKerdes = j.szofelhoKerdes || ''; szoMax = j.szoMaxDb || 3; }, function () {});
+  }
+
+  /* --- tippelés (2. fázis) --- */
+  function tippLap() {
+    prog(0.45); lap.innerHTML = '';
+    lap.appendChild(el('h1', null, 'Tippelj!'));
+    lap.appendChild(el('div', 'hq', 'Az élelmiszerlánc melyik szakaszában vész kárba a legtöbb élelmiszer az EU-ban?'));
+    var w = el('div', 'hlanc'), err = el('div', 'ferr');
+    PAZARLAS.szakaszok.forEach(function (sz, i) {
+      if (i) w.appendChild(el('div', 'nyil', '↓'));
+      w.appendChild(gomb(sz.nev, null, function () {
+        w.querySelectorAll('button').forEach(function (x) { x.disabled = true; });
+        api({ api: 'kuld', t: 'tipp', v: sz.id }, 4).then(function () { en.tipp = true; dont(); },
+          function (e) { w.querySelectorAll('button').forEach(function (x) { x.disabled = false; }); err.textContent = e.szerver ? e.message : 'Nem sikerült elküldeni, próbáld újra.'; });
+      }));
+    });
+    lap.appendChild(w); lap.appendChild(err);
+    figyelTipp();
+  }
+  function figyelTipp() { clearTimeout(pollT); pollT = setTimeout(function () { betolt().then(function () { if (melyik() !== 'tipp') dont(); else figyelTipp(); }, figyelTipp); }, 10000); }
+
+  /* --- csoportok (3. fázis) --- */
+  function csoportValaszt() {
+    prog(0.55); lap.innerHTML = '';
+    lap.appendChild(el('h1', null, 'Csoportalakítás'));
+    lap.appendChild(el('p', null, 'Csatlakozz a csoportodhoz, vagy ha te vagy az első, hozd létre. Mindenki a saját telefonjáról csatlakozzon.'));
+    var lista = el('div', 'hopts'); lap.appendChild(lista); lista.appendChild(el('div', 'hint', 'Csoportok betöltése…'));
+    var err = el('div', 'ferr'); lap.appendChild(err);
+    function frissLista() {
+      api({ api: 'csoportLista' }).then(function (j) {
+        lista.innerHTML = '';
+        if (!j.csoportok.length) lista.appendChild(el('div', 'hint', 'Még nincs csoport. Hozd létre lent az elsőt.'));
+        j.csoportok.forEach(function (c) {
+          var b = el('button', 'hopt'); b.type = 'button';
+          b.appendChild(el('b', null, String(c.tagok))); var t = el('span'); t.appendChild(el('strong', null, c.nev)); t.appendChild(document.createTextNode(' · ' + TERMEKEK[c.termek].nev)); b.appendChild(t);
+          b.disabled = c.tagok >= 6;
+          b.onclick = function () { if (!confirm('Csatlakozol ehhez a csoporthoz: ' + c.nev + '?')) return; b.disabled = true; api({ api: 'csoportBe', kod: c.kod }).then(function () { en.csoport = c.kod; frissitEsDont(); }, function (e) { b.disabled = false; err.textContent = e.szerver ? e.message : 'Nem sikerült, próbáld újra.'; }); };
+          lista.appendChild(b);
+        });
+      }, function (e) { lista.innerHTML = ''; err.textContent = 'Nem sikerült betölteni a csoportokat. (' + e.message + ')'; });
+    }
+    frissLista();
+    lap.appendChild(gomb('Lista frissítése', 'hbtn', frissLista));
+    lap.appendChild(el('h2', null, 'Új csoport'));
+    var nev = el('input', 'hin'); nev.placeholder = 'Csoportnév (pl. Hűtőlánc Hősei)'; nev.maxLength = 24; lap.appendChild(nev);
+    lap.appendChild(el('div', 'hint', 'Melyik termék láncát rajzoljátok meg?'));
+    var tv = null, tg = el('div', 'hopts');
+    Object.keys(TERMEKEK).forEach(function (k) {
+      var b = el('button', 'hopt'); b.type = 'button'; var s = el('span'); s.appendChild(el('strong', null, TERMEKEK[k].nev)); s.appendChild(el('div', 'hint', TERMEKEK[k].alcim)); b.appendChild(s);
+      b.onclick = function () { tv = k; tg.querySelectorAll('button').forEach(function (x) { x.classList.toggle('sel', x === b); }); err.textContent = ''; };
+      tg.appendChild(b);
+    });
+    lap.appendChild(tg);
+    var uj = gomb('Csoport létrehozása', 'hbtn main', function () {
+      var n = nev.value.replace(/\s+/g, ' ').trim();
+      if (n.length < 2 || /[<>]/.test(n)) { err.textContent = 'Adj nevet a csoportnak (2–24 karakter).'; return; }
+      if (!tv) { err.textContent = 'Válassz terméket.'; return; }
+      uj.disabled = true; uj.textContent = 'Létrehozás…';
+      api({ api: 'csoportUj', nev: n, termek: tv }).then(function (j) { en.csoport = j.kod; frissitEsDont(); }, function (e) { uj.disabled = false; uj.textContent = 'Csoport létrehozása'; err.textContent = e.szerver ? e.message : 'Nem sikerült, próbáld újra.'; });
+    });
+    lap.appendChild(uj);
+    figyel(15000);
+  }
+  function csoportLap() {
+    api({ api: 'csoport', kod: en.csoport }).then(function (j) {
+      var cs = j.csoport;
+      if (cs.bekuldve) return kesz(cs);
+      if (cs.enSzerkesztem) return szerkeszto(cs);
+      tagNezet(cs);
+    }, function (e) { uzenet('Nem sikerült betölteni a csoportot', '(' + e.message + ')', 'Újra', csoportLap); });
+  }
+  function szerkeszto(cs) {
+    if (terk && terk.kod === cs.kod) return;
+    lap.innerHTML = ''; prog(0.65);
+    var fej = el('div'); fej.appendChild(el('p', 'hint', 'Te szerkeszted a csoport térképét. Csapattagok: ' + cs.tagNevek.join(', ') + '. A többiek a saját telefonjukon látják.'));
+    lap.appendChild(fej);
+    var c = el('div'); lap.appendChild(c);
+    var ver = cs.ver, T = cs.terkep && cs.terkep.termek ? cs.terkep : ujTerkep(cs.termek);
+    var tz = Terkepezo(c, {
+      terkep: T, lepes: cs.lepes || 'A', csoportNev: cs.nev, mag: cs.kod,
+      onMent: function (t, l) {
+        return apiPost(BASE, { api: 'csoportMent', a: A, e: eszkoz, kod: cs.kod, ver: ver, lepes: l, terkep: t }, 2).then(function (j) {
+          if (!j.ok) { if (j.atvettek) { terk = null; alert('A szerkesztést egy csapattársad átvette.'); frissitEsDont(); } throw new Error(j.hiba || 'hiba'); }
+          ver = j.ver;
+        });
+      },
+      onTipp: function (l) { api({ api: 'csoportTipp', kod: cs.kod, lepes: l }).catch(function () {}); },
+      onBekuld: function (t) {
+        return apiPost(BASE, { api: 'csoportBekuld', a: A, e: eszkoz, kod: cs.kod, ver: ver, terkep: t }, 3).then(function (j) { if (!j.ok) throw new Error(j.hiba || 'hiba'); });
+      }
+    });
+    terk = { kod: cs.kod, tz: tz };
+    // ha közben fázisváltás történik, azt ritkán ellenőrizzük
+    (function ell() { clearTimeout(pollT); pollT = setTimeout(function () { betolt().then(function () { if (melyik() !== aktKepernyo) { tz.ment(); dont(); } else ell(); }, ell); }, 30000); })();
+  }
+  function tagNezet(cs) {
+    lap.innerHTML = ''; prog(0.65);
+    lap.appendChild(el('h1', null, cs.nev));
+    lap.appendChild(el('p', null, TERMEKEK[cs.termek].nev + ' · ' + (cs.szerkesztoNev ? cs.szerkesztoNev + ' szerkeszti a térképet.' : 'Senki nem szerkeszti.')));
+    lap.appendChild(el('p', 'hint', 'Dolgozzatok együtt egy telefonon, a tiéden itt követheted az állását. Csapattagok: ' + cs.tagNevek.join(', ')));
+    var t = cs.terkep && cs.terkep.termek ? cs.terkep : ujTerkep(cs.termek);
+    lap.appendChild(el('div', 'hint', 'Jelenlegi lépés: ' + ({ A: 'A) Szereplők', B: 'B) Számok', C: 'C) Diagnózis' }[cs.lepes] || cs.lepes)));
+    if (t.lanc.length) { var lm = el('div', 'lancmini'); lm.appendChild(lancSvg(t, { fuggoleges: true })); lap.appendChild(lm); }
+    var b = gomb('Átveszem a szerkesztést', 'hbtn', function () {
+      if (!confirm('Átveszed a szerkesztést? A társad telefonján ezután csak megtekinteni lehet.')) return;
+      api({ api: 'csoportAtvesz', kod: cs.kod }).then(frissitEsDont, function (e) { alert(e.message); });
+    });
+    lap.appendChild(b);
+    lap.appendChild(gomb('Frissítés', 'hbtn', csoportLap));
+    clearTimeout(pollT);
+    pollT = setTimeout(function () { betolt().then(function () { if (melyik() !== aktKepernyo) dont(); else csoportLap(); }, csoportLap); }, 9000 + Math.random() * 3000);
+  }
+  function kesz(cs) {
+    lap.innerHTML = ''; prog(0.8);
+    lap.appendChild(el('div', 'okmsg', 'Beküldve: ' + cs.nev));
+    var t = cs.terkep; if (t && t.lanc && t.lanc.length) { var lm = el('div', 'lancmini'); lm.appendChild(lancSvg(t, { fuggoleges: true })); lap.appendChild(lm); }
+    lap.appendChild(el('p', 'center hint', 'Készüljetek egy 2 perces bemutatóra: mi a szűk keresztmetszet, és mit javasoltok?'));
+    figyel(12000);
+  }
+
+  /* --- szavazás (4. fázis) --- */
+  function szavazLap() {
+    prog(0.9); lap.innerHTML = '';
+    lap.appendChild(el('h1', null, 'Szavazás'));
+    lap.appendChild(el('p', null, 'Melyik másik csoport javaslata a legjobb? (A sajátodra nem szavazhatsz.)'));
+    var lista = el('div', 'hopts'), err = el('div', 'ferr'); lap.appendChild(lista); lap.appendChild(err);
+    api({ api: 'csoportLista', bekuldott: 1 }).then(function (j) {
+      var L = j.csoportok.filter(function (c) { return c.kod !== en.csoport; });
+      if (!L.length) lista.appendChild(el('div', 'hint', 'Nincs más beküldött csoport.'));
+      L.forEach(function (c) {
+        var b = el('button', 'hopt'); b.type = 'button'; var s = el('span'); s.appendChild(el('strong', null, c.nev)); s.appendChild(el('div', 'hint', TERMEKEK[c.termek].nev + (c.javaslat ? ' · ' + c.javaslat : ''))); b.appendChild(s);
+        b.onclick = function () {
+          if (!confirm('Erre a csoportra szavazol: ' + c.nev + '?')) return;
+          lista.querySelectorAll('button').forEach(function (x) { x.disabled = true; });
+          api({ api: 'kuld', t: 'szavazat', v: c.kod }, 4).then(function () { en.szavazott = true; dont(); }, function (e) { lista.querySelectorAll('button').forEach(function (x) { x.disabled = false; }); err.textContent = e.szerver ? e.message : 'Nem sikerült, próbáld újra.'; });
+        };
+        lista.appendChild(b);
+      });
+      lap.appendChild(gomb('Most nem szavazok', 'hbtn', function () { api({ api: 'kuld', t: 'szavazat', v: '-' }, 4).then(function () { en.szavazott = true; dont(); }, function (e) { err.textContent = e.message; }); }));
+    }, function (e) { err.textContent = 'Nem sikerült betölteni. (' + e.message + ')'; });
+  }
+
+  frissitEsDont();
+}
+
+/* ================= TANULÁSI NÉZET (önálló, adatgyűjtés nélkül) ================= */
+function tanulas() {
+  $('L').hidden = false; document.title = 'ELM alapjai, 1. blokk: tanulás';
+  var tema = tarOlvas('elm-b1-tema', ''); if (tema) document.documentElement.setAttribute('data-theme', tema);
+  var resz = 'elm', c = $('lTest');
+  var seg = $('lSeg');
+  seg.querySelectorAll('button').forEach(function (b) { b.onclick = function () { resz = b.dataset.r; seg.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-selected', x === b ? 'true' : 'false'); }); rajz(); }; });
+  var elm = null;
+  function rajz() {
+    c.innerHTML = '';
+    if (resz === 'elm') { var d = el('div'); c.appendChild(d); elm = Elmelet(d, { tanulas: function () { return true; }, adat: function () { return null; }, elo: false }); elm.rajz(); }
+    else if (resz === 'terk') gyakorlo();
+    else osszevetes();
+  }
+  function gyakorlo() {
+    var allapot = tarOlvas('elm-tanulas-terkep', null);
+    var w = el('div'); w.style.maxWidth = '560px'; w.style.margin = '0 auto'; c.appendChild(w);
+    if (!allapot) {
+      var h = el('div', 'hcard'); w.appendChild(h);
+      h.appendChild(el('h1', null, 'Gyakorló térképező'));
+      h.appendChild(el('p', null, 'Rakd össze egy termék ellátási láncát, becsüld meg a számokat, keresd meg a szűk keresztmetszetet, majd vesd össze a mintamegoldással. Semmi nem kerül elküldésre, csak a böngésződben marad.'));
+      var g = el('div', 'hopts'); h.appendChild(g);
+      Object.keys(TERMEKEK).forEach(function (k) {
+        var b = el('button', 'hopt'); b.type = 'button'; var s = el('span'); s.appendChild(el('strong', null, TERMEKEK[k].nev)); s.appendChild(el('div', 'hint', TERMEKEK[k].alcim)); b.appendChild(s);
+        b.onclick = function () { tarIr('elm-tanulas-terkep', { terkep: ujTerkep(k), lepes: 'A' }); rajz(); };
+        g.appendChild(b);
+      });
+      return;
+    }
+    Terkepezo(w, {
+      terkep: allapot.terkep, lepes: allapot.lepes, mag: 'tanulas', mintaMutat: true,
+      onMent: function (t, l) { tarIr('elm-tanulas-terkep', { terkep: t, lepes: l }); return Promise.resolve(); },
+      onUj: function () { try { localStorage.removeItem('elm-tanulas-terkep'); } catch (e) {} rajz(); }
+    });
+  }
+  function osszevetes() {
+    var p = el('div', 'panel'); c.appendChild(p);
+    p.appendChild(el('h2', 'elmcim', 'Három termék, három lánc'));
+    p.appendChild(el('p', 'elmlead', 'A mintamegoldások összevetése: mennyi idő, mennyi készlet, mennyi veszteség.'));
+    p.appendChild(el('span', 'szemlelt', 'A minták számai szemléltető becslések'));
+    var w = el('div', 'tabwrap'), tb = el('table', 'mtab'); w.appendChild(tb); w.style.marginTop = '.75rem';
+    var h = el('tr'); ['Termék', 'Szereplők', 'Teljes átfutás (nap)', 'Készlet (nap)', '100-ból a vevőig'].forEach(function (x) { h.appendChild(el('th', null, x)); }); tb.appendChild(h);
+    Object.keys(TERMEKEK).forEach(function (k) {
+      var mn = TERMEKEK[k].minta, t = { termek: k, lanc: mn.lanc, kapcsolatok: mn.kapcsolatok, keszlet: mn.keszlet, veszteseg: mn.veszteseg }, m = mutatok(t), r = el('tr');
+      [TERMEKEK[k].nev + ' · ' + TERMEKEK[k].alcim, m.szereplok, kerek(m.atfutas, 1), kerek(m.keszlet, 1), kerek(m.megmarad, 1)].forEach(function (v) { r.appendChild(el('td', null, String(v))); });
+      tb.appendChild(r);
+    });
+    p.appendChild(w);
+    Object.keys(TERMEKEK).forEach(function (k) {
+      var mn = TERMEKEK[k].minta, g = el('div', 'galkartya'); g.style.marginTop = '1rem';
+      g.appendChild(el('b', null, TERMEKEK[k].nev));
+      g.appendChild(lancSvg({ termek: k, lanc: mn.lanc, kapcsolatok: mn.kapcsolatok, keszlet: mn.keszlet, veszteseg: mn.veszteseg, szuk: mn.szuk, vesztHely: mn.vesztHely }));
+      g.appendChild(el('p', null, mn.indok));
+      p.appendChild(g);
+    });
+    var sz = el('div', 'szoveg'); sz.style.marginTop = '1rem';
+    sz.appendChild(el('h4', null, 'Nincs egyetlen jó ellátási lánc'));
+    sz.appendChild(el('p', null, 'Marshall Fisher (1997) szerint a kiszámítható keresletű, alapvető termékekhez (mint a tej) fizikailag hatékony lánc illik: alacsony költség, kis készlet, magas kihasználtság. Az innovatív, gyorsan avuló, sokféle változatban kért termékekhez (mint egy egyedi laptop) piacra reagáló lánc kell: gyorsaság, rugalmasság, alkatrészkészlet és rendelésre szerelés.'));
+    sz.appendChild(el('p', null, 'A zöldség-gyümölcs külön eset: itt a kínálat bizonytalan (szezon, időjárás), ezért a válogatás, a hűtés, a gyors értékesítés és a termelői összefogás (TÉSZ) a kulcs. A veszteség itt a legnagyobb, a háztartásokban is.'));
+    sz.appendChild(el('p', 'forras', 'Fisher, M. L. (1997): What is the right supply chain for your product? Harvard Business Review, 75(2), 105–116. Élelmiszer-pazarlás: ' + PAZARLAS.forras + '.'));
+    p.appendChild(sz);
+  }
+  rajz();
+}
+
+(function () {
+  var P = new URLSearchParams(location.search);
+  var mod = P.get('mod');
+  if (mod === 'hallgato') hallgato(P);
+  else if (mod === 'tanulas') tanulas();
+  else tanar();
+})();
+
+</script>
+</body>
+</html>
