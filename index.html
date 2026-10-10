@@ -440,6 +440,67 @@ nav.fazis>button{padding:.4rem .6rem}
 @media (max-width:1560px){nav.fazis .p{display:none}}
 @media (max-width:1300px){.brand small{display:none}}
 
+/* ===== 3. blokk: sörjáték ===== */
+.legend .sw.szagg{background:repeating-linear-gradient(90deg,#353535 0 4px,transparent 4px 7px)!important;height:3px;align-self:center}
+.sjlanc{display:flex;align-items:stretch;gap:3px;margin:8px 0 10px;overflow-x:auto}
+.sjsz{flex:1;min-width:52px;border:2px solid var(--line);border-radius:9px;padding:4px 3px;text-align:center;background:var(--card);display:flex;flex-direction:column;justify-content:center}
+.sjsz b{font-size:12px;line-height:1.2}
+.sjsz small{font-size:10.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sjsz.vevo{border-style:dashed;flex:.8}
+.sjsz.te{background:var(--accent);border-color:var(--accent)!important;color:#fff}
+.sjsz.te small{color:#e7f4ec}
+.sjnyil{align-self:center;color:var(--muted);font-size:13px}
+.sjfej{display:flex;gap:10px;align-items:center}
+.sjhet{background:var(--accent);color:#fff;border-radius:10px;padding:8px 10px;font-weight:700;font-size:18px;white-space:nowrap}
+.sjallapot{border-radius:10px;padding:10px 12px;font-weight:600;margin:6px 0 10px;font-size:14.5px}
+.sjallapot.teendo{background:#fff4c7;color:#5c4400}
+.sjallapot.ok{background:var(--ok-bg);color:var(--ok)}
+.sjpos{background:#e1eef6;border-left:5px solid #005f92;border-radius:10px;padding:9px 12px;margin-bottom:10px;color:#003f61}
+.sjpos .hint{color:#305f7a}
+.sjdobozok{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.sjdoboz{border:1px solid var(--line);border-radius:12px;padding:9px 10px;background:var(--card)}
+.sjdoboz .c{font-size:13px;font-weight:600;color:var(--text)}
+.sjdoboz .v{font-size:30px;font-weight:700;line-height:1.15;margin:2px 0;font-variant-numeric:tabular-nums}
+.sjdoboz .m{font-size:11.5px;color:var(--muted);line-height:1.35}
+.sjdoboz.be,.sjdoboz.rb,.sjdoboz.k{background:#f7f9f8}
+.sjdoboz.ks{border-left:5px solid #9fd3b0}
+.sjdoboz.ks.van .v{color:var(--accent)}
+.sjdoboz.h{border-left:5px solid var(--line)}
+.sjdoboz.h.baj{border-left-color:#d9534f;background:#fdf0ef}
+.sjdoboz.h.baj .v{color:#b3261e}
+.sjdoboz.cso{border-left:5px solid #005f92;background:#f1f7fb}
+.sjdoboz.cso .v{color:#005f92}
+.sjkolt{margin:10px 2px;font-size:14px}
+.sjrend{margin-top:12px;border-top:2px solid var(--accent);padding-top:6px}
+.sjstep{display:grid;grid-template-columns:44px 44px 1fr 44px 44px;gap:5px}
+.sjstep button{height:52px;font-size:16px;padding:0;font-weight:600}
+.sjstep input{height:52px;font-size:26px;font-weight:700;text-align:center;border:2px solid var(--accent);border-radius:10px;width:100%;font-family:inherit}
+.sjgorbe{margin-top:12px;border:1px solid var(--line);border-radius:12px;padding:8px 10px;background:var(--card)}
+.sjgorbe summary{font-weight:600;cursor:pointer}
+.sjszab h2{font-size:17px;margin:14px 0 6px}
+.sjlepes{padding-left:1.2rem;margin:0}.sjlepes li{margin-bottom:4px}
+.sjido{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.sjido div{background:var(--card2);border-radius:10px;padding:8px;text-align:center}
+.sjido b{display:block;font-size:18px;color:var(--accent)}.sjido span{font-size:12px;color:var(--muted)}
+.sjhelyek{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:6px}
+.sjhely{border:2px solid var(--line);border-radius:10px;padding:8px;text-align:left;display:flex;flex-direction:column;gap:2px;background:var(--card)}
+.sjhely small{color:var(--muted)}
+.sjhely.en{background:var(--accent);color:#fff}.sjhely.en small{color:#e7f4ec}
+.sjhely.foglalt{opacity:.5}
+.sjtab td{vertical-align:top}.sjtab .nm{font-weight:600}.sjtab .nm.gep{color:var(--faint);font-weight:400}
+.sjtab .badge{margin-top:3px;display:inline-block}
+.sjracs{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:1rem;margin-bottom:.5rem}
+.ptab th,.ptab td{padding:.35rem .45rem;font-size:.9rem}
+.ptab th small{display:block;font-weight:400;font-size:.7rem;color:var(--faint)}
+.ptab .bfej{text-align:center;color:#fff;font-weight:600}
+.ptab .bfej.b1{background:#007548}.ptab .bfej.b2{background:#005f92}.ptab .bfej.b3{background:#a1772b}.ptab .bfej:not(.b1):not(.b2):not(.b3){background:#353535}
+.ptab td.ossz,.ptab th.ossz{font-weight:700;background:var(--card2)}
+.ptab td.nap,.ptab th.nap{font-weight:700;background:var(--accent-bg);color:var(--accent-text)}
+.ptab td.nulla{color:#c2c8c4}
+.ptab td.nm{text-align:left;font-weight:600;white-space:nowrap}.ptab .rk{color:var(--muted);font-weight:400}
+.ptab button{padding:.1rem .35rem;font-size:.75rem}
+@media (max-width:1500px){.topin .brand{display:none}}
+
 </style>
 </head>
 <body>
@@ -465,6 +526,9 @@ nav.fazis>button{padding:.4rem .6rem}
       <button data-r="elm2" aria-selected="false">Elmélet</button>
       <button data-r="abc" aria-selected="false">ABC gyakorló</button>
       <button data-r="jatek" aria-selected="false">Készletjáték</button>
+      <span class="segcim">3. blokk</span>
+      <button data-r="elm3" aria-selected="false">Elmélet</button>
+      <button data-r="sj" aria-selected="false">Sörjáték egyedül</button>
     </div>
     </div>
   </div></header>
@@ -534,6 +598,13 @@ nav.fazis>button{padding:.4rem .6rem}
   <section id="f7" data-fazis="7" hidden></section>
   <section id="f8" data-fazis="8" hidden></section>
   <section id="f9" data-fazis="9" hidden></section>
+  <section id="f10" data-fazis="10" hidden></section>
+  <section id="f11" data-fazis="11" hidden></section>
+  <section id="f12" data-fazis="12" hidden></section>
+  <section id="f13" data-fazis="13" hidden></section>
+  <section id="f14" data-fazis="14" hidden></section>
+  <section id="f15" data-fazis="15" hidden></section>
+  <section id="f16" data-fazis="16" hidden></section>
 </main>
 </div>
 
@@ -1194,6 +1265,89 @@ var ZARO_KERDESEK2 = [
    'A (T, Q) nem figyeli a fogyást: csúcsban kifogy, csendes időben felhalmoz. A másik három legalább részben reagál a valós fogyásra.']
 ];
 
+/* ================= 3. BLOKK: SÖRJÁTÉK ================= */
+var SJ = {
+  keszlet0: 12, uton0: [4, 4], rend0: 4, tarolas: 50, hiany: 100,
+  szerepek: [
+    { id: 'bolt', nev: 'Kisbolt', rov: 'Bolt', vevo: 'a vásárlók', besz: 'a nagykereskedőtől', hoz: 'a nagykereskedőhöz', beszNev: 'Nagykereskedő', szin: '#007548',
+      mit: 'Te látod a vásárlókat. Ők viszik el a sört, te a nagykereskedőtől rendelsz.' },
+    { id: 'nagyker', nev: 'Nagykereskedő', rov: 'Nagyker', vevo: 'a kisbolt', besz: 'a sörfőzdétől', hoz: 'a sörfőzdéhez', beszNev: 'Sörfőzde', szin: '#005f92',
+      mit: 'A kisbolt rendel tőled, te a sörfőzdétől rendelsz. A vásárlókat nem látod.' },
+    { id: 'fozde', nev: 'Sörfőzde', rov: 'Főzde', vevo: 'a nagykereskedő', besz: 'a malátagyártól', hoz: 'a malátagyárhoz', beszNev: 'Malátagyár', szin: '#a1772b',
+      mit: 'A nagykereskedő rendel tőled, te a malátagyártól rendelsz alapanyagot.' },
+    { id: 'malata', nev: 'Malátagyár', rov: 'Maláta', vevo: 'a sörfőzde', besz: 'a gyártásra', hoz: 'a gyártásba', beszNev: 'Gyártás', szin: '#d9534f',
+      mit: 'A sörfőzde rendel tőled. Te gyártasz: amit ma elindítasz, két hét múlva kész.' }
+  ],
+  menetek: {
+    1: { cim: '1. menet', hetek: 20, pos: false, D: [4, 4, 4, 4, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8] },
+    2: { cim: '2. menet: közös pénztári adat', hetek: 12, pos: true, D: [4, 4, 4, 8, 8, 8, 8, 8, 8, 8, 8, 8] }
+  }
+};
+/* a játékképernyő dobozai: cím, mit jelent (ezt a telefon is kiírja) */
+var SJ_DOBOZ = {
+  be: ['Megérkezett hozzád', 'A beszállítód két hete feladott szállítmánya most ért ide.'],
+  rb: ['Ennyit kértek tőled', 'A vevőd rendelése erre a hétre. A kisboltnál ez a vásárlók kereslete.'],
+  k: ['Elküldted a vevődnek', 'Ennyit tudtál most kiszolgálni a raktárból. Két hét múlva ér oda.'],
+  ks: ['Raktárkészleted', 'A hét végén ennyi maradt nálad. Tárolás: 50 Ft rekeszenként hetente.'],
+  h: ['Hátralék', 'Amit tartozol a vevődnek. Jövő héten ezt is ki kell szolgálnod. 100 Ft rekeszenként hetente.'],
+  cso: ['Már megrendelted, még nincs nálad', 'Úton lévő szállítmány és a beszállítódnál még függő rendelésed.'],
+  ko: ['Költséged eddig', 'Tárolás + hátralék, a lánc összköltsége a cél: minél kevesebb.']
+};
+
+/* ---- elmélet ---- */
+var ELM3_LEPESEK = ['Ostorcsapás', 'Négy ok', 'Miért erősödik?', 'Előrejelzés', 'Döntési szabály', 'Megoldások', 'Tovább'];
+var OKOK = [
+  { cim: 'Az előrejelzés frissítése', mit: 'Mindenki a saját vevője rendeléséből jelez előre. Egy nagyobb rendelést tartós növekedésnek hisz, és ráhagy biztonsági tartalékot is.', pelda: 'A kisbolt a meccs előtti héten duplán rendel, a nagyker ebből „trendet” lát.' },
+  { cim: 'Kötegelt rendelés', mit: 'A rendelési és szállítási fix költség miatt ritkán, nagy tételben rendelnek. A beszállító folyamatos fogyás helyett ritka, nagy csúcsokat lát.', pelda: 'A bolt kéthetente egy teljes raklapot kér, közben semmit.' },
+  { cim: 'Árfluktuáció és akciók', mit: 'Akció idején a vevők előre felvásárolnak, utána hetekig nem rendelnek. A rendelés már nem a fogyasztást követi.', pelda: 'Sörakció a láncnál: négy hét készlet egy hét alatt.' },
+  { cim: 'Hiánygazdálkodás', mit: 'Ha a beszállító arányosan oszt a szűkös készletből, mindenki többet kér, mint amennyi kell. A hiány megszűntével a rendelések összeomlanak.', pelda: 'Kánikulában a nagyker felére kurtít, a boltok kétszer annyit rendelnek.' }
+];
+var MEGOLDASOK = [
+  ['Közös pénztári (POS) adat, EDI', 'Előrejelzés frissítése', 'A sörfőzde a boltok napi eladását látja, nem a nagyker rendelését.'],
+  ['Szállító által kezelt készlet (VMI)', 'Előrejelzés, kötegelés', 'A nagyker maga tölti fel a bolt polcát, a bolt nem rendel.'],
+  ['Közös tervezés (CPFR)', 'Előrejelzés, akciók', 'A lánc és a főzde együtt tervezi a nyári akciót és a meccsnapokat.'],
+  ['Rövidebb átfutási idő', 'Mind a négy', 'Gyakoribb, gyorsabb szállítás: kevesebb hét, amire előre kell gondolni.'],
+  ['Kisebb tételek, vegyes kamion', 'Kötegelt rendelés', 'Egy kamion több terméket hoz, így kisebb sörtételt is megéri rendelni.'],
+  ['Mindennapi alacsony ár (EDLP)', 'Árfluktuáció', 'Akciók helyett tartósan alacsony ár: a rendelés a fogyást követi.'],
+  ['Elosztás múltbeli eladás alapján', 'Hiánygazdálkodás', 'Hiánynál a tavalyi eladás arányában osztanak, nem a mostani rendelés szerint.']
+];
+var ELM3_FORRAS = [
+  'Forrester, J. W. (1961): Industrial Dynamics. MIT Press.',
+  'Sterman, J. D. (1989): Modeling managerial behavior: Misperceptions of feedback in a dynamic decision making experiment. Management Science, 35(3), 321–339.',
+  'Lee, H. L., Padmanabhan, V., Whang, S. (1997): The bullwhip effect in supply chains. Sloan Management Review, 38(3), 93–102.',
+  'Chen, F., Drezner, Z., Ryan, J. K., Simchi-Levi, D. (2000): Quantifying the bullwhip effect in a simple supply chain. Management Science, 46(3), 436–443.'
+];
+/* előrejelzési példa: heti sörkereslet egy évben (rekesz) */
+var ELO_IGENY = (function () { var D = [], m = 5; for (var w = 0; w < 40; w++) { m = (m * 1103515245 + 12345) % 2147483648; var r = m / 2147483648; D.push(Math.round(30 + (w >= 14 && w < 26 ? 14 : 0) + (r - 0.5) * 14 + (w === 20 ? 18 : 0))); } return D; })();
+
+var ONELLENORZES3 = {
+  1: [{ k: 'Mit mér az ostorcsapás-hatás?', o: ['A vásárlói kereslet nagyságát', 'Hogy a rendelések ingadozása a láncban felfelé haladva nő', 'A szállítási költséget'], h: 1, m: 'A rendelések szórása szintről szintre nő, miközben a végső kereslet alig változik.' }],
+  2: [{ k: 'Melyik NEM tartozik Lee és társai négy oka közé?', o: ['Kötegelt rendelés', 'Akciók miatti előrevásárlás', 'Rövid, gyors szállítás'], h: 2, m: 'A rövid átfutás csökkenti az ostorcsapást. A négy ok: előrejelzés frissítése, kötegelés, árfluktuáció, hiánygazdálkodás.' }],
+  3: [{ k: 'Mi történik a felerősödéssel, ha a szállítási idő (L) nő?', o: ['Csökken', 'Nő', 'Nem változik'], h: 1, m: 'Hosszabb átfutásnál több időre kell előre gondolni, minden előrejelzési hiba jobban felnagyítódik.' }],
+  4: [{ k: 'Ha rövidebb időszak átlagából jelzünk előre, mi történik?', o: ['Gyorsabban reagálunk, de jobban követjük a zajt is', 'Simább lesz az előrejelzés', 'Pontosabb lesz minden esetben'], h: 0, m: 'A rövid ablak gyors, de ideges: a véletlen kiugrásokat is trendnek veszi, és ez ostorcsapást okoz.' }],
+  5: [{ k: 'Mi volt a játékosok leggyakoribb hibája Sterman kísérleteiben?', o: ['Túl keveset rendeltek', 'Elfelejtették, amit már megrendeltek, de még úton volt', 'Túl gyakran rendeltek'], h: 1, m: 'Az úton lévő rendelést figyelmen kívül hagyják, ezért újra és újra rendelnek, és a végén eláraszt a készlet.' }],
+  6: [{ k: 'Mit jelent a VMI?', o: ['A vevő rendel a beszállítótól', 'A beszállító figyeli a vevő készletét, és maga dönt a feltöltésről', 'Közös reklámkampány'], h: 1, m: 'Szállító által kezelt készlet (Vendor Managed Inventory): a döntés a beszállítónál van, a vevő adatai alapján.' }]
+};
+
+/* ---- 3. blokk záró kvíz (B3 előtaggal) ---- */
+var ZARO_KERDESEK3 = [
+  ['B3K1', 'igen', 'A vásárlói kereslet a játékban egyetlen egyszer, 4-ről 8 rekeszre nőtt. Mi történt a malátagyár rendeléseivel?',
+   'Szintén 4-ről 8-ra nőtt', 'Sokkal nagyobbat lengett ki, majd visszaesett', 'Nem változott', 'Fokozatosan, egyenletesen nőtt', 'B',
+   'Ez az ostorcsapás-hatás: a késleltetés és a túlreagálás miatt a lánc teteje sokszorosát látja a valós változásnak.'],
+  ['B3K2', 'igen', 'Melyik NEM oka az ostorcsapás-hatásnak Lee és társai (1997) szerint?',
+   'Az előrejelzés frissítése a vevő rendeléseiből', 'Kötegelt, nagy tételű rendelés', 'Tartósan alacsony, stabil ár (EDLP)', 'Hiány idején arányos elosztás', 'C',
+   'Az EDLP épp ellenszer: akciók nélkül nincs előrevásárlás.'],
+  ['B3K3', 'igen', 'A játékban sokan túlrendeltek, majd hetekig tele volt a raktáruk. Mi a jellemző döntési hiba?',
+   'Túl alacsony volt a tárolási költség', 'Nem számoltak a már megrendelt, de még úton lévő mennyiséggel', 'A beszállító szándékosan késett', 'A vásárlók kereslete folyamatosan nőtt', 'B',
+   'Sterman (1989): a játékosok figyelmen kívül hagyják a csővezetéket, ezért újra rendelnek arra, ami már úton van.'],
+  ['B3K4', 'igen', 'Egy nagykereskedő maga figyeli a boltok készletét a pénztári adatokból, és maga dönti el, mikor tölti fel a polcot. Mi ez?',
+   'CPFR', 'VMI (szállító által kezelt készlet)', 'Kötegelt rendelés', 'Visszutas logisztika', 'B',
+   'A döntési jog átkerül a beszállítóhoz, a bolt nem rendel: a rendelés torzítása megszűnik.'],
+  ['B3K5', 'igen', 'Mi történik az előrejelzéssel, ha a 8 hét helyett csak az utolsó 2 hét átlagát használjuk?',
+   'Simább lesz, kevésbé reagál', 'Gyorsabban reagál, de a véletlen kiugrásokat is követi', 'Mindig pontosabb lesz', 'Semmi nem változik', 'B',
+   'A rövid ablak „ideges”: minden véletlen kiugrást trendnek vesz, ez felfelé erősödő rendelési hullámokat okoz.']
+];
+
 /* ================= KÖZÖS SEGÉDFÜGGVÉNYEK ================= */
 var NS = 'http://www.w3.org/2000/svg';
 function $(id) { return document.getElementById(id); }
@@ -1597,6 +1751,84 @@ function abcPont(v) {
   r.politika = Math.round(r.politika * 10) / 10;
   if (String(v.mondat || '').trim().length >= 20) r.mondat = 0.5;
   return { osszes: Math.round((r.hatar + r.politika + r.mondat) * 100) / 100, reszek: r };
+}
+
+/* ================= 3. BLOKK: SÖRJÁTÉK MOTOR (a szerveren is ugyanez fut) ================= */
+function sjUj(menet) {
+  var m = SJ.menetek[menet], S = { menet: menet, het: 0, hetek: m.hetek, vege: false, keszlet: [], hatralek: [], uton: [], rendUt: [], koltseg: [], fuggo: [null, null, null, null], tort: [] };
+  for (var r = 0; r < 4; r++) { S.keszlet.push(SJ.keszlet0); S.hatralek.push(0); S.uton.push(SJ.uton0.slice()); S.rendUt.push(SJ.rend0); S.koltseg.push(0); }
+  sjHet(S);
+  return S;
+}
+/* egy hét: beérkezik a szállítmány és a rendelés, kiszolgálás; a rendelést utána adják le */
+function sjHet(S) {
+  S.het++;
+  var D = SJ.menetek[S.menet].D[S.het - 1], sor = { het: S.het, D: D, sz: [] }, bejovo = [];
+  for (var r = 0; r < 4; r++) bejovo.push(r === 0 ? D : S.rendUt[r - 1]);
+  for (r = 0; r < 4; r++) {
+    var be = S.uton[r][0];
+    S.uton[r] = [S.uton[r][1], 0];
+    S.keszlet[r] += be;
+    var kell = S.hatralek[r] + bejovo[r], kuld = Math.min(S.keszlet[r], kell);
+    S.keszlet[r] -= kuld; S.hatralek[r] = kell - kuld;
+    if (r > 0) S.uton[r - 1][1] += kuld;
+    S.koltseg[r] += SJ.tarolas * S.keszlet[r] + SJ.hiany * S.hatralek[r];
+    sor.sz.push({ be: be, rb: bejovo[r], k: kuld, ks: S.keszlet[r], h: S.hatralek[r], r: null, g: false });
+  }
+  S.tort.push(sor);
+  S.fuggo = [null, null, null, null];
+}
+function sjBot(S, r) { var t = S.tort[S.tort.length - 1]; return t ? t.sz[r].rb : SJ.rend0; }
+/* a tanár léptet: a hiányzó rendeléseket a gép adja le, majd jön a következő hét */
+function sjLeptet(S) {
+  if (S.vege) return S;
+  var t = S.tort[S.tort.length - 1];
+  for (var r = 0; r < 4; r++) {
+    var q = S.fuggo[r], gep = q === null || q === undefined;
+    if (gep) q = sjBot(S, r);
+    t.sz[r].r = q; t.sz[r].g = gep;
+    if (r === 3) S.uton[3][1] += q; else S.rendUt[r] = q;
+  }
+  if (S.het >= S.hetek) { S.vege = true; S.fuggo = [null, null, null, null]; } else sjHet(S);
+  return S;
+}
+function sjUtonFele(S, r) { return S.uton[r][0] + S.uton[r][1]; }
+/* már megrendelte, de még nincs nála: úton lévő szállítmány + a beszállítóhoz tartó rendelés + a beszállító hátraléka */
+function sjCso(S, r) { return S.uton[r][0] + S.uton[r][1] + (r < 3 ? S.rendUt[r] + S.hatralek[r + 1] : 0); }
+function sjStat(S) {
+  var tort = S.tort.filter(function (x) { return x.sz[0].r !== null; });
+  function szoras(L) { if (L.length < 2) return 0; var a = 0; L.forEach(function (x) { a += x; }); a /= L.length; var v = 0; L.forEach(function (x) { v += (x - a) * (x - a); }); return Math.sqrt(v / (L.length - 1)); }
+  var dSz = szoras(tort.map(function (x) { return x.D; })), ki = { kereslet: dSz, szerep: [], osszKoltseg: 0 };
+  for (var r = 0; r < 4; r++) {
+    var L = tort.map(function (x) { return x.sz[r].r; }), max = 0;
+    L.forEach(function (x) { if (x > max) max = x; });
+    ki.szerep.push({ szoras: szoras(L), arany: dSz ? szoras(L) / dSz : null, max: max, koltseg: S.koltseg[r] });
+    ki.osszKoltseg += S.koltseg[r];
+  }
+  return ki;
+}
+/* döntési szabály az elmélethez (Sterman-féle horgonyzás és igazítás) */
+function sjSzabalySzim(menet, uton, igazit) {
+  var S = sjUj(menet);
+  while (!S.vege) {
+    var t = S.tort[S.tort.length - 1];
+    for (var r = 0; r < 4; r++) {
+      var varhato = t.sz[r].rb, celK = SJ.keszlet0, celU = (r < 3 ? 3 : 2) * varhato;
+      var hiany = celK - (S.keszlet[r] - S.hatralek[r]), utHiany = celU - sjCso(S, r);
+      S.fuggo[r] = Math.max(0, Math.round(varhato + hiany / igazit + uton * utHiany / igazit));
+    }
+    sjLeptet(S);
+  }
+  return S;
+}
+/* egy szereplő nézete: csak azt látja, amit a valóságban is látna */
+function sjNezet(S, r) {
+  var pos = SJ.menetek[S.menet].pos || r === 0, utolso = S.tort[S.tort.length - 1];
+  return {
+    menet: S.menet, het: S.het, hetek: S.hetek, vege: S.vege, szerep: r,
+    sor: utolso ? utolso.sz[r] : null, cso: sjCso(S, r), jovoHet: S.uton[r][0], koltseg: S.koltseg[r], rend: S.fuggo[r],
+    tort: S.tort.map(function (t) { var x = t.sz[r]; return { het: t.het, be: x.be, rb: x.rb, k: x.k, ks: x.ks, h: x.h, r: x.r, g: x.g, D: pos ? t.D : null }; })
+  };
 }
 
 /* ================= 2. FÁZIS: ELMÉLETI MODUL ================= */
@@ -2173,6 +2405,223 @@ function Elmelet2(cont, ctx) {
   return { rajz: rajz, lep: lep, lepes: function () { return S.lepes; } };
 }
 
+/* ================= 3. BLOKK: ELMÉLETI ÁTTEKINTÉS (a játék után) ================= */
+function sjOsztalyStat(sj) {
+  var ki = {};
+  if (!sj) return ki;
+  [1, 2].forEach(function (m) {
+    var L = [];
+    (sj.tagsag.csapatok || []).forEach(function (cs) {
+      var S = sj.allapot[m] && sj.allapot[m][cs.kod];
+      if (!S || !cs.tagok.some(function (x) { return !!x; })) return;
+      if (S.tort.filter(function (t) { return t.sz[0].r !== null; }).length < 3) return;
+      L.push({ kod: cs.kod, nev: cs.nev, st: sjStat(S) });
+    });
+    if (!L.length) return;
+    var arany = [0, 0, 0, 0], max = [0, 0, 0, 0], kolt = 0;
+    L.forEach(function (x) { x.st.szerep.forEach(function (s, r) { arany[r] += (s.arany || 0) / L.length; max[r] = Math.max(max[r], s.max); }); kolt += x.st.osszKoltseg / L.length; });
+    ki[m] = { n: L.length, arany: arany, max: max, koltseg: kolt, csapatok: L };
+  });
+  return ki;
+}
+function oszlopParok(cimkek, A, B, o) {
+  o = o || {};
+  var W = o.W || 900, H = o.H || 300, ml = 46, mr = 10, mt = 20, mb = 40, n = cimkek.length, max = 1;
+  A.concat(B || []).forEach(function (v) { if (v > max) max = v; });
+  max = Math.ceil(max * 1.15);
+  var s = sv('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'class': 'kabra' });
+  s.setAttribute('aria-label', o.cim || 'oszlopdiagram');
+  var pw = W - ml - mr, ph = H - mt - mb, gw = pw / n, bw = gw * (B ? 0.32 : 0.5);
+  function Y(v) { return mt + ph - v / max * ph; }
+  var lep = max > 40 ? 10 : max > 16 ? 4 : max > 6 ? 2 : 1;
+  for (var v = 0; v <= max; v += lep) { s.appendChild(sv('line', { x1: ml, x2: W - mr, y1: Y(v), y2: Y(v), stroke: '#e3e9e5' })); s.appendChild(sv('text', { x: ml - 6, y: Y(v) + 4, 'text-anchor': 'end', 'font-size': 12, fill: '#6b6f6c' }, String(v) + (o.egyseg || ''))); }
+  cimkek.forEach(function (c, i) {
+    var x0 = ml + i * gw + gw / 2;
+    [[A, o.szinA || '#007548', B ? -bw / 2 - 2 : 0], [B, o.szinB || '#38ac55', bw / 2 + 2]].forEach(function (q) {
+      if (!q[0]) return; var val = q[0][i];
+      s.appendChild(sv('rect', { x: x0 + q[2] - bw / 2, y: Y(val), width: bw, height: Y(0) - Y(val), fill: q[1], rx: 3 }));
+      s.appendChild(sv('text', { x: x0 + q[2], y: Y(val) - 5, 'text-anchor': 'middle', 'font-size': 13, 'font-weight': 600, fill: '#353535' }, kerek(val, 1) + (o.egyseg || '')));
+    });
+    s.appendChild(sv('text', { x: x0, y: H - 14, 'text-anchor': 'middle', 'font-size': 13, fill: '#353535' }, c));
+  });
+  return s;
+}
+
+function Elmelet3(cont, ctx) {
+  var A = tarOlvas('elm-elmelet3-allapot', null) || {};
+  var S = { lepes: A.lepes || 1, L: 2, p: 4, n: 2, uton: 0, igazit: 2, valasz: {} };
+  function ment() { tarIr('elm-elmelet3-allapot', { lepes: S.lepes }); }
+  function tanul() { return !!(ctx.tanulas && ctx.tanulas()); }
+  var N = ELM3_LEPESEK.length;
+  function rajz() {
+    cont.innerHTML = '';
+    cont.className = 'elm' + (tanul() ? ' tanulas' : '');
+    var nav = el('div', 'lepesnav');
+    nav.appendChild(gomb('‹', 'ico', function () { lep(-1); })).setAttribute('aria-label', 'Előző lépés');
+    ELM3_LEPESEK.forEach(function (n, i) { var b = gomb((i + 1) + '. ' + n, 'pont', function () { S.lepes = i + 1; ment(); rajz(); }); b.setAttribute('aria-current', S.lepes === i + 1 ? 'true' : 'false'); nav.appendChild(b); });
+    nav.appendChild(gomb('›', 'ico', function () { lep(1); })).setAttribute('aria-label', 'Következő lépés');
+    cont.appendChild(nav);
+    var test = el('div'); cont.appendChild(test);
+    [null, ostor, okok, miert, elorejelzes, szabaly, megoldas, tovabb][S.lepes](test);
+  }
+  function lep(d) { S.lepes = Math.max(1, Math.min(N, S.lepes + d)); ment(); rajz(); }
+  function fej(c, cim, lead) { c.appendChild(el('h2', 'elmcim', cim)); if (lead) c.appendChild(el('p', 'elmlead', lead)); }
+  function szovegDoboz(cim, bek) { var d = el('div', 'szoveg'); if (cim) d.appendChild(el('h4', null, cim)); bek.forEach(function (p) { d.appendChild(el('p', null, p)); }); return d; }
+  function onell(l) {
+    var lista = ONELLENORZES3[l]; if (!lista) return el('div');
+    var d = el('div', 'szoveg'); d.appendChild(el('h4', null, 'Ellenőrizd magad'));
+    var w = el('div', 'onell'); d.appendChild(w);
+    lista.forEach(function (q, qi) {
+      var k = l + '_' + qi, b0 = el('div'); b0.appendChild(el('div', 'k', q.k));
+      var o = el('div', 'o'), m = el('div', 'm');
+      q.o.forEach(function (sz, oi) { var b = gomb(sz, null, function () { S.valasz[k] = oi; rajz(); }); if (S.valasz[k] !== undefined) { if (oi === q.h) b.classList.add('jo'); else if (oi === S.valasz[k]) b.classList.add('rossz'); } o.appendChild(b); });
+      if (S.valasz[k] !== undefined) m.textContent = (S.valasz[k] === q.h ? 'Helyes. ' : 'Nem egészen. ') + q.m;
+      b0.appendChild(o); b0.appendChild(m); w.appendChild(b0);
+    });
+    return d;
+  }
+  function tiles(L) { var t = el('div', 'tiles'); L.forEach(function (x) { var d = el('div', 'tile'); d.appendChild(el('div', 'l', x[0])); d.appendChild(el('div', 'v', x[1])); if (x[2]) d.appendChild(el('div', 'hint', x[2])); t.appendChild(d); }); return t; }
+
+  /* --- 1. az ostorcsapás --- */
+  function ostor(c) {
+    fej(c, 'Az ostorcsapás-hatás', 'A vásárlói kereslet egyszer, 4-ről 8 rekeszre nőtt. A lánc tetején ebből hatalmas hullám lett.');
+    var st = sjOsztalyStat(ctx.adat && ctx.adat() && ctx.adat().sj), g = el('div', 'ket'); c.appendChild(g);
+    var bal = el('div', 'panel'); g.appendChild(bal);
+    if (st[1]) {
+      bal.appendChild(el('h3', null, 'Nálatok: hányszor nagyobb a rendelések ingadozása, mint a keresleté?'));
+      var w = el('div', 'abrawrap'); w.appendChild(oszlopParok(SJ.szerepek.map(function (s) { return s.rov; }), st[1].arany, st[2] ? st[2].arany : null, { egyseg: '×', W: 640, H: 340, cim: 'A rendelések szórása a kereslet szórásához képest' })); bal.appendChild(w);
+      bal.appendChild(jelmagyarazat(st[2] ? [['#007548', '1. menet (' + st[1].n + ' lánc átlaga)'], ['#38ac55', '2. menet, közös pénztári adattal']] : [['#007548', '1. menet (' + st[1].n + ' lánc átlaga)']]));
+      if (Math.max.apply(null, st[1].arany) < 2) {
+        bal.appendChild(el('p', 'hint', 'Nálatok szerény maradt a kilengés: aki egyszerűen továbbadta a kapott rendelést, stabilizálta a láncot. Így szokott kinézni egy tipikus játék, ahol a szereplők elfelejtik, ami már úton van:'));
+        var Sy = sjSzabalySzim(1, 0, 2), wy = el('div', 'abrawrap'); wy.appendChild(sjCsapatAbra(Sy, { H: 240 })); bal.appendChild(wy); bal.appendChild(sjJelmagyarazat());
+      }
+    } else {
+      bal.appendChild(el('h3', null, 'Egy tipikus játék: a négy szereplő rendelései'));
+      var Sx = sjSzabalySzim(1, 0, 2), w2 = el('div', 'abrawrap'); w2.appendChild(sjCsapatAbra(Sx, { H: 280 })); bal.appendChild(w2); bal.appendChild(sjJelmagyarazat());
+    }
+    var jobb = el('div'); g.appendChild(jobb);
+    var k = el('div', 'kulcs magyar'); k.appendChild(el('b', null, 'Definíció'));
+    k.appendChild(document.createTextNode('Az ostorcsapás-hatás (bullwhip effect): a rendelések ingadozása a láncban felfelé haladva szintről szintre nő, miközben a végső fogyasztói kereslet alig változik. Mérőszáma: a rendelések szórása osztva a kereslet szórásával.'));
+    jobb.appendChild(k);
+    var t = el('div', 'tanulsag'); t.style.gridTemplateColumns = '1fr'; t.style.marginTop = '.75rem';
+    [['Procter & Gamble, pelenka', 'A babák egyenletesen fogyasztanak, mégis a nagykereskedők rendelései és a P&G alapanyag-rendelései erősen hullámzottak (Lee és társai, 1997).'],
+     ['Barilla, tészta', 'A boltokban egyenletes fogyás, a gyár felé hetente többszörös kilengés. A szállító által kezelt készlet bevezetése simította ki.'],
+     ['És a tej?', 'Ugyanez a mechanizmus: a boltok akciói és kötegelt rendelései miatt a tejüzem jellemzően nagyobb ingadozást lát, mint ami a vásárlók kosarában történik.']].forEach(function (x) { var d = el('div'); d.appendChild(el('b', null, x[0])); d.appendChild(document.createTextNode(x[1])); t.appendChild(d); });
+    jobb.appendChild(t);
+    if (tanul()) { c.appendChild(szovegDoboz('Honnan ered a fogalom?', ['Jay Forrester az 1950–60-as években mutatta ki rendszerdinamikai modellekkel, hogy a késleltetések és a helyi döntések felerősítik a kereslet változásait (Forrester-hatás). A sörjátékot az MIT-n fejlesztették ki ennek bemutatására.', 'Lee, Padmanabhan és Whang 1997-ben adta a nevét és a négy fő okát. Azóta az ellátási lánc menedzsment egyik alapjelensége: a hullámzás felesleges készletet, kapacitás-pazarlást, rossz kiszolgálást és túlórát okoz a lánc felső szintjein.'])); c.appendChild(onell(1)); }
+  }
+
+  /* --- 2. négy ok + egy viselkedési --- */
+  function okok(c) {
+    fej(c, 'Miért keletkezik? Négy ok és egy emberi hiba', 'Lee, Padmanabhan és Whang (1997) négy okot nevezett meg. A játékban egy ötödik is megjelent.');
+    var t = el('div', 'tanulsag negy');
+    OKOK.forEach(function (x, i) { var d = el('div'); d.appendChild(el('b', null, (i + 1) + '. ' + x.cim)); d.appendChild(el('p', null, x.mit)); d.appendChild(el('p', 'hint', 'Példa: ' + x.pelda)); t.appendChild(d); });
+    c.appendChild(t);
+    var k = el('div', 'kulcs magyar'); k.style.marginTop = '1rem';
+    k.appendChild(el('b', null, '+1. A csővezeték elfelejtése (Sterman, 1989)'));
+    k.appendChild(document.createTextNode('A játékban senki nem kötegelt, nem volt akció és arányos elosztás sem, mégis kilengett a lánc. Az ok: a késleltetés miatt a rendelés hetekig nem érkezik meg, a játékos azt hiszi, kevés volt, és újra rendel. A már megrendelt, de még úton lévő mennyiséget figyelmen kívül hagyja, a végén eláraszt a készlet. Ezért szerepelt a telefonon külön dobozban: „Már megrendelted, még nincs nálad”.'));
+    c.appendChild(k);
+    if (tanul()) { c.appendChild(szovegDoboz('Racionális szereplők, irracionális lánc', ['Lee és társai szerint az első négy ok akkor is működik, ha minden szereplő racionálisan, a saját költségét minimalizálva dönt. A probléma nem a butaság, hanem a rendszer felépítése: a késleltetés, a hiányos információ és az ösztönzők.', 'Sterman kísérletei viszont azt mutatták, hogy az emberek ráadásul rendszeresen alábecsülik a késleltetést. Ez a két hatás együtt adja a sörjátékban látott nagy kilengéseket.'])); c.appendChild(onell(2)); }
+  }
+
+  /* --- 3. miért erősödik? (Chen és társai, 2000) --- */
+  function miert(c) {
+    fej(c, 'Miért nő szintről szintre?', 'Chen és társai (2000): ha minden szereplő a saját vevője rendeléseiből, mozgóátlaggal jelez előre, a felerősödés minden szinten szorzódik.');
+    var p = el('div', 'panel'); c.appendChild(p);
+    function cs(nev, k, min, max) { var row = el('div', 'csuszka'); row.appendChild(el('label', null, nev + ': ' + S[k])); var r = el('input'); r.type = 'range'; r.min = min; r.max = max; r.value = S[k]; r.oninput = function () { S[k] = Number(r.value); rajz(); }; row.appendChild(r); return row; }
+    var g = el('div', 'ket'); p.appendChild(g);
+    var bal = el('div'); g.appendChild(bal);
+    bal.appendChild(cs('L: szállítási idő (hét)', 'L', 1, 6));
+    bal.appendChild(cs('p: hány hét átlagából jelez előre', 'p', 1, 12));
+    var f = 1 + 2 * S.L / S.p + 2 * S.L * S.L / (S.p * S.p), dec = [], cen = [];
+    for (var k = 1; k <= 4; k++) { dec.push(Math.pow(f, k)); var Lk = S.L * k; cen.push(1 + 2 * Lk / S.p + 2 * Lk * Lk / (S.p * S.p)); }
+    var kl = el('div', 'kulcs magyar');
+    kl.appendChild(el('b', null, 'A képlet egy szintre'));
+    kl.appendChild(el('div', 'keplet', 'Var(rendelés) / Var(kereslet) ≥ 1 + 2L/p + 2L²/p² = ' + kerek(f, 2)));
+    kl.appendChild(document.createTextNode('Ha mindenki csak a saját vevőjét látja, a szintek szorzódnak. Ha mindenki a vásárlói adatot látja, csak a szállítási idők adódnak össze.'));
+    bal.appendChild(kl);
+    var jobb = el('div'); g.appendChild(jobb);
+    var w = el('div', 'abrawrap'); w.appendChild(oszlopParok(SJ.szerepek.map(function (s) { return s.rov; }), dec, cen, { egyseg: '×', H: 300, szinA: '#d9534f', szinB: '#007548', cim: 'A rendelések szórásnégyzete a keresletéhez képest' })); jobb.appendChild(w);
+    jobb.appendChild(jelmagyarazat([['#d9534f', 'mindenki a saját vevőjét látja'], ['#007548', 'mindenki a vásárlói adatot látja']]));
+    if (tanul()) { c.appendChild(szovegDoboz('Mit mond a képlet?', ['A felerősödés annál nagyobb, minél hosszabb a szállítási idő (L) és minél rövidebb az előrejelzés ablaka (p). A hosszú átfutás miatt sok hétre kell előre gondolni, a rövid ablak miatt az előrejelzés minden véletlen kiugrásra reagál.', 'Az információmegosztás nem szünteti meg teljesen a hatást (a szállítási idő megmarad), de a szorzást összeadássá szelídíti. Ez a közös pénztári adat, az EDI és a CPFR elméleti indoka.'])); c.appendChild(onell(3)); }
+  }
+
+  /* --- 4. előrejelzés --- */
+  function elorejelzes(c) {
+    var D = ELO_IGENY, n = S.n, F = [], hib = 0, db = 0;
+    for (var i = 0; i < D.length; i++) { if (i < n) { F.push(null); continue; } var s = 0; for (var j = i - n; j < i; j++) s += D[j]; F.push(s / n); hib += Math.abs(D[i] - s / n); db++; }
+    var valt = 0, vd = 0; for (var q = 1; q < F.length; q++) if (F[q] !== null && F[q - 1] !== null) { valt += Math.abs(F[q] - F[q - 1]); vd++; }
+    fej(c, 'Kereslet-előrejelzés: gyors vagy nyugodt?', 'Egy nagykereskedő heti sörkereslete egy évben. Az előrejelzés az utolsó n hét átlaga (mozgóátlag).');
+    var p = el('div', 'panel'); c.appendChild(p);
+    var row = el('div', 'csuszka'); row.appendChild(el('label', null, 'n: ennyi hét átlagából jelzünk előre: ' + n)); var r = el('input'); r.type = 'range'; r.min = 1; r.max = 12; r.value = n; r.oninput = function () { S.n = Number(r.value); rajz(); }; row.appendChild(r); p.appendChild(row);
+    var w = el('div', 'abrawrap'); w.appendChild(vonalAbra([{ nev: 'előrejelzés', szin: '#d9534f', ertek: F, vastag: 2.6 }], { H: 280, oszlop: { ertek: D, szin: '#cfe6d7' }, cim: 'Heti kereslet és mozgóátlagos előrejelzés' })); p.appendChild(w);
+    p.appendChild(jelmagyarazat([['#cfe6d7', 'tényleges heti kereslet (rekesz)'], ['#d9534f', 'előrejelzés: az utolsó ' + n + ' hét átlaga']]));
+    p.appendChild(tiles([['Átlagos hiba (MAD)', kerek(hib / db, 1) + ' rekesz', 'mennyivel téved hetente átlagosan'], ['Az előrejelzés hetenkénti változása', kerek(valt / vd, 1) + ' rekesz', 'ennyit „rángatja” a rendeléseket']]));
+    var k = el('div', 'kulcs magyar'); k.appendChild(el('b', null, 'A dilemma'));
+    k.appendChild(document.createTextNode('Rövid ablak (n = 1–2): gyorsan észreveszi a nyári növekedést, de minden véletlen kiugrást (például a 21. heti meccset) trendnek vesz, és rángatja a rendeléseket. Hosszú ablak (n = 8–12): nyugodt, de későn veszi észre a valódi változást. Az ostorcsapás szempontjából a rángatás a veszélyesebb.'));
+    p.appendChild(k);
+    if (tanul()) { c.appendChild(szovegDoboz('További módszerek', ['Exponenciális simítás: az új előrejelzés = a régi + α × (tényleges − régi előrejelzés). Az α (0 és 1 között) ugyanazt a dilemmát állítja be, mint a mozgóátlag ablaka: nagy α gyors és ideges, kis α lassú és nyugodt.', 'Szezonalitás és ismert események (meccs, ünnep, akció) esetén nem a múlt átlagát kell továbbvinni, hanem a naptárat is figyelembe kell venni: ezt teszi a közös tervezés (CPFR).'])); c.appendChild(onell(4)); }
+  }
+
+  /* --- 5. döntési szabály --- */
+  function szabaly(c) {
+    fej(c, 'Hogyan érdemes rendelni?', 'Sterman (1989) szabálya: induljunk ki a várható keresletből, és korrigáljunk a készlet és az úton lévő mennyiség hiányával. Mind a négy szereplő ugyanígy dönt.');
+    var p = el('div', 'panel'); c.appendChild(p);
+    var g = el('div', 'ket nm'); p.appendChild(g);
+    var bal = el('div'); g.appendChild(bal);
+    var kl = el('div', 'kulcs magyar'); kl.appendChild(el('b', null, 'A rendelési szabály'));
+    kl.appendChild(el('div', 'keplet', 'rendelés = várható kereslet + (célkészlet − készlet) / T + w · (cél csővezeték − csővezeték) / T'));
+    kl.appendChild(document.createTextNode('T: hány hét alatt pótoljuk a hiányt. w: mennyire vesszük figyelembe, ami már úton van (0% = elfelejtjük, 100% = teljesen).'));
+    bal.appendChild(kl);
+    [['w: az úton lévő figyelembevétele', 'uton', 0, 100, '%'], ['T: igazítási idő (hét)', 'igazit', 1, 8, '']].forEach(function (x) {
+      var row = el('div', 'csuszka'); var val = x[1] === 'uton' ? Math.round(S.uton * 100) : S.igazit;
+      row.appendChild(el('label', null, x[0] + ': ' + val + x[4]));
+      var r = el('input'); r.type = 'range'; r.min = x[2]; r.max = x[3]; r.value = val; r.oninput = function () { if (x[1] === 'uton') S.uton = Number(r.value) / 100; else S.igazit = Number(r.value); rajz(); };
+      row.appendChild(r); bal.appendChild(row);
+    });
+    var Sx = sjSzabalySzim(1, S.uton, S.igazit), st = sjStat(Sx);
+    bal.appendChild(tiles([['A lánc költsége', forint(st.osszKoltseg)], ['A malátagyár legnagyobb rendelése', st.szerep[3].max + ' rekesz']]));
+    var jobb = el('div'); g.appendChild(jobb);
+    var w = el('div', 'abrawrap'); w.appendChild(sjCsapatAbra(Sx, { H: 320 })); jobb.appendChild(w);
+    jobb.appendChild(sjJelmagyarazat());
+    jobb.appendChild(el('p', 'hint', 'Próbáld ki: w = 0% és T = 1 (a türelmetlen játékos, aki elfelejti, mit rendelt), majd w = 100% és T = 4. Ugyanaz a kereslet, egészen más lánc.'));
+    if (tanul()) { c.appendChild(szovegDoboz('Mit tanulunk ebből?', ['A türelmetlenség (rövid igazítási idő) és a csővezeték elfelejtése együtt okozza a legnagyobb kilengést. A jó döntéshozó lassabban korrigál, és mindig hozzászámolja, ami már úton van.', 'A gyakorlatban ezt a készletnyilvántartó rendszer teszi meg: a rendelési javaslatban a „szabad készlet” már tartalmazza a beérkező rendeléseket. A 2. blokk rendelési pontja is így számol: az úton lévővel együtt nézi a készletet.'])); c.appendChild(onell(5)); }
+  }
+
+  /* --- 6. megoldások --- */
+  function megoldas(c) {
+    fej(c, 'Mit lehet tenni?', 'Minden okra van ellenszer. A közös cél: a láncban mindenki a valódi keresletet lássa, rövidebb késleltetéssel.');
+    var tw = el('div', 'tabwrap'), tb = el('table', 'mtab balra'); tw.appendChild(tb);
+    var h = el('tr'); ['Eszköz', 'Melyik ok ellen', 'Példa a sörnél'].forEach(function (x) { h.appendChild(el('th', null, x)); }); tb.appendChild(h);
+    MEGOLDASOK.forEach(function (x) { var tr = el('tr'); x.forEach(function (v, i) { var td = el('td', null, v); if (!i) td.style.fontWeight = '600'; tr.appendChild(td); }); tb.appendChild(tr); });
+    c.appendChild(tw);
+    var st = sjOsztalyStat(ctx.adat && ctx.adat() && ctx.adat().sj);
+    if (st[1] && st[2]) {
+      var k = el('div', 'kulcs magyar'); k.style.marginTop = '1rem';
+      k.appendChild(el('b', null, 'A ti kísérletetek: közös pénztári adat a 2. menetben'));
+      k.appendChild(document.createTextNode('A malátagyár rendeléseinek ingadozása az 1. menetben a kereslet ' + kerek(st[1].arany[3], 1) + '-szorosa volt, a 2. menetben ' + kerek(st[2].arany[3], 1) + '-szorosa. A lánc átlagos költsége ' + forint(st[1].koltseg) + ' (20 hét), illetve ' + forint(st[2].koltseg) + ' (12 hét).'));
+      c.appendChild(k);
+    }
+    if (tanul()) { c.appendChild(szovegDoboz('A megoldások ára', ['Az információmegosztáshoz bizalom és technika kell: közös adatformátum (EDI), hozzáférés a vevő rendszeréhez, megállapodás arról, ki mit láthat. A VMI-nél a beszállító felelőssége nő, cserébe stabilabb rendeléseket kap.', 'Ezért a megoldások ott terjednek, ahol a lánc szereplői hosszú távú partnerek: ez vezet át a következő témához, a partnerkapcsolatokhoz.'])); c.appendChild(onell(6)); }
+  }
+
+  /* --- 7. tovább --- */
+  function tovabb(c) {
+    fej(c, 'Mit viszünk tovább?', null);
+    var t = el('div', 'tanulsag negy');
+    [['A lánc felerősít', 'Egy kis változás a vásárlóknál nagy hullám a lánc tetején.'],
+     ['Az ok a rendszer', 'Késleltetés, helyi előrejelzés, kötegelés, akciók, hiánygazdálkodás.'],
+     ['És az ember', 'Elfelejtjük, ami már úton van, és türelmetlenül korrigálunk.'],
+     ['A gyógymód', 'Közös adat, rövidebb átfutás, stabil ár, kisebb tételek, közös tervezés.']].forEach(function (x) { var d = el('div'); d.appendChild(el('b', null, x[0])); d.appendChild(document.createTextNode(x[1])); t.appendChild(d); });
+    c.appendChild(t);
+    var p = el('div', 'panel'); p.style.marginTop = '1rem'; c.appendChild(p);
+    p.appendChild(el('h3', null, 'Most a telefonon'));
+    p.appendChild(el('p', null, 'Egy mondatban: miért lengett ki a lánc rendelése, és mi segített volna? Utána 5 kérdéses záró kvíz.'));
+    var f = el('div', 'forras'); f.style.marginTop = '1rem'; ELM3_FORRAS.forEach(function (x) { f.appendChild(el('div', null, x)); }); c.appendChild(f);
+  }
+  return { rajz: rajz, lep: lep };
+}
+
 /* ================= 3. FÁZIS: EGYSZERŰSÍTETT TÉRKÉPEZŐ ================= */
 var JELOLESEK = [
   { kulcs: 'keszletHely', cim: 'Hol áll a legtöbb készlet?', magyaraz: 'Ahol a legtöbb termék vagy alapanyag vár egyszerre (raktárban, tankban, polcon).' },
@@ -2684,6 +3133,217 @@ function KeszletJatek(cont, o) {
   rajz();
 }
 
+/* ================= 3. BLOKK: SÖRJÁTÉK FELÜLETEK ================= */
+
+/* ---------- általános vonaldiagram hetekre ---------- */
+function vonalAbra(sorok, o) {
+  o = o || {};
+  var W = o.W || 960, H = o.H || 300, ml = 46, mr = 14, mt = 18, mb = 32, fs = o.fs || 13, N = o.hetek || 0;
+  sorok.forEach(function (s) { N = Math.max(N, s.ertek.length); });
+  var min = 0, max = 4;
+  sorok.concat(o.oszlop ? [o.oszlop] : []).forEach(function (s) { s.ertek.forEach(function (v) { if (v === null || v === undefined) return; if (v > max) max = v; if (v < min) min = v; }); });
+  max = Math.ceil(max * 1.1 / 4) * 4; if (min < 0) min = -Math.ceil(-min * 1.1 / 4) * 4;
+  var svg = sv('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'class': 'kabra' });
+  svg.setAttribute('aria-label', o.cim || sorok.map(function (s) { return s.nev; }).join(', '));
+  var pw = W - ml - mr, ph = H - mt - mb;
+  function X(i) { return ml + (i + 0.5) / N * pw; }
+  function Y(v) { return mt + ph - (v - min) / (max - min) * ph; }
+  var lep = (max - min) > 120 ? 40 : (max - min) > 60 ? 20 : (max - min) > 24 ? 8 : 4;
+  for (var v = Math.ceil(min / lep) * lep; v <= max; v += lep) {
+    svg.appendChild(sv('line', { x1: ml, x2: W - mr, y1: Y(v), y2: Y(v), stroke: v === 0 ? '#9aa39e' : '#e3e9e5', 'stroke-width': 1 }));
+    svg.appendChild(sv('text', { x: ml - 6, y: Y(v) + 4, 'text-anchor': 'end', 'font-size': fs - 2, fill: '#6b6f6c' }, String(v)));
+  }
+  var cimkeLep = N > 14 && W < 700 ? 4 : N > 14 ? 2 : 1;
+  for (var i = 0; i < N; i++) if ((i + 1) % cimkeLep === 0 || i === 0) svg.appendChild(sv('text', { x: X(i), y: H - 10, 'text-anchor': 'middle', 'font-size': fs - 2, fill: '#6b6f6c' }, String(i + 1)));
+  if (o.oszlop) {
+    var bw = pw / N * 0.6;
+    o.oszlop.ertek.forEach(function (x, i) { if (x === null || x === undefined) return; svg.appendChild(sv('rect', { x: X(i) - bw / 2, y: Y(Math.max(0, x)), width: bw, height: Math.abs(Y(x) - Y(0)), fill: o.oszlop.szin || '#d3dbd6' })); });
+  }
+  sorok.forEach(function (s) {
+    var d = '';
+    s.ertek.forEach(function (x, i) { if (x === null || x === undefined) return; d += (d ? ' L' : 'M') + X(i) + ' ' + Y(x); });
+    if (!d) return;
+    var at = { d: d, fill: 'none', stroke: s.szin, 'stroke-width': s.vastag || 2.4, 'stroke-linejoin': 'round' };
+    if (s.szaggatott) at['stroke-dasharray'] = '6 4';
+    svg.appendChild(sv('path', at));
+    if (s.pontok) s.ertek.forEach(function (x, i) { if (x !== null && x !== undefined) svg.appendChild(sv('circle', { cx: X(i), cy: Y(x), r: 3, fill: s.szin })); });
+  });
+  if (o.jelol) o.jelol.forEach(function (i) { svg.appendChild(sv('line', { x1: X(i), x2: X(i), y1: mt, y2: mt + ph, stroke: '#fdc500', 'stroke-width': 2 })); });
+  return svg;
+}
+function jelmagyarazat(L) {
+  var lg = el('div', 'legend');
+  L.forEach(function (x) { var s = el('span'); var i = el('i', 'sw' + (x[2] ? ' szagg' : '')); i.style.background = x[0]; s.appendChild(i); s.appendChild(document.createTextNode(x[1])); lg.appendChild(s); });
+  return lg;
+}
+/* a csapat négy szereplőjének rendelései + a vásárlói kereslet */
+function sjCsapatAbra(S, o) {
+  o = o || {};
+  var t = S.tort.filter(function (x) { return x.sz[0].r !== null; }), mod = o.mod || 'rend';
+  var sorok = SJ.szerepek.map(function (sz, r) {
+    return { nev: sz.nev, szin: sz.szin, ertek: t.map(function (x) { return mod === 'rend' ? x.sz[r].r : x.sz[r].ks - x.sz[r].h; }), vastag: 2.4 };
+  });
+  return vonalAbra(sorok, { W: o.W, H: o.H, fs: o.fs, hetek: S.hetek, oszlop: mod === 'rend' ? { ertek: t.map(function (x) { return x.D; }), szin: '#d3dbd6' } : null, cim: mod === 'rend' ? 'Heti rendelések szereplőnként' : 'Készlet mínusz hátralék szereplőnként' });
+}
+function sjJelmagyarazat(mod) {
+  var L = SJ.szerepek.map(function (s) { return [s.szin, s.nev]; });
+  if (mod !== 'keszlet') L.unshift(['#d3dbd6', 'vásárlói kereslet']);
+  return jelmagyarazat(L);
+}
+
+/* ---------- a lánc kis ábrája (ki kitől rendel) ---------- */
+function sjLancMini(r, tarsak) {
+  var d = el('div', 'sjlanc');
+  var vas = el('div', 'sjsz vevo'); vas.appendChild(el('b', null, 'Vevők')); d.appendChild(vas);
+  SJ.szerepek.forEach(function (s, i) {
+    d.appendChild(el('div', 'sjnyil', '⇄'));
+    var b = el('div', 'sjsz' + (i === r ? ' te' : '')); b.style.borderColor = s.szin;
+    b.appendChild(el('b', null, i === r ? 'Te' : s.rov));
+    b.appendChild(el('small', null, i === r ? s.rov : (tarsak && tarsak[i] ? tarsak[i] : 'gép')));
+    d.appendChild(b);
+  });
+  return d;
+}
+function sjSzabalyok(r, rovid) {
+  var d = el('div', 'sjszab');
+  var sz = r !== null && r !== undefined ? SJ.szerepek[r] : null;
+  if (sz) { var k = el('div', 'feladat kulcs'); k.appendChild(el('b', null, 'A szereped: ' + sz.nev)); k.appendChild(el('p', null, sz.mit)); d.appendChild(k); }
+  d.appendChild(el('h2', null, 'A cél'));
+  d.appendChild(el('p', null, 'A lánc négy szereplőjének együttes költsége legyen a lehető legkisebb. Minden rekesz, ami a raktárban áll: 50 Ft hetente. Minden rekesz, amivel tartozol a vevődnek (hátralék): 100 Ft hetente. A hiány tehát kétszer annyiba kerül, mint a készlet.'));
+  d.appendChild(el('h2', null, 'Egy hét menete'));
+  var ol = el('ol', 'sjlepes');
+  ['Megérkezik hozzád a beszállítód szállítmánya (amit két hete küldött).',
+   'Megkapod a vevőd rendelését (a kisboltnál: a vásárlók keresletét).',
+   'A raktárból automatikusan kiszolgálod a vevődet. Ami nem fér bele, hátralék lesz.',
+   'Te döntesz: mennyit rendelsz a beszállítódtól? Ez az egyetlen döntésed.'].forEach(function (x) { ol.appendChild(el('li', null, x)); });
+  d.appendChild(ol);
+  if (!rovid) {
+    d.appendChild(el('h2', null, 'Mennyi idő, amíg megjön?'));
+    var ido = el('div', 'sjido');
+    [['1 hét', 'a rendelésed eljut a beszállítódhoz'], ['+ 2 hét', 'a szállítmány megérkezik hozzád'], ['= 3 hét', 'ennyit kell előre gondolnod']].forEach(function (x) { var c = el('div'); c.appendChild(el('b', null, x[0])); c.appendChild(el('span', null, x[1])); ido.appendChild(c); });
+    d.appendChild(ido);
+    d.appendChild(el('h2', null, 'Szabályok'));
+    var ul = el('ul');
+    ['Csak a saját számaidat látod. Ne beszéljétek meg a láncon belül, ki mennyit rendel.', 'Minden héten adj le rendelést. Ha nem adsz le, mire az oktató lépteti a hetet, a gép rendel helyetted annyit, amennyit tőled kértek.', 'Hátralékot nem lehet „elengedni”: amit tartozol, azt később ki kell szolgálnod.', 'Ha egy szerep üres, azt a gép játssza: mindig annyit rendel, amennyit tőle kértek.'].forEach(function (x) { ul.appendChild(el('li', null, x)); });
+    d.appendChild(ul);
+  }
+  return d;
+}
+
+/* ---------- a játékképernyő egy szereplőnek (telefon és tanulási változat) ---------- */
+function SjKepernyo(cont, N, o) {
+  o = o || {};
+  var r = N.szerep, sz = SJ.szerepek[r], s = N.sor || {}, kesz = N.rend !== null && N.rend !== undefined;
+  cont.innerHTML = '';
+  var fej = el('div', 'sjfej');
+  fej.appendChild(el('div', 'sjhet', N.vege ? 'Vége' : N.het + '. hét'));
+  var fj = el('div'); fj.appendChild(el('b', null, (o.csapatNev ? o.csapatNev + ' · ' : '') + sz.nev)); fj.appendChild(el('div', 'hint', SJ.menetek[N.menet].cim + ' · ' + N.hetek + ' hétből'));
+  fej.appendChild(fj);
+  cont.appendChild(fej);
+  cont.appendChild(sjLancMini(r, o.tarsak));
+  if (N.vege) {
+    cont.appendChild(el('div', 'okmsg', 'A menet véget ért'));
+    cont.appendChild(el('p', 'center', 'A költséged: ' + forint(N.koltseg) + '. Nézz a kivetítőre.'));
+  } else {
+    var all = el('div', 'sjallapot ' + (kesz ? 'ok' : 'teendo'));
+    all.textContent = kesz ? 'Leadtad: ' + N.rend + ' rekesz. Várjuk, hogy az oktató léptessen. Addig még módosíthatod.' : 'Teendő: nézd meg a számokat lent, és add le a heti rendelésed.';
+    cont.appendChild(all);
+  }
+  /* közös pénztári adat a 2. menetben */
+  if (SJ.menetek[N.menet].pos && r !== 0) {
+    var pos = el('div', 'sjpos');
+    var Dk = N.tort.map(function (x) { return x.D; });
+    pos.appendChild(el('b', null, 'Közös pénztári adat: a vásárlók ezen a héten ' + Dk[Dk.length - 1] + ' rekeszt vittek el'));
+    pos.appendChild(el('div', 'hint', 'Eddig hetente: ' + Dk.join(', ')));
+    cont.appendChild(pos);
+  }
+  var g = el('div', 'sjdobozok');
+  function doboz(kulcs, ertek, cls, felirat) {
+    var d = el('div', 'sjdoboz ' + (cls || ''));
+    d.appendChild(el('div', 'c', felirat || SJ_DOBOZ[kulcs][0]));
+    d.appendChild(el('div', 'v', ertek));
+    d.appendChild(el('div', 'm', SJ_DOBOZ[kulcs][1]));
+    g.appendChild(d);
+  }
+  doboz('be', String(s.be || 0), 'be');
+  doboz('rb', String(s.rb || 0), 'rb', r === 0 ? 'A vásárlók ennyit kértek' : 'Ennyit kértek tőled');
+  doboz('k', String(s.k || 0), 'k');
+  doboz('ks', String(s.ks || 0), 'ks' + (s.ks > 0 ? ' van' : ''));
+  doboz('h', String(s.h || 0), 'h' + (s.h > 0 ? ' baj' : ''));
+  doboz('cso', String(N.cso), 'cso', 'Már megrendelted, még nincs nálad');
+  cont.appendChild(g);
+  var kd = el('div', 'sjkolt'); kd.appendChild(el('span', null, 'Költséged eddig: ')); kd.appendChild(el('b', null, forint(N.koltseg))); kd.appendChild(el('span', 'hint', ' · jövő héten érkezik: ' + N.jovoHet + ' rekesz')); cont.appendChild(kd);
+  if (!N.vege) {
+    var rd = el('div', 'sjrend');
+    rd.appendChild(el('h2', null, r === 3 ? 'Mennyit adsz gyártásba?' : 'Mennyit rendelsz ' + sz.besz + '?'));
+    var q = kesz ? N.rend : '';
+    var w = el('div', 'sjstep'), inp = el('input'); inp.type = 'number'; inp.inputMode = 'numeric'; inp.min = 0; inp.max = 999; inp.value = q; inp.placeholder = '?';
+    function ir(v) { v = Math.max(0, Math.min(999, Math.round(Number(v) || 0))); inp.value = v; }
+    [['−5', -5], ['−1', -1]].forEach(function (x) { w.appendChild(gomb(x[0], null, function () { ir(Number(inp.value) + x[1]); })); });
+    w.appendChild(inp);
+    [['+1', 1], ['+5', 5]].forEach(function (x) { w.appendChild(gomb(x[0], null, function () { ir(Number(inp.value) + x[1]); })); });
+    rd.appendChild(w);
+    rd.appendChild(el('p', 'hint', r === 3 ? 'Amit most gyártásba adsz, 2 hét múlva kész.' : 'A rendelésed 1 hét múlva ér ' + sz.hoz + ', a szállítmány onnan még 2 hét: kb. 3 hét múlva érkezik.'));
+    var err = el('div', 'ferr'); rd.appendChild(err);
+    var b = gomb(kesz ? 'Rendelés módosítása' : 'Rendelés leadása', 'hbtn main', function () {
+      if (String(inp.value).trim() === '') { err.textContent = 'Írd be, mennyit rendelsz (a 0 is érvényes).'; inp.focus(); return; }
+      var v = Math.round(Number(inp.value));
+      if (!(v >= 0 && v <= 999)) { err.textContent = 'A rendelés 0 és 999 közötti egész szám legyen.'; return; }
+      b.disabled = true; b.textContent = 'Küldés…';
+      o.onRendel(v, N.het).then(function () {}, function (e) { b.disabled = false; b.textContent = 'Rendelés leadása'; err.textContent = e.message; });
+    });
+    rd.appendChild(b);
+    cont.appendChild(rd);
+  }
+  if (N.tort.length > 1) {
+    var tt = N.tort.slice(0, N.tort.length);
+    var ab = el('div', 'abrawrap');
+    ab.appendChild(vonalAbra([
+      { nev: 'Ennyit kértek tőled', szin: '#353535', ertek: tt.map(function (x) { return x.rb; }), szaggatott: true, vastag: 2 },
+      { nev: 'Te ennyit rendeltél', szin: sz.szin, ertek: tt.map(function (x) { return x.r; }), vastag: 2.6, pontok: true }
+    ], { W: 420, H: 220, fs: 16, hetek: N.hetek, oszlop: { ertek: tt.map(function (x) { return x.ks - x.h; }), szin: '#cfe6d7' } }));
+    var gd = el('details', 'sjgorbe'); gd.open = !!o.gorbeNyitva;
+    gd.appendChild(el('summary', null, 'Az eddigi heteid'));
+    gd.appendChild(ab);
+    gd.appendChild(jelmagyarazat([['#353535', 'ennyit kértek tőled', true], [sz.szin, 'te ennyit rendeltél'], ['#cfe6d7', 'készlet (lefelé: hátralék)']]));
+    cont.appendChild(gd);
+  }
+  var sd = el('details', 'sjgorbe'); sd.appendChild(el('summary', null, 'Hogyan működik? (szabályok)')); sd.appendChild(sjSzabalyok(r, false)); cont.appendChild(sd);
+}
+
+/* ---------- tanulási változat: egyedül, a többi szerepet a gép játssza ---------- */
+function SjEgyedul(cont) {
+  var A = { r: null, S: null, menet: 1 };
+  function rajz() {
+    cont.innerHTML = '';
+    var lap = el('div', 'hcard'); cont.appendChild(lap);
+    if (A.r === null) {
+      lap.appendChild(el('h1', null, 'Sörjáték egyedül'));
+      lap.appendChild(el('p', null, 'Válassz szerepet. A másik hármat a gép játssza: mindig annyit rendel, amennyit tőle kértek. 20 hét, a végén látod a lánc görbéit.'));
+      var g = el('div', 'hopts');
+      SJ.szerepek.forEach(function (s, i) { var b = el('button', 'hopt'); b.type = 'button'; var t = el('span'); t.appendChild(el('strong', null, s.nev)); t.appendChild(el('div', 'hint', s.mit)); b.appendChild(t); b.onclick = function () { A.r = i; A.S = sjUj(1); rajz(); }; g.appendChild(b); });
+      lap.appendChild(g);
+      lap.appendChild(sjSzabalyok(null, false));
+      return;
+    }
+    if (A.S.vege) {
+      var st = sjStat(A.S);
+      lap.appendChild(el('h1', null, 'Vége: a lánc költsége ' + forint(st.osszKoltseg)));
+      var w = el('div', 'abrawrap'); w.appendChild(sjCsapatAbra(A.S, { W: 520, H: 260, fs: 15 })); lap.appendChild(w);
+      lap.appendChild(sjJelmagyarazat());
+      var tb = el('table', 'mtab balra'), h = el('tr'); ['Szereplő', 'Legnagyobb rendelés', 'Ingadozás a kereslethez képest', 'Költség'].forEach(function (x) { h.appendChild(el('th', null, x)); }); tb.appendChild(h);
+      SJ.szerepek.forEach(function (s, i) { var tr = el('tr'); [s.nev + (i === A.r ? ' (te)' : ''), String(st.szerep[i].max), kerek(st.szerep[i].arany, 1) + '×', forint(st.szerep[i].koltseg)].forEach(function (v) { tr.appendChild(el('td', null, v)); }); tb.appendChild(tr); });
+      var tw = el('div', 'tabwrap'); tw.appendChild(tb); lap.appendChild(tw);
+      lap.appendChild(el('p', 'hint', 'A vásárlói kereslet végig ennyi volt: 4 rekesz az első négy héten, utána 8. Minden más hullám a láncban keletkezett.'));
+      lap.appendChild(gomb('Új játék', 'hbtn', function () { A.r = null; A.S = null; rajz(); }));
+      return;
+    }
+    var c = el('div'); lap.appendChild(c);
+    SjKepernyo(c, sjNezet(A.S, A.r), { onRendel: function (q) { A.S.fuggo[A.r] = q; sjLeptet(A.S); rajz(); return Promise.resolve(); }, gorbeNyitva: true });
+  }
+  rajz();
+}
+
 /* ================= KIVETÍTŐS (TANÁRI) NÉZET ================= */
 var IKON = {
   gear: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>',
@@ -2691,8 +3351,11 @@ var IKON = {
   qr: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h3v-3"/></svg>'
 };
 var FAZISOK = [{ n: 1, b: 1, cim: 'Hírek', perc: 10 }, { n: 2, b: 1, cim: 'Elmélet', perc: 25 }, { n: 3, b: 1, cim: 'Térképező', perc: 40 }, { n: 4, b: 1, cim: 'Kvíz, összevetés', perc: 15 },
-  { n: 5, b: 2, cim: 'Nyitó eset', perc: 10 }, { n: 6, b: 2, cim: 'Elmélet', perc: 20 }, { n: 7, b: 2, cim: 'ABC', perc: 25 }, { n: 8, b: 2, cim: 'Készletjáték', perc: 25 }, { n: 9, b: 2, cim: 'Záró kvíz', perc: 10 }];
-var BLOKKOK = { 1: '1. blokk: logisztikától az SCM-ig', 2: '2. blokk: készletgazdálkodás' };
+  { n: 5, b: 2, cim: 'Nyitó eset', perc: 10 }, { n: 6, b: 2, cim: 'Elmélet', perc: 20 }, { n: 7, b: 2, cim: 'ABC', perc: 25 }, { n: 8, b: 2, cim: 'Készletjáték', perc: 25 }, { n: 9, b: 2, cim: 'Záró kvíz', perc: 10 },
+  { n: 10, b: 3, cim: 'Felkészülés', perc: 10 }, { n: 11, b: 3, cim: 'Játék', perc: 25 }, { n: 12, b: 3, cim: 'Mi történt?', perc: 10 }, { n: 13, b: 3, cim: 'Visszavágó', perc: 12 }, { n: 14, b: 3, cim: 'Elmélet', perc: 20 }, { n: 15, b: 3, cim: 'Zárás', perc: 10 }, { n: 16, b: 3, cim: 'Pontok', perc: 3 }];
+var BLOKKOK = { 1: '1. blokk: logisztikától az SCM-ig', 2: '2. blokk: készletgazdálkodás', 3: '3. blokk: az ostorcsapás-hatás' };
+var BLOKK_ELSO = { 1: 1, 2: 5, 3: 10 };
+function blokkFazis(f) { return f >= 10 ? 3 : f >= 5 ? 2 : 1; }
 
 function tanar() {
   document.title = 'ELM alapjai, 1. blokk';
@@ -2707,10 +3370,10 @@ function tanar() {
   var nav = $('fazisok');
   function fazisRajz() {
     nav.innerHTML = '';
-    var blokk = aktFazis >= 5 ? 2 : 1;
+    var blokk = blokkFazis(aktFazis);
     var bv = el('div', 'blokkval');
-    [1, 2].forEach(function (bl) {
-      var b = gomb(bl + '. blokk', null, function () { if (bl === blokk) return; if (!confirm('Átváltasz a ' + bl + '. blokkra? A telefonok is átlépnek.')) return; fazisValt(bl === 1 ? 1 : 5); });
+    [1, 2, 3].forEach(function (bl) {
+      var b = gomb(bl + '. blokk', null, function () { if (bl === blokk) return; if (!confirm('Átváltasz a ' + bl + '. blokkra? A telefonok is átlépnek.')) return; fazisValt(BLOKK_ELSO[bl]); });
       b.setAttribute('aria-current', bl === blokk ? 'true' : 'false'); bv.appendChild(b);
     });
     nav.appendChild(bv);
@@ -2718,7 +3381,7 @@ function tanar() {
     document.title = 'ELM alapjai, ' + blokk + '. blokk';
     FAZISOK.forEach(function (f) {
       if (f.b !== blokk) return;
-      var b = gomb((f.b === 2 ? f.n - 4 : f.n) + ' ' + f.cim); b.appendChild(el('span', 'p', f.perc + ' p'));
+      var b = gomb((f.n - BLOKK_ELSO[f.b] + 1) + ' ' + f.cim); b.appendChild(el('span', 'p', f.perc + ' p'));
       b.setAttribute('aria-current', f.n === aktFazis ? 'true' : 'false');
       b.onclick = function () { fazisValt(f.n); };
       nav.appendChild(b);
@@ -2783,7 +3446,7 @@ function tanar() {
         if (!j.ok) throw new Error(j.hiba || 'hibás válasz');
         adat = j; allapot = j.allapot || allapot; kapcsJel('ok', 'Élő kapcsolat'); hiba('');
         $('frissIdo').textContent = 'Frissítve: ' + new Date().toLocaleTimeString('hu-HU') + (B.auto ? ' · auto ' + B.auto + ' mp' : ' · kézi');
-        $('telFazis').textContent = 'Telefonokon: ' + (allapot.fazis >= 5 ? '2. blokk ' + (allapot.fazis - 4) : '1. blokk ' + allapot.fazis) + '. fázis · ' + (j.regisztraltak || 0) + ' regisztrált';
+        $('telFazis').textContent = 'Telefonokon: ' + blokkFazis(allapot.fazis) + '. blokk ' + (allapot.fazis - BLOKK_ELSO[blokkFazis(allapot.fazis)] + 1) + '. fázis · ' + (j.regisztraltak || 0) + ' regisztrált';
         rajz();
       })
       .catch(function (e) { kapcsJel('hiba', 'Nincs kapcsolat'); hiba('Nem sikerült frissíteni (' + e.message + '). Az utolsó ismert állapot látszik.'); })
@@ -2823,7 +3486,7 @@ function tanar() {
 
   /* ---------- rajzolás fázisonként ---------- */
   function rajz() {
-    [null, f1, f2, f3, f4, f5, f6, f7, f8, f9][aktFazis]();
+    [null, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16][aktFazis]();
   }
 
   /* ===== 1. fázis: hírek és szófelhő ===== */
@@ -2879,8 +3542,8 @@ function tanar() {
     var rejtett = Object.keys(helyi.rejtSzoveg || {}).filter(function (k) { return ids.some(function (x) { return k.indexOf(x) === 0; }); });
     if (rejtett.length) c.appendChild(gomb('Elrejtett szöveges válaszok visszaállítása (' + rejtett.length + ')', null, function () { rejtett.forEach(function (k) { delete helyi.rejtSzoveg[k]; }); helyiMent(); ujra(); }));
   }
-  function KV() { return adat ? (aktFazis >= 5 ? adat.kviz2 : adat.kviz) : null; }
-  function TOP() { return adat ? (aktFazis >= 5 ? adat.toplista2 : adat.toplista) : null; }
+  function KV() { return adat ? [null, adat.kviz, adat.kviz2, adat.kviz3][blokkFazis(aktFazis)] : null; }
+  function TOP() { return adat ? [null, adat.toplista, adat.toplista2, adat.toplista3][blokkFazis(aktFazis)] : null; }
   function kvizNezet(p, inner, cov) {
     var kv = KV() || { kerdesek: [], resztvevok: 0, atlag: null, max: 0 };
     var K = kv.kerdesek || [];
@@ -3321,6 +3984,192 @@ function tanar() {
   }
   function x2(x, k) { var r = x.jatek[k]; return k + '. kör: ' + (r ? Math.round(r.arany * 100) + '%' : '–'); }
 
+  /* ===== 3. BLOKK ===== */
+  function sjDo(p) {
+    if (!B.kulcs) { hiba('A tanári kulcs nincs megadva (Beállítások).'); return Promise.reject(new Error('nincs kulcs')); }
+    p.api = 'sj'; p.a = B.kod; p.k = B.kulcs;
+    return apiGet(base(), p, 2).then(function (j) { if (!j.ok) throw new Error(j.hiba || 'hiba'); if (adat) adat.sj = j.sj; rajz(); frissit(true); return j; }, function (e) { hiba('Nem sikerült: ' + e.message); throw e; });
+  }
+  function SJA() { return (adat && adat.sj) || { tagsag: { csapatok: [] }, allapot: { 1: {}, 2: {} } }; }
+
+  /* ----- 10. felkészülés ----- */
+  var lancSzam = null;
+  function f10() {
+    var c = $('f10'); c.innerHTML = '';
+    var g = el('div', 'ket nm'); c.appendChild(g);
+    var bal = el('div'); g.appendChild(bal);
+    var q = el('div', 'panel qrcard'); q.appendChild(el('h3', null, 'Csatlakozz telefonról')); qrKartya(q); bal.appendChild(q);
+    var cs = SJA().tagsag.csapatok, reg = adat ? adat.regisztraltak : 0;
+    var foglalt = 0; cs.forEach(function (x) { x.tagok.forEach(function (t) { if (t) foglalt++; }); });
+    if (lancSzam === null) lancSzam = cs.length || Math.max(1, Math.ceil(reg / 4));
+    var lp = el('div', 'panel'); lp.style.marginTop = '1rem'; bal.appendChild(lp);
+    lp.appendChild(el('h3', null, 'Láncok (4 fő = 1 lánc)'));
+    lp.appendChild(el('p', 'hint', reg + ' regisztrált, ' + foglalt + ' választott szerepet. Javaslat: ' + Math.max(1, Math.ceil(reg / 4)) + ' lánc. Az üres szerepeket a gép játssza.'));
+    var w = el('div', 'kapcsolok');
+    w.appendChild(gomb('−', null, function () { lancSzam = Math.max(1, lancSzam - 1); f10(); }));
+    w.appendChild(el('b', null, lancSzam + ' lánc'));
+    w.appendChild(gomb('+', null, function () { lancSzam = Math.min(12, lancSzam + 1); f10(); }));
+    w.appendChild(gomb(cs.length ? 'Láncok frissítése' : 'Láncok létrehozása', 'main', function () { sjDo({ mit: 'csapat', n: lancSzam }); }));
+    lp.appendChild(w);
+    var jobb = el('div'); g.appendChild(jobb);
+    if (cs.length) jobb.appendChild(sjSzereposztas(cs, null, null));
+    var sz = el('div', 'panel'); sz.style.marginTop = cs.length ? '1rem' : '0'; sz.appendChild(el('h2', null, 'Sörjáték: a szabályok')); sz.appendChild(sjSzabalyok(null, false)); jobb.appendChild(sz);
+  }
+  /* láncok × szerepek táblázat; ha S van megadva, a heti leadást is mutatja (számokat nem) */
+  function sjSzereposztas(cs, m, all) {
+    var tw = el('div', 'tabwrap'), tb = el('table', 'mtab balra sjtab'); tw.appendChild(tb);
+    var h = el('tr'); h.appendChild(el('th', null, 'Lánc')); SJ.szerepek.forEach(function (s) { var th = el('th', null, s.nev); th.style.color = s.szin; h.appendChild(th); }); tb.appendChild(h);
+    cs.forEach(function (x) {
+      var tr = el('tr'), S = all && all[x.kod]; tr.appendChild(el('th', null, x.nev));
+      x.tagok.forEach(function (t, r) {
+        var td = el('td');
+        td.appendChild(el('div', t ? 'nm' : 'nm gep', t ? (t.bec || t) : 'gép'));
+        if (S && !S.vege) { var kesz = S.fuggo[r] !== null && S.fuggo[r] !== undefined; td.appendChild(el('span', 'badge ' + (t ? (kesz ? 'ok' : 'warn') : 'ki'), t ? (kesz ? '✓ leadta' : 'gondolkodik') : 'automatikus')); }
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+    return tw;
+  }
+
+  /* ----- 11. és 13. menet ----- */
+  function fMenet(m) {
+    var c = $(m === 1 ? 'f11' : 'f13'); c.innerHTML = '';
+    var sj = SJA(), cs = sj.tagsag.csapatok, all = sj.allapot[m] || {}, kodok = Object.keys(all), S0 = kodok.length ? all[kodok[0]] : null;
+    var fej = el('div', 'vbar');
+    fej.appendChild(el('h2', null, SJ.menetek[m].cim + (S0 ? ' · ' + (S0.vege ? 'vége' : S0.het + '. hét / ' + S0.hetek) : '')));
+    fej.appendChild(el('span', 'sp'));
+    var emb = 0, leadta = 0;
+    cs.forEach(function (x) { var S = all[x.kod]; x.tagok.forEach(function (t, r) { if (!t) return; emb++; if (S && S.fuggo[r] !== null && S.fuggo[r] !== undefined) leadta++; }); });
+    if (!cs.length) fej.appendChild(el('span', 'badge warn', 'Előbb hozd létre a láncokat (felkészülés)'));
+    else if (!S0) fej.appendChild(gomb(m + '. menet indítása', 'main', function () { sjDo({ mit: 'indit', menet: m }); }));
+    else if (!S0.vege) {
+      fej.appendChild(el('span', 'badge ' + (leadta >= emb ? 'ok' : 'warn'), 'Leadta: ' + leadta + ' / ' + emb));
+      var lb = gomb(S0.het >= S0.hetek ? 'Utolsó hét lezárása' : 'Következő hét (N)', 'main', function () { lb.disabled = true; sjDo({ mit: 'lep', menet: m }).catch(function () {}); });
+      lb.id = 'sjLep'; fej.appendChild(lb);
+    } else fej.appendChild(el('span', 'badge ok', 'A menet véget ért: lépj tovább a következő fázisra'));
+    if (S0) fej.appendChild(gomb('Újraindítás', null, function () { if (confirm('Biztosan újraindítod a ' + m + '. menetet? Minden eddigi döntés elvész.')) sjDo({ mit: 'ujra', menet: m }); }));
+    fej.appendChild(gomb('QR-kód', null, qrModal));
+    c.appendChild(fej);
+    if (m === 2) { var k = el('div', 'feladat kulcs'); k.style.marginBottom = '1rem'; k.appendChild(el('b', null, 'Mi változik a 2. menetben?')); k.appendChild(el('p', null, 'Ugyanazok a szabályok, de most mindenki látja a kisbolt pénztári adatát: hány rekeszt vittek el a vásárlók ezen a héten. 12 hét.')); c.appendChild(k); }
+    if (cs.length) c.appendChild(sjSzereposztas(cs, m, all));
+    var t = el('div', 'tanulsag'); t.style.marginTop = '1rem';
+    [['Ha mindenki leadta', 'Nyomd meg a „Következő hét” gombot (vagy az N billentyűt). A telefonok néhány másodpercen belül frissülnek.'],
+     ['Ha valaki nem adott le', 'Léptethetsz így is: helyette a gép rendel annyit, amennyit tőle kértek.'],
+     ['Tempó', 'Az első 3–4 hét lassabb (1–2 perc), utána 40–60 másodperc egy hét.']].forEach(function (x) { var d = el('div'); d.appendChild(el('b', null, x[0])); d.appendChild(document.createTextNode(x[1])); t.appendChild(d); });
+    c.appendChild(t);
+  }
+  function f11() { fMenet(1); }
+  function f13() { fMenet(2); }
+
+  /* ----- 12. mi történt? ----- */
+  var nezet12 = { menet: 1, lanc: null, mod: 'rend', kereslet: false };
+  function f12() {
+    var c = $('f12'); c.innerHTML = '';
+    var sj = SJA(), cs = sj.tagsag.csapatok.filter(function (x) { return sj.allapot[nezet12.menet] && sj.allapot[nezet12.menet][x.kod]; });
+    var fej = el('div', 'vbar'), seg = el('div', 'seg');
+    [1, 2].forEach(function (m) { var b = gomb(m + '. menet', null, function () { nezet12.menet = m; f12(); }); b.setAttribute('aria-selected', nezet12.menet === m ? 'true' : 'false'); seg.appendChild(b); });
+    fej.appendChild(seg);
+    var s2 = el('div', 'seg');
+    [['rend', 'Rendelések'], ['keszlet', 'Készlet és hátralék']].forEach(function (x) { var b = gomb(x[1], null, function () { nezet12.mod = x[0]; f12(); }); b.setAttribute('aria-selected', nezet12.mod === x[0] ? 'true' : 'false'); s2.appendChild(b); });
+    fej.appendChild(s2); fej.appendChild(el('span', 'sp'));
+    fej.appendChild(gomb(nezet12.kereslet ? 'Kereslet elrejtése' : 'Mutasd a vásárlói keresletet', nezet12.kereslet ? null : 'main', function () { nezet12.kereslet = !nezet12.kereslet; f12(); }));
+    c.appendChild(fej);
+    if (!cs.length) { c.appendChild(el('div', 'empty', 'Ebben a menetben még nincs adat.')); return; }
+    if (nezet12.kereslet) { var k = el('div', 'kulcs magyar'); k.style.marginBottom = '1rem'; k.appendChild(el('b', null, 'A vásárlók végig ennyit vittek el')); k.appendChild(document.createTextNode(SJ.menetek[nezet12.menet].D.slice(0, 6).join(', ') + ', … és utána végig 8 rekeszt hetente. Egyetlen lépcső. Minden más hullám a láncban keletkezett.')); c.appendChild(k); }
+    var g = el('div', 'sjracs'); c.appendChild(g);
+    cs.forEach(function (x) {
+      var S = sj.allapot[nezet12.menet][x.kod], st = sjStat(S), k2 = el('div', 'panel');
+      var f = el('div', 'vbar'); f.appendChild(el('h3', null, x.nev)); f.appendChild(el('span', 'sp')); f.appendChild(el('span', 'badge ok', forint(st.osszKoltseg)));
+      f.appendChild(gomb('Nagyban', null, function () { var mm = modal(x.nev + ' · ' + SJ.menetek[nezet12.menet].cim); var w = el('div', 'abrawrap'); w.appendChild(sjAbraKi(S)); mm.appendChild(w); mm.appendChild(sjJelmagyarazat(nezet12.mod)); mm.appendChild(sjStatTabla(S, x)); }));
+      k2.appendChild(f);
+      var w = el('div', 'abrawrap'); w.appendChild(sjAbraKi(S, 560, 260)); k2.appendChild(w);
+      k2.appendChild(el('p', 'hint', 'Legnagyobb rendelés: ' + SJ.szerepek.map(function (s, r) { return s.rov + ' ' + st.szerep[r].max; }).join(' · ')));
+      g.appendChild(k2);
+    });
+    c.appendChild(sjJelmagyarazat(nezet12.mod));
+    var L = cs.map(function (x) { return { x: x, st: sjStat(sj.allapot[nezet12.menet][x.kod]) }; }).sort(function (a, b) { return a.st.osszKoltseg - b.st.osszKoltseg; });
+    var tw = el('div', 'tabwrap'), tb = el('table', 'mtab balra'); tw.appendChild(tb); tw.style.marginTop = '1rem';
+    var h = el('tr'); ['#', 'Lánc'].concat(SJ.szerepek.map(function (s) { return s.rov + ' költség'; }), ['Összesen', 'Malátagyár kilengése']).forEach(function (v) { h.appendChild(el('th', null, v)); }); tb.appendChild(h);
+    L.forEach(function (y, i) { var tr = el('tr'); [(i + 1) + '.', y.x.nev].concat(y.st.szerep.map(function (s) { return forint(s.koltseg); }), [forint(y.st.osszKoltseg), kerek(y.st.szerep[3].arany, 1) + '×']).forEach(function (v) { tr.appendChild(el('td', null, v)); }); tb.appendChild(tr); });
+    c.appendChild(tw);
+  }
+  function sjAbraKi(S, W, H) {
+    var t = S.tort.filter(function (x) { return x.sz[0].r !== null; }), mod = nezet12.mod;
+    var sorok = SJ.szerepek.map(function (sz, r) { return { nev: sz.nev, szin: sz.szin, ertek: t.map(function (x) { return mod === 'rend' ? x.sz[r].r : x.sz[r].ks - x.sz[r].h; }) }; });
+    return vonalAbra(sorok, { W: W, H: H, hetek: S.hetek, oszlop: mod === 'rend' && nezet12.kereslet ? { ertek: t.map(function (x) { return x.D; }), szin: '#d3dbd6' } : null });
+  }
+  function sjStatTabla(S, x) {
+    var st = sjStat(S), tw = el('div', 'tabwrap'), tb = el('table', 'mtab balra'); tw.appendChild(tb);
+    var h = el('tr'); ['Szereplő', 'Ki játszotta', 'Legnagyobb rendelés', 'Ingadozás a kereslethez képest', 'Gép rendelt (hét)', 'Költség'].forEach(function (v) { h.appendChild(el('th', null, v)); }); tb.appendChild(h);
+    SJ.szerepek.forEach(function (s, r) { var g = S.tort.filter(function (t) { return t.sz[r].g; }).length, tr = el('tr'); [s.nev, x.tagok[r] ? x.tagok[r].bec : 'gép', String(st.szerep[r].max), kerek(st.szerep[r].arany, 1) + '×', String(g), forint(st.szerep[r].koltseg)].forEach(function (v) { tr.appendChild(el('td', null, v)); }); tb.appendChild(tr); });
+    return tw;
+  }
+
+  /* ----- 14. elmélet ----- */
+  var elm3 = null;
+  function f14() { var c = $('f14'); if (!elm3) elm3 = Elmelet3(c, { tanulas: function () { return false; }, adat: function () { return adat; }, elo: true }); elm3.rajz(); }
+
+  /* ----- 15. zárás ----- */
+  var nezet15 = 'refl';
+  function f15() {
+    var c = $('f15'); c.innerHTML = '';
+    var fej = el('div', 'vbar'), seg = el('div', 'seg');
+    [['refl', 'Reflexiók'], ['kviz', 'Záró kvíz'], ['top', 'Toplista']].forEach(function (x) { var b = gomb(x[1], null, function () { nezet15 = x[0]; f15(); }); b.setAttribute('aria-selected', nezet15 === x[0] ? 'true' : 'false'); seg.appendChild(b); });
+    fej.appendChild(seg); fej.appendChild(el('span', 'sp')); fej.appendChild(gomb('QR-kód', null, qrModal));
+    c.appendChild(fej);
+    var p = el('div', 'panel'); c.appendChild(p);
+    if (nezet15 === 'refl') {
+      var R = ((adat && adat.refl) || []).filter(function (x) { return !(helyi.rejtSzoveg && helyi.rejtSzoveg['refl|' + x]); });
+      p.appendChild(el('h3', null, 'Miért lengett ki a lánc, és mi segített volna? (' + ((adat && adat.refl) || []).length + ' válasz)'));
+      var fal = el('div', 'szovegfal'); if (!R.length) fal.appendChild(el('div', 'hint', 'Még nincs válasz.'));
+      R.forEach(function (x) { var d = el('div', null, x); d.title = 'Kattintásra elrejtés'; d.style.cursor = 'pointer'; d.onclick = function () { helyi.rejtSzoveg = helyi.rejtSzoveg || {}; helyi.rejtSzoveg['refl|' + x] = 1; helyiMent(); f15(); }; fal.appendChild(d); });
+      p.appendChild(fal);
+    } else if (nezet15 === 'kviz') {
+      var cov = el('div', 'cover' + (takart.kviz3 ? ' on' : '')), inner = el('div', 'covered'); cov.appendChild(inner); cov.appendChild(el('div', 'veil', 'Az eredmény rejtve, amíg válaszoltok.'));
+      var tk = gomb(takart.kviz3 ? 'Mutasd' : 'Takarás', null, function () { takart.kviz3 = !takart.kviz3; f15(); }); tk.style.float = 'right'; p.appendChild(tk);
+      kvizNezet(p, inner, cov);
+    } else { var i2 = el('div'); p.appendChild(i2); topNezet(i2, p); }
+  }
+
+  /* ----- 16. pontszámok ----- */
+  var pontok = null, pontRejt = {}, pontTakar = false, pontBetolt = false;
+  function f16() {
+    var c = $('f16'); c.innerHTML = '';
+    var fej = el('div', 'vbar'); fej.appendChild(el('h2', null, 'Pluszpontok a mai napra')); fej.appendChild(el('span', 'sp'));
+    fej.appendChild(gomb(pontTakar ? 'Mutasd' : 'Takarás', null, function () { pontTakar = !pontTakar; f16(); }));
+    fej.appendChild(gomb(pontBetolt ? 'Betöltés…' : 'Pontok frissítése', 'main', pontLeker));
+    c.appendChild(fej);
+    if (!pontok) { c.appendChild(el('div', 'empty', pontBetolt ? 'Betöltés…' : 'Kattints a „Pontok frissítése” gombra.')); if (!pontBetolt) pontLeker(); return; }
+    var mx = pontok.max, L = pontok.sorok.filter(function (x) { return !pontRejt[x.becenev]; });
+    c.appendChild(el('p', 'hint', pontok.sorok.length + ' hallgató · átlag: ' + kerek(pontok.sorok.reduce(function (s, x) { return s + x.ossz; }, 0) / Math.max(1, pontok.sorok.length), 2) + ' / ' + kerek(mx.ossz, 1) + ' pont. Csak a becenevek látszanak; a nevek és a Neptun-kódok a táblázat Osszesito lapján vannak. A végleges pontokat a táblázatban hagyod jóvá.'));
+    var cov = el('div', 'cover' + (pontTakar ? ' on' : '')), inner = el('div', 'covered'); cov.appendChild(inner); cov.appendChild(el('div', 'veil', 'A pontszámok rejtve.'));
+    c.appendChild(cov);
+    var tw = el('div', 'tabwrap'), tb = el('table', 'mtab ptab'); tw.appendChild(tb); inner.appendChild(tw);
+    var h1 = el('tr'); h1.appendChild(el('th', null, ''));
+    [['1. blokk', 5], ['2. blokk', 5], ['3. blokk', 5]].forEach(function (x, i) { var th = el('th', 'bfej b' + (i + 1), x[0]); th.colSpan = x[1]; h1.appendChild(th); });
+    h1.appendChild(el('th', 'bfej', 'Nap')); h1.appendChild(el('th', null, '')); tb.appendChild(h1);
+    var oszl = [['b1', 'kviz', 'Kvíz'], ['b1', 'csoport', 'Térkép'], ['b1', 'idoben', 'Időben'], ['b1', 'szavazas', 'Szavazás'], ['b1', 'ossz', 'Össz.'],
+      ['b2', 'abc', 'ABC'], ['b2', 'jatek', 'Készletj.'], ['b2', 'kviz', 'Kvíz'], ['b2', 'bekuldes', 'Beküldés'], ['b2', 'ossz', 'Össz.'],
+      ['b3', 'csapat', 'Sörjáték'], ['b3', 'reflexio', 'Reflexió'], ['b3', 'kviz', 'Kvíz'], ['b3', 'reszvetel', 'Részvétel'], ['b3', 'ossz', 'Össz.']];
+    var h2 = el('tr'); h2.appendChild(el('th', null, 'Becenév'));
+    oszl.forEach(function (o) { var th = el('th', o[1] === 'ossz' ? 'ossz' : null); th.appendChild(document.createTextNode(o[2])); th.appendChild(el('small', null, 'max ' + kerek(mx[o[0]][o[1]], 1))); h2.appendChild(th); });
+    var hn = el('th', 'nap'); hn.appendChild(document.createTextNode('Összesen')); hn.appendChild(el('small', null, 'max ' + kerek(mx.ossz, 1))); h2.appendChild(hn); h2.appendChild(el('th', null, '')); tb.appendChild(h2);
+    L.forEach(function (x, i) {
+      var tr = el('tr'); var nm = el('td', 'nm'); nm.appendChild(el('span', 'rk', (i + 1) + '.')); nm.appendChild(document.createTextNode(' ' + x.becenev)); tr.appendChild(nm);
+      oszl.forEach(function (o) { var v = x[o[0]][o[1]]; tr.appendChild(el('td', (o[1] === 'ossz' ? 'ossz' : '') + (v ? '' : ' nulla'), kerek(v, 2))); });
+      tr.appendChild(el('td', 'nap', kerek(x.ossz, 2)));
+      var td = el('td'); var xb = gomb('✕', null, function () { pontRejt[x.becenev] = 1; f16(); }); xb.setAttribute('aria-label', 'Sor elrejtése'); td.appendChild(xb); tr.appendChild(td);
+      tb.appendChild(tr);
+    });
+    if (Object.keys(pontRejt).length) c.appendChild(gomb('Elrejtett sorok visszaállítása', null, function () { pontRejt = {}; f16(); }));
+  }
+  function pontLeker() {
+    if (pontBetolt) return; pontBetolt = true;
+    apiGet(base(), { api: 'pontok', a: B.kod, k: B.kulcs, friss: 1 }, 2).then(function (j) { pontBetolt = false; if (!j.ok) throw new Error(j.hiba); pontok = j; if (aktFazis === 16) f16(); }, function (e) { pontBetolt = false; hiba('A pontok nem tölthetők be: ' + e.message); if (aktFazis === 16) f16(); });
+    if (aktFazis === 16) f16();
+  }
+
   /* ---------- billentyűk ---------- */
   document.addEventListener('keydown', function (e) {
     var t = e.target.tagName; if (t === 'INPUT' || t === 'SELECT' || t === 'TEXTAREA') return;
@@ -3328,11 +4177,14 @@ function tanar() {
     if (e.key === 'r' || e.key === 'R') { frissit(true); return; }
     if (aktFazis === 2 && elm && (e.key === 'ArrowRight' || e.key === 'PageDown')) { e.preventDefault(); elm.lep(1); }
     else if (aktFazis === 2 && elm && (e.key === 'ArrowLeft' || e.key === 'PageUp')) { e.preventDefault(); elm.lep(-1); }
+    else if (aktFazis === 14 && elm3 && (e.key === 'ArrowRight' || e.key === 'PageDown')) { e.preventDefault(); elm3.lep(1); }
+    else if (aktFazis === 14 && elm3 && (e.key === 'ArrowLeft' || e.key === 'PageUp')) { e.preventDefault(); elm3.lep(-1); }
+    else if ((aktFazis === 11 || aktFazis === 13) && (e.key === 'n' || e.key === 'N')) { var lb = $('sjLep'); if (lb && !lb.disabled) lb.click(); }
     else if (aktFazis === 6 && elm2 && (e.key === 'ArrowRight' || e.key === 'PageDown')) { e.preventDefault(); elm2.lep(1); }
     else if (aktFazis === 6 && elm2 && (e.key === 'ArrowLeft' || e.key === 'PageUp')) { e.preventDefault(); elm2.lep(-1); }
-    else if (((aktFazis === 4 && nezet4 === 'kviz') || (aktFazis === 9 && nezet9 === 'kviz')) && e.key === 'ArrowRight') { kIdx++; rajz(); }
-    else if (((aktFazis === 4 && nezet4 === 'kviz') || (aktFazis === 9 && nezet9 === 'kviz')) && e.key === 'ArrowLeft') { kIdx = Math.max(0, kIdx - 1); rajz(); }
-    else if (((aktFazis === 4 && nezet4 === 'kviz') || (aktFazis === 9 && nezet9 === 'kviz')) && (e.key === 'h' || e.key === 'H')) { var K = (KV() && KV().kerdesek) || []; if (K[kIdx]) { helyi.felfedve[K[kIdx].id] = !helyi.felfedve[K[kIdx].id]; helyiMent(); rajz(); } }
+    else if (((aktFazis === 4 && nezet4 === 'kviz') || (aktFazis === 9 && nezet9 === 'kviz') || (aktFazis === 15 && nezet15 === 'kviz')) && e.key === 'ArrowRight') { kIdx++; rajz(); }
+    else if (((aktFazis === 4 && nezet4 === 'kviz') || (aktFazis === 9 && nezet9 === 'kviz') || (aktFazis === 15 && nezet15 === 'kviz')) && e.key === 'ArrowLeft') { kIdx = Math.max(0, kIdx - 1); rajz(); }
+    else if (((aktFazis === 4 && nezet4 === 'kviz') || (aktFazis === 9 && nezet9 === 'kviz') || (aktFazis === 15 && nezet15 === 'kviz')) && (e.key === 'h' || e.key === 'H')) { var K = (KV() && KV().kerdesek) || []; if (K[kIdx]) { helyi.felfedve[K[kIdx].id] = !helyi.felfedve[K[kIdx].id]; helyiMent(); rajz(); } }
   });
   var atmT = null; window.addEventListener('resize', function () { clearTimeout(atmT); atmT = setTimeout(rajz, 250); });
 
@@ -3355,16 +4207,16 @@ function hallgato(P) {
   var eszkoz = tarOlvas('elm-h-eszkoz', ''); if (!eszkoz) { eszkoz = ujId(); tarIr('elm-h-eszkoz', eszkoz); }
   var TK = 'elm-h3-' + A, helyi = tarOlvas(TK, { kvizLatta: false });
   function helyiMent() { tarIr(TK, helyi); }
-  var all = null, en = null, kerdesek = null, szoKerdes = '', szoMax = 3, pollT = null, aktKepernyo = '', terk = null;
+  var all = null, en = null, sjN = null, sjValt = false, kerdesek = null, szoKerdes = '', szoMax = 3, pollT = null, aktKepernyo = '', terk = null;
   function prog(x) { $('hProg').firstElementChild.style.width = Math.round(x * 100) + '%'; }
   function api(p, n) { p.a = A; p.e = eszkoz; return apiGet(BASE, p, n || 3).then(function (j) { if (!j.ok) { var e = new Error(j.hiba || 'hiba'); e.szerver = true; throw e; } return j; }); }
 
   function betolt() {
     return api({ api: 'allapot' }).then(function (j) {
-      all = j.allapot; var uj = j.en || {};
+      all = j.allapot; sjN = j.sj || null; var uj = j.en || {};
       if (en) {
         /* a szerver gyorsítótára néhány másodpercig régebbi lehet: amit itt már elvégeztünk, az kész marad */
-        ['regisztralt', 'hirKesz', 'szoEleje', 'szoVege', 'tipp', 'szavazott', 'kvizKesz', 'esetKesz', 'abcKesz', 'kviz2Kesz'].forEach(function (f) { if (en[f]) uj[f] = true; });
+        ['regisztralt', 'hirKesz', 'szoEleje', 'szoVege', 'tipp', 'szavazott', 'kvizKesz', 'esetKesz', 'abcKesz', 'kviz2Kesz', 'kviz3Kesz', 'reflKesz'].forEach(function (f) { if (en[f]) uj[f] = true; });
         uj.jatek = Object.assign({}, en.jatek || {}, uj.jatek || {});
         uj.kviz = Object.assign({}, en.kviz || {}, uj.kviz || {});
         uj.hir = Object.assign({}, en.hir || {}, uj.hir || {});
@@ -3397,6 +4249,17 @@ function hallgato(P) {
     if (all.fazis === 7 && !en.abcKesz) return 'abc';
     if (all.fazis === 8) return en.csoport ? 'jatek:' + (all.jatekKor || 0) + (all.jatekNyitva ? 'n' : 'z') + ((en.jatek || {})[all.jatekKor] ? 'k' : '') : 'csoportValaszt';
     if (all.fazis === 9 && (!en.kviz2Kesz || !helyi.kviz2Latta)) return 'kviz2';
+    if (all.fazis >= 10 && all.fazis <= 13) {
+      var h = sjN && sjN.hely;
+      if (!h || sjValt) return all.fazis === 12 ? 'var:12' : 'sjHely';
+      if (all.fazis === 10) return 'sjSzab:' + h.csapat + h.szerep;
+      if (all.fazis === 12) return 'sjVege:' + h.csapat + h.szerep;
+      var N = sjN.nezet;
+      return 'sjJatek:' + sjN.menet + ':' + (N ? N.het + (N.vege ? 'v' : '') + (N.rend !== null && N.rend !== undefined ? 'k' + N.rend : '') : 'x');
+    }
+    if (all.fazis === 15 && !en.reflKesz) return 'refl';
+    if (all.fazis === 15 && (!en.kviz3Kesz || !helyi.kviz3Latta)) return 'kviz3';
+    if (all.fazis === 16) return 'pont';
     return 'var:' + all.fazis;
   }
   function dont() {
@@ -3418,6 +4281,13 @@ function hallgato(P) {
     else if (k === 'abc') abcLap();
     else if (k.indexOf('jatek:') === 0) jatekLap();
     else if (k === 'kviz2') kviz(2);
+    else if (k === 'kviz3') kviz(3);
+    else if (k === 'sjHely') sjHelyLap();
+    else if (k.indexOf('sjSzab:') === 0) sjSzabLap();
+    else if (k.indexOf('sjJatek:') === 0) sjJatekLap();
+    else if (k.indexOf('sjVege:') === 0) sjVegeLap();
+    else if (k === 'refl') reflLap();
+    else if (k === 'pont') pontLap();
     else varakozas();
   }
 
@@ -3478,10 +4348,11 @@ function hallgato(P) {
     lap.appendChild(kb); window.scrollTo(0, 0);
   }
   function varakozas() {
-    prog(all.fazis >= 5 ? (all.fazis - 4) / 5 : all.fazis / 4); lap.innerHTML = '';
+    prog(all.fazis >= 10 ? (all.fazis - 9) / 7 : all.fazis >= 5 ? (all.fazis - 4) / 5 : all.fazis / 4); lap.innerHTML = '';
     var szov = { 1: 'Köszönjük, a hírekre adott válaszaidat közösen megbeszéljük. Nézz a kivetítőre.', 2: 'Figyelj a kivetítőre. Ha itt is lesz feladat, magától megjelenik.', 3: 'Nézz a kivetítőre.', 4: 'Köszönjük! Nézz a kivetítőre.',
-      5: 'Köszönjük, a válaszaidat közösen megbeszéljük. Nézz a kivetítőre.', 6: 'Figyelj a kivetítőre. A következő feladat magától megjelenik.', 7: 'Az ABC-elemzésed beérkezett. Nézz a kivetítőre.', 9: 'Köszönjük! Ezzel vége a 2. blokknak.' }[all.fazis] || 'Nézz a kivetítőre.';
-    var d = el('div', 'varj'); d.appendChild(el('div', 'okmsg', (all.fazis === 4 && en.szoVege) || all.fazis === 9 ? 'Kész vagy' : 'Minden rendben')); d.appendChild(el('p', null, szov)); d.appendChild(el('div', 'pul'));
+      5: 'Köszönjük, a válaszaidat közösen megbeszéljük. Nézz a kivetítőre.', 6: 'Figyelj a kivetítőre. A következő feladat magától megjelenik.', 7: 'Az ABC-elemzésed beérkezett. Nézz a kivetítőre.', 9: 'Köszönjük! Ezzel vége a 2. blokknak.',
+      12: 'Nézz a kivetítőre: összevetjük a láncokat.', 14: 'Figyelj a kivetítőre. A végén itt kérünk tőled egy mondatot.', 15: 'Köszönjük! Nézz a kivetítőre.' }[all.fazis] || 'Nézz a kivetítőre.';
+    var d = el('div', 'varj'); d.appendChild(el('div', 'okmsg', (all.fazis === 4 && en.szoVege) || all.fazis === 9 || all.fazis === 15 ? 'Kész vagy' : 'Minden rendben')); d.appendChild(el('p', null, szov)); d.appendChild(el('div', 'pul'));
     lap.appendChild(d);
     lap.appendChild(gomb('Frissítés', 'hbtn', frissitEsDont));
     figyel(8000);
@@ -3552,7 +4423,7 @@ function hallgato(P) {
     lap.appendChild(el('div', 'big', pont + ' / ' + kerdesek.length));
     lap.appendChild(el('p', 'center hint', 'helyes válasz. A megoldásokat a kivetítőn együtt nézzük meg. Ez beszámít a pluszpontjaidba.'));
     lap.appendChild(gomb('Tovább', 'hbtn main', function () {
-      if (bl === 2) { helyi.kviz2Latta = true; en.kviz2Kesz = true; } else { helyi.kvizLatta = true; en.kvizKesz = true; }
+      if (bl === 3) { helyi.kviz3Latta = true; en.kviz3Kesz = true; } else if (bl === 2) { helyi.kviz2Latta = true; en.kviz2Kesz = true; } else { helyi.kvizLatta = true; en.kvizKesz = true; }
       helyiMent(); dont();
     }));
   }
@@ -3567,6 +4438,114 @@ function hallgato(P) {
       onBekuld: function (v) { return api({ api: 'kuld', t: 'abc', v: JSON.stringify(v) }, 4).then(function () { en.abcKesz = true; setTimeout(function () { dont(); }, 2500); }, function (e) { throw new Error(e.message); }); }
     });
     figyel(20000);
+  }
+
+  /* --- sörjáték (3. blokk) --- */
+  function sjHelyLap() {
+    prog(0.1); lap.innerHTML = '';
+    lap.appendChild(el('h1', null, 'Válassz szerepet a sörjátékban'));
+    lap.appendChild(el('p', null, 'Egy lánc négy szereplőből áll. Koppints egy szabad helyre. Üljetek egymás mellé, de a számaitokat ne mutassátok meg egymásnak.'));
+    var err = el('div', 'ferr');
+    var cs = (sjN && sjN.csapatok) || [];
+    if (!cs.length) { lap.appendChild(el('div', 'pul')); lap.appendChild(el('p', 'center hint', 'Az oktató még nem hozta létre a láncokat. Pár pillanat…')); figyel(5000); return; }
+    cs.forEach(function (x) {
+      var blk = el('div', 'jelblokk'); blk.appendChild(el('div', 'jcim', x.nev));
+      var g = el('div', 'sjhelyek');
+      SJ.szerepek.forEach(function (sz, r) {
+        var foglalo = x.tagok[r], en0 = sjN.hely && sjN.hely.csapat === x.kod && sjN.hely.szerep === r;
+        var b = el('button', 'sjhely' + (en0 ? ' en' : '') + (foglalo && !en0 ? ' foglalt' : '')); b.type = 'button'; b.style.borderColor = sz.szin;
+        b.appendChild(el('b', null, sz.nev)); b.appendChild(el('small', null, en0 ? 'te' : foglalo ? foglalo : 'szabad'));
+        b.disabled = !!foglalo && !en0;
+        b.onclick = function () {
+          if (en0) { sjValt = false; dont(); return; }
+          if (!confirm(x.nev + ', ' + sz.nev + ': ezt választod?')) return;
+          b.disabled = true;
+          api({ api: 'sjHely', csapat: x.kod, szerep: r }, 3).then(function () { sjValt = false; frissitEsDont(); }, function (e) { b.disabled = false; err.textContent = e.message; });
+        };
+        g.appendChild(b);
+      });
+      blk.appendChild(g); lap.appendChild(blk);
+    });
+    lap.appendChild(err);
+    lap.appendChild(gomb('Frissítés', 'hbtn', frissitEsDont));
+    figyel(6000);
+  }
+  function sjSzabLap() {
+    var h = sjN.hely; prog(0.15); lap.innerHTML = '';
+    lap.appendChild(el('h1', null, h.nev + ': ' + SJ.szerepek[h.szerep].nev));
+    lap.appendChild(sjLancMini(h.szerep, h.tarsak));
+    lap.appendChild(sjSzabalyok(h.szerep, false));
+    var pl = el('div', 'feladat'); pl.appendChild(el('b', null, 'Így néz ki a játékképernyő'));
+    pl.appendChild(el('p', null, 'Minden héten ugyanaz a hat doboz. Soronként, balról jobbra olvasd: mi érkezett, mit kértek, mit küldtél el, mennyi maradt, mivel tartozol, és mi van még úton feléd. Utána döntesz: mennyit rendelsz.'));
+    lap.appendChild(pl);
+    var d = el('div', 'sjdobozok');
+    ['be', 'rb', 'k', 'ks', 'h', 'cso'].forEach(function (k) { var x = el('div', 'sjdoboz ' + k); x.appendChild(el('div', 'c', SJ_DOBOZ[k][0])); x.appendChild(el('div', 'v', '?')); x.appendChild(el('div', 'm', SJ_DOBOZ[k][1])); d.appendChild(x); });
+    lap.appendChild(d);
+    lap.appendChild(gomb('Másik szerepet választok', 'hbtn', function () { sjValt = true; dont(); }));
+    lap.appendChild(el('p', 'center hint', 'A játék akkor indul, amikor az oktató elindítja az 1. menetet.'));
+    figyel(6000);
+  }
+  function sjJatekLap() {
+    var h = sjN.hely, N = sjN.nezet; prog(sjN.menet === 1 ? 0.35 : 0.6);
+    lap.innerHTML = '';
+    if (!N) { lap.appendChild(el('h1', null, h.nev + ': ' + SJ.szerepek[h.szerep].nev)); lap.appendChild(el('p', null, 'A ' + sjN.menet + '. menet hamarosan indul. Addig nézd át a szabályokat.')); lap.appendChild(el('div', 'pul')); lap.appendChild(sjSzabalyok(h.szerep, true)); figyel(4000); return; }
+    var c = el('div'); lap.appendChild(c);
+    SjKepernyo(c, N, {
+      csapatNev: h.nev, tarsak: h.tarsak, gorbeNyitva: N.het > 3,
+      onRendel: function (q, het) {
+        return api({ api: 'kuld', t: 'sjRend', het: het, q: q }, 3).then(function () { N.rend = q; return betolt(); }).then(function () { dont(); }, function (e) { if (e.szerver && /új hét/.test(e.message)) { frissitEsDont(); } throw new Error(e.message); });
+      }
+    });
+    figyel(4000);
+  }
+  function sjVegeLap() {
+    var h = sjN.hely, N = sjN.nezet; prog(0.5); lap.innerHTML = '';
+    lap.appendChild(el('h1', null, 'Mi történt nálad?'));
+    if (!N) { lap.appendChild(el('p', null, 'Nincs adat ebből a menetből. Nézz a kivetítőre.')); figyel(8000); return; }
+    var sz = SJ.szerepek[h.szerep], t = N.tort.filter(function (x) { return x.r !== null; });
+    lap.appendChild(el('p', null, h.nev + ', ' + sz.nev + ' · költséged: ' + forint(N.koltseg)));
+    var w = el('div', 'abrawrap');
+    w.appendChild(vonalAbra([{ nev: 'kértek', szin: '#353535', ertek: t.map(function (x) { return x.rb; }), szaggatott: true, vastag: 2 }, { nev: 'rendeltél', szin: sz.szin, ertek: t.map(function (x) { return x.r; }), vastag: 2.6, pontok: true }], { W: 420, H: 240, fs: 16, hetek: N.hetek, oszlop: { ertek: t.map(function (x) { return x.ks - x.h; }), szin: '#cfe6d7' } }));
+    lap.appendChild(w);
+    lap.appendChild(jelmagyarazat([['#353535', 'ennyit kértek tőled', true], [sz.szin, 'te ennyit rendeltél'], ['#cfe6d7', 'készlet (lefelé: hátralék)']]));
+    lap.appendChild(el('p', 'center hint', 'Nézz a kivetítőre: összevetjük a láncokat.'));
+    figyel(8000);
+  }
+  function reflLap() {
+    prog(0.85); lap.innerHTML = '';
+    lap.appendChild(el('h1', null, 'Egy mondatban'));
+    lap.appendChild(el('div', 'hq', 'Miért lengett ki a lánc rendelése, és mi segített volna?'));
+    var ta = el('textarea', 'hin'); ta.rows = 4; ta.maxLength = 300; ta.value = helyi.refl || ''; ta.placeholder = 'Például: mert…';
+    var cnt = el('div', 'hint'); function sz() { cnt.textContent = ta.value.length + ' / 300'; } sz();
+    ta.oninput = function () { helyi.refl = ta.value; helyiMent(); sz(); err.textContent = ''; };
+    lap.appendChild(ta); lap.appendChild(cnt);
+    var err = el('div', 'ferr'); lap.appendChild(err);
+    var b = gomb('Beküldöm', 'hbtn main', function () {
+      if (ta.value.trim().length < 20) { err.textContent = 'Írj egy teljes mondatot (legalább 20 karakter).'; return; }
+      b.disabled = true; b.textContent = 'Küldés…';
+      api({ api: 'kuld', t: 'refl', v: ta.value.trim() }, 4).then(function () { en.reflKesz = true; dont(); }, function (e) { b.disabled = false; b.textContent = 'Beküldöm'; err.textContent = e.message; });
+    });
+    lap.appendChild(b);
+  }
+  function pontLap() {
+    prog(1); lap.innerHTML = '';
+    lap.appendChild(el('h1', null, 'A mai pluszpontjaid'));
+    var c = el('div'); lap.appendChild(c); c.appendChild(el('p', 'hint', 'Betöltés…'));
+    api({ api: 'enPont' }, 3).then(function (j) {
+      c.innerHTML = '';
+      if (!j.pont) { c.appendChild(el('p', null, 'Nincs adat.')); return; }
+      var P = j.pont, M = j.max;
+      c.appendChild(el('div', 'big', kerek(P.ossz, 2) + ' / ' + kerek(M.ossz, 1)));
+      [['b1', '1. blokk', [['kviz', 'Záró kvíz'], ['csoport', 'Lánctérkép (csoport)'], ['idoben', 'Időben beküldés'], ['szavazas', 'Szavazás']]],
+       ['b2', '2. blokk', [['abc', 'ABC-elemzés'], ['jatek', 'Készletjáték (csoport)'], ['kviz', 'Záró kvíz'], ['bekuldes', 'Mindent beküldtél']]],
+       ['b3', '3. blokk', [['csapat', 'Sörjáték (lánc)'], ['reflexio', 'Reflexió'], ['kviz', 'Záró kvíz'], ['reszvetel', 'Részvétel mindkét menetben']]]].forEach(function (bl) {
+        var t = el('table', 'mtab balra'); var h = el('tr'); var th = el('th', null, bl[1]); h.appendChild(th); var th2 = el('th', null, kerek(P[bl[0]].ossz, 2) + ' / ' + kerek(M[bl[0]].ossz, 1)); th2.style.textAlign = 'right'; h.appendChild(th2); t.appendChild(h);
+        bl[2].forEach(function (x) { var tr = el('tr'); tr.appendChild(el('td', null, x[1])); var td = el('td', null, kerek(P[bl[0]][x[0]], 2) + ' / ' + kerek(M[bl[0]][x[0]], 1)); td.style.textAlign = 'right'; tr.appendChild(td); t.appendChild(tr); });
+        c.appendChild(t);
+      });
+      c.appendChild(el('p', 'hint', 'Tájékoztató adat. A végleges pluszpontot az oktató hagyja jóvá.'));
+    }, function (e) { c.innerHTML = ''; c.appendChild(el('p', 'ferr', 'Nem sikerült betölteni: ' + e.message)); });
+    lap.appendChild(gomb('Frissítés', 'hbtn', pontLap));
   }
 
   /* --- készletjáték (2. blokk, 8. fázis) --- */
@@ -3654,18 +4633,21 @@ function hallgato(P) {
     var err = el('div', 'ferr'); lap.appendChild(err);
     function frissLista() {
       api({ api: 'csoportLista' }).then(function (j) {
+        if (lista.querySelector('button:disabled:not([data-tele])')) return;
         lista.innerHTML = '';
         if (!j.csoportok.length) lista.appendChild(el('div', 'hint', 'Még nincs csoport. Hozd létre lent az elsőt.'));
         j.csoportok.forEach(function (c) {
           var b = el('button', 'hopt'); b.type = 'button';
           b.appendChild(el('b', null, String(c.tagok))); var t = el('span'); t.appendChild(el('strong', null, c.nev)); if (all.fazis !== 8) t.appendChild(document.createTextNode(' · ' + TERMEKEK[c.termek].nev)); b.appendChild(t);
-          b.disabled = c.tagok >= 6;
+          b.disabled = c.tagok >= 6; if (b.disabled) b.dataset.tele = '1';
           b.onclick = function () { if (!confirm('Csatlakozol ehhez a csoporthoz: ' + c.nev + '?')) return; b.disabled = true; api({ api: 'csoportBe', kod: c.kod }).then(function () { en.csoport = c.kod; frissitEsDont(); }, function (e) { b.disabled = false; err.textContent = e.szerver ? e.message : 'Nem sikerült, próbáld újra.'; }); };
           lista.appendChild(b);
         });
       }, function (e) { lista.innerHTML = ''; err.textContent = 'Nem sikerült betölteni a csoportokat. (' + e.message + ')'; });
     }
     frissLista();
+    /* a lista 10 másodpercenként magától frissül, amíg ez a képernyő látszik */
+    (function auto() { setTimeout(function () { if (!document.body.contains(lista) || aktKepernyo !== 'csoportValaszt') return; frissLista(); auto(); }, 10000); })();
     lap.appendChild(gomb('Lista frissítése', 'hbtn', frissLista));
     lap.appendChild(el('h2', null, 'Új csoport'));
     var nev = el('input', 'hin'); nev.placeholder = 'Csoportnév (pl. Hűtőlánc Hősei)'; nev.maxLength = 24; lap.appendChild(nev);
@@ -3785,6 +4767,8 @@ function tanulas() {
     else if (resz === 'elm2') { var d2 = el('div'); c.appendChild(d2); Elmelet2(d2, { tanulas: function () { return true; }, adat: function () { return null; }, elo: false }).rajz(); }
     else if (resz === 'abc') abcGyak();
     else if (resz === 'jatek') jatekGyak();
+    else if (resz === 'elm3') { var d3 = el('div'); c.appendChild(d3); Elmelet3(d3, { tanulas: function () { return true; }, adat: function () { return null; }, elo: false }).rajz(); }
+    else if (resz === 'sj') { var w3 = el('div'); w3.style.maxWidth = '560px'; w3.style.margin = '0 auto'; c.appendChild(w3); SjEgyedul(w3); }
     else osszevetes();
   }
   function abcGyak() {
